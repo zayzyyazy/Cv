@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zara Selim — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;
+  --surface:#111118;
+  --border:#1e1e2e;
+  --accent:#c8b8ff;
+  --accent2:#8be0c4;
+  --accent3:#f0c27f;
+  --text:#e8e4f0;
+  --muted:#7a7590;
+  --faint:#15151f;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+}
+#particles-canvas{
+  position:fixed;top:0;left:0;
+  width:100%;height:100%;
+  z-index:0;pointer-events:none;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:22px 48px;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:background 0.4s,border-color 0.4s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled{
+  background:rgba(10,10,15,0.88);
+  backdrop-filter:blur(20px);
+  border-color:var(--border);
+}
+.nav-logo{
+  font-family:'DM Serif Display',serif;font-size:1.15rem;
+  color:var(--text);text-decoration:none;
+}
+.nav-links{display:flex;gap:28px}
+.nav-links a{
+  font-family:'DM Mono',monospace;font-size:0.68rem;
+  color:var(--muted);text-decoration:none;letter-spacing:0.09em;
+  text-transform:uppercase;transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--accent)}
+section{position:relative;z-index:10}
+
+/* HERO */
+#hero{
+min-height:100vh;
+display:flex;flex-direction:column;justify-content:center;
+padding:0 10vw;padding-top:80px;
+}
+.hero-eyebrow{
+font-family:‘DM Mono’,monospace;font-size:0.7rem;
+color:var(–accent2);letter-spacing:0.16em;text-transform:uppercase;
+margin-bottom:22px;
+animation:fadeUp 0.7s 0.2s both;
+}
+.hero-name{
+font-family:‘DM Serif Display’,serif;
+font-size:clamp(3.8rem,9vw,8rem);
+line-height:0.93;letter-spacing:-0.02em;color:var(–text);
+animation:fadeUp 0.8s 0.4s both;
+}
+.hero-name em{font-style:italic;color:var(–accent)}
+.hero-sub{
+margin-top:28px;max-width:500px;
+font-size:1rem;line-height:1.75;color:var(–muted);
+animation:fadeUp 0.7s 0.65s both;
+}
+.hero-tags{
+margin-top:36px;display:flex;flex-wrap:wrap;gap:9px;
+animation:fadeUp 0.7s 0.85s both;
+}
+.htag{
+font-family:‘DM Mono’,monospace;font-size:0.66rem;
+padding:5px 13px;border:1px solid var(–border);border-radius:100px;
+color:var(–muted);letter-spacing:0.06em;transition:border-color 0.2s,color 0.2s;
+}
+.htag:hover{border-color:var(–accent);color:var(–accent)}
+.scroll-cue{
+position:absolute;bottom:36px;left:10vw;
+font-family:‘DM Mono’,monospace;font-size:0.63rem;
+color:var(–muted);letter-spacing:0.1em;
+display:flex;align-items:center;gap:10px;
+animation:fadeIn 1s 1.4s both;
+}
+.scroll-cue::before{content:’’;width:36px;height:1px;background:var(–muted)}
+
+/* SHARED */
+.wrap{max-width:1100px;margin:0 auto;padding:110px 48px}
+.sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:60px}
+.sec-num{font-family:‘DM Mono’,monospace;font-size:0.66rem;color:var(–accent);letter-spacing:0.1em}
+.sec-title{
+font-family:‘DM Serif Display’,serif;
+font-size:clamp(2rem,4vw,3rem);color:var(–text);letter-spacing:-0.01em;
+}
+.divider{flex:1;height:1px;background:var(–border);margin-left:20px;align-self:center}
+.reveal{
+opacity:0;transform:translateY(36px);
+transition:opacity 0.65s cubic-bezier(0.22,1,0.36,1),transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:0.08s}.d2{transition-delay:0.16s}
+.d3{transition-delay:0.24s}.d4{transition-delay:0.32s}
+
+/* FUN FACTS */
+#facts{background:var(–bg)}
+.facts-label{
+font-family:‘DM Mono’,monospace;font-size:0.68rem;
+color:var(–accent);letter-spacing:0.13em;text-transform:uppercase;
+margin-bottom:40px;
+}
+.facts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.fact-card{
+padding:26px 22px;border:1px solid var(–border);border-radius:14px;
+background:var(–surface);
+transition:border-color 0.3s,transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.fact-card:hover{transform:translateY(-5px)}
+.fact-card:nth-child(1):hover{border-color:var(–accent)}
+.fact-card:nth-child(2):hover{border-color:var(–accent3)}
+.fact-card:nth-child(3):hover{border-color:var(–accent2)}
+.fact-card:nth-child(4):hover{border-color:var(–accent)}
+.fact-card:nth-child(5):hover{border-color:var(–accent3)}
+.fact-emoji{font-size:1.5rem;margin-bottom:12px;display:block}
+.fact-text{font-size:0.86rem;line-height:1.68;color:var(–muted)}
+.fact-text strong{color:var(–text);font-weight:500}
+
+/* ABOUT */
+#about{background:var(–surface)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.about-text p{font-size:1rem;line-height:1.8;color:var(–muted);margin-bottom:18px}
+.about-text strong{color:var(–text);font-weight:500}
+.stats{display:flex;flex-direction:column;gap:20px}
+.stat{
+padding:22px;border:1px solid var(–border);border-radius:12px;
+background:var(–faint);transition:border-color 0.3s,transform 0.3s;
+}
+.stat:hover{border-color:var(–accent);transform:translateX(5px)}
+.stat-n{font-family:‘DM Serif Display’,serif;font-size:2rem;color:var(–accent);display:block;line-height:1}
+.stat-l{font-family:‘DM Mono’,monospace;font-size:0.65rem;color:var(–muted);letter-spacing:0.08em;text-transform:uppercase;margin-top:6px;display:block}
+
+/* SKILLS */
+#skills{background:var(–bg)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.skill-card{
+padding:28px;border:1px solid var(–border);border-radius:14px;
+background:var(–surface);position:relative;overflow:hidden;
+transition:border-color 0.3s,transform 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.skill-card::after{
+content:’’;position:absolute;top:0;left:0;right:0;height:2px;
+opacity:0;transition:opacity 0.3s;
+background:linear-gradient(90deg,transparent,var(–accent),transparent);
+}
+.skill-card:hover{transform:translateY(-4px)}
+.skill-card:hover::after{opacity:1}
+.skill-card:nth-child(1):hover{border-color:var(–accent)}
+.skill-card:nth-child(2):hover{border-color:var(–accent2)}
+.skill-card:nth-child(3):hover{border-color:var(–accent3)}
+.skill-card:nth-child(4):hover{border-color:var(–accent)}
+.skill-card:nth-child(5):hover{border-color:var(–accent2)}
+.sk-icon{font-size:1.6rem;margin-bottom:14px;display:block}
+.sk-cat{font-family:‘DM Mono’,monospace;font-size:0.63rem;color:var(–accent);letter-spacing:0.11em;text-transform:uppercase;margin-bottom:10px;display:block}
+.skill-card h3{font-size:0.95rem;font-weight:500;color:var(–text);margin-bottom:12px}
+.stags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.stag{font-family:‘DM Mono’,monospace;font-size:0.6rem;padding:3px 9px;background:var(–faint);border:1px solid var(–border);border-radius:100px;color:var(–muted)}
+
+/* EXPERIENCE */
+#experience{background:var(–surface)}
+.exp-list{display:flex;flex-direction:column}
+.exp-item{display:grid;grid-template-columns:190px 1fr;gap:44px;padding:36px 0;border-bottom:1px solid var(–border)}
+.exp-item:first-child{border-top:1px solid var(–border)}
+.exp-date{font-family:‘DM Mono’,monospace;font-size:0.7rem;color:var(–muted);letter-spacing:0.04em;padding-top:3px;line-height:1.5}
+.exp-role{font-family:‘DM Serif Display’,serif;font-size:1.25rem;color:var(–text);margin-bottom:4px;transition:color 0.25s}
+.exp-item:hover .exp-role{color:var(–accent)}
+.exp-org{font-family:‘DM Mono’,monospace;font-size:0.7rem;color:var(–accent);letter-spacing:0.05em;margin-bottom:14px}
+.exp-bullets{list-style:none}
+.exp-bullets li{font-size:0.86rem;line-height:1.65;color:var(–muted);padding-left:14px;position:relative;margin-bottom:5px}
+.exp-bullets li::before{content:‘→’;position:absolute;left:0;color:var(–accent);font-size:0.7rem;top:1px}
+
+/* PROJECTS */
+#projects{background:var(–bg)}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.proj-card{padding:32px;border:1px solid var(–border);border-radius:14px;background:var(–surface);display:flex;flex-direction:column;transition:border-color 0.3s,transform 0.35s cubic-bezier(0.22,1,0.36,1)}
+.proj-card:hover{transform:translateY(-5px)}
+.proj-card.featured{background:linear-gradient(135deg,var(–surface),var(–faint))}
+.proj-card.featured:nth-child(1):hover{border-color:var(–accent)}
+.proj-card.featured:nth-child(2):hover{border-color:var(–accent2)}
+.proj-num{font-family:‘DM Mono’,monospace;font-size:0.6rem;color:var(–muted);letter-spacing:0.1em;margin-bottom:14px}
+.proj-name{font-family:‘DM Serif Display’,serif;font-size:1.35rem;color:var(–text);margin-bottom:10px}
+.proj-desc{font-size:0.86rem;line-height:1.65;color:var(–muted);flex:1}
+.proj-stack{display:flex;flex-wrap:wrap;gap:5px;margin-top:20px}
+.ptag{font-family:‘DM Mono’,monospace;font-size:0.58rem;padding:3px 8px;background:var(–faint);border:1px solid var(–border);border-radius:4px;color:var(–accent2);letter-spacing:0.05em}
+.proj-link{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:‘DM Mono’,monospace;font-size:0.68rem;color:var(–muted);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;width:fit-content}
+.proj-link:hover{color:var(–accent2)}
+
+/* CONTACT */
+#contact{background:var(–surface)}
+.contact-inner{text-align:center;max-width:580px;margin:0 auto}
+.contact-h{font-family:‘DM Serif Display’,serif;font-size:clamp(2rem,5vw,3.3rem);color:var(–text);margin-bottom:18px;line-height:1.1}
+.contact-h em{color:var(–accent);font-style:italic}
+.contact-sub{font-size:0.93rem;line-height:1.75;color:var(–muted);margin-bottom:44px}
+.contact-btns{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.cbtn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:1px solid var(–border);border-radius:100px;color:var(–muted);text-decoration:none;font-family:‘DM Mono’,monospace;font-size:0.7rem;letter-spacing:0.06em;transition:border-color 0.25s,color 0.25s,transform 0.25s}
+.cbtn:hover{border-color:var(–accent);color:var(–accent);transform:translateY(-2px)}
+.cbtn.primary{background:var(–accent);border-color:var(–accent);color:#0a0a0f;font-weight:500}
+.cbtn.primary:hover{background:transparent;color:var(–accent)}
+
+footer{padding:28px 48px;border-top:1px solid var(–border);display:flex;justify-content:space-between;align-items:center;font-family:‘DM Mono’,monospace;font-size:0.63rem;color:var(–muted);position:relative;z-index:10}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+@media(max-width:768px){
+nav{padding:18px 20px}.nav-links{display:none}
+#hero{padding:0 6vw;padding-top:80px}
+.wrap{padding:72px 20px}
+.facts-grid,.skills-grid,.proj-grid,.about-grid{grid-template-columns:1fr}
+.exp-item{grid-template-columns:1fr;gap:6px}
+footer{flex-direction:column;gap:6px;text-align:center}
+}
+</style>
+
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<nav id="nav">
+  <a href="#hero" class="nav-logo">ZS</a>
+  <div class="nav-links">
+    <a href="#facts">Über mich</a>
+    <a href="#about">Profil</a>
+    <a href="#skills">Kenntnisse</a>
+    <a href="#experience">Erfahrung</a>
+    <a href="#projects">Projekte</a>
+    <a href="#contact">Kontakt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+
+<section id="hero">
+  <p class="hero-eyebrow">Werkstudentin · Human-Centered Tech · Berlin / Duisburg</p>
+  <h1 class="hero-name">Zara<br/><em>Selim</em></h1>
+  <p class="hero-sub">
+    Ich suche einen Werkstudentenjob in Forschung, Datenanalyse oder KI.
+    Irgendwo, wo Neugier zählt und man Dinge wirklich zu Ende bringt.
+  </p>
+  <div class="hero-tags">
+    <span class="htag">Python</span>
+    <span class="htag">SQL</span>
+    <span class="htag">Power BI</span>
+    <span class="htag">KI-APIs</span>
+    <span class="htag">n8n</span>
+    <span class="htag">Forschung</span>
+    <span class="htag">AI Ethics</span>
+    <span class="htag">HCI</span>
+  </div>
+  <div class="scroll-cue">scrollen</div>
+</section>
+
+<!-- FUN FACTS -->
+
+<section id="facts">
+  <div class="wrap">
+    <p class="facts-label reveal">Ein paar Dinge, die nirgendwo sonst reinpassen</p>
+    <div class="facts-grid">
+      <div class="fact-card reveal d1">
+        <span class="fact-emoji">φ</span>
+        <p class="fact-text">Ich habe ein Jahr <strong>Philosophie</strong> studiert. So bin ich in die Tech-Welt gekommen. Die meisten finden das komisch. Ich finde es die einzig logische Reihenfolge.</p>
+      </div>
+      <div class="fact-card reveal d2">
+        <span class="fact-emoji">📦</span>
+        <p class="fact-text"><strong>Drei Städte. Drei Jahre.</strong> Ich bin oft genug umgezogen, dass Packen kein Stress mehr ist — eher ein Sortieralgorithmus, den ich inzwischen gut beherrsche.</p>
+      </div>
+      <div class="fact-card reveal d3">
+        <span class="fact-emoji">⏳</span>
+        <p class="fact-text">Wenn ein Projekt es wert ist, sind <strong>48 Stunden ohne Schlaf</strong> kein Problem. Einfach eine Deadline mit extra Schritten. Schlafen ist für nach dem Deployment.</p>
+      </div>
+      <div class="fact-card reveal d1">
+        <span class="fact-emoji">🐈</span>
+        <p class="fact-text">Ich habe eine orangene Katze. Letzte Woche war ich auf der Beerdigung einer Katze, die ich für meine hielt — bis ich meine eigene, quicklebendig, auf der Straße fand. <strong>Sie führt ein Doppelleben.</strong> Wir reden nicht darüber.</p>
+      </div>
+      <div class="fact-card reveal d2">
+        <span class="fact-emoji">✍️</span>
+        <p class="fact-text">Ich schreibe einen Blog, in dem ich über <strong>Existenz jammere</strong>. Nicht im Selbsthilfe-Sinne. Eher im „warum ist das alles so wie es ist"-Sinne. Hilft. Wahrscheinlich.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">Profil</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal d1">
+        <p>Ich studiere im 2. Semester <strong>Menschzentrierte Informatik &amp; Psychologie</strong> an der Uni Duisburg-Essen. Das Programm ist genau das, was es klingt: halb Informatik, halb Psychologie, viel darüber nachdenken, was Technologie eigentlich mit Menschen macht.</p>
+        <p>Ich bin jemand, der Muster sieht. In Daten, in Verhalten, in Systemen. Das kombiniere ich mit wachsenden technischen Kenntnissen in <strong>Python, SQL und Power BI</strong> und der Fähigkeit, KI-APIs so einzusetzen, dass am Ende etwas Funktionierendes rauskommt.</p>
+        <p>Die letzten Monate habe ich eigene Tools gebaut: von einer kompletten <strong>Dokumentenpipeline mit KI-Zusammenfassung</strong> bis zu einem CLI-System, das meine Arbeitszeit trackt und per KI auswertet. Kein Demo-Kram. Echte Tools, die ich selbst nutze.</p>
+        <p>Sprachen: <strong>Deutsch C1</strong>, <strong>Englisch C1</strong>, <strong>Französisch B1</strong>. Ich bin außerdem ehrenamtlich als Sprachmittlerin für Geflüchtete in Berlin tätig.</p>
+      </div>
+      <div class="stats reveal d2">
+        <div class="stat">
+          <span class="stat-n">2.</span>
+          <span class="stat-l">Fachsemester — B.Sc. MIPSY, UDE</span>
+        </div>
+        <div class="stat">
+          <span class="stat-n">10+</span>
+          <span class="stat-l">GitHub-Repos &amp; eigene Projekte</span>
+        </div>
+        <div class="stat">
+          <span class="stat-n">45%</span>
+          <span class="stat-l">Reichweitenwachstum bei Locally in 3 Monaten</span>
+        </div>
+        <div class="stat">
+          <span class="stat-n">3</span>
+          <span class="stat-l">Gesprochene Sprachen</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">Kenntnisse</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal d1">
+        <span class="sk-icon">⬡</span>
+        <span class="sk-cat">Daten &amp; Analyse</span>
+        <h3>Muster erkennen, Daten einordnen</h3>
+        <div class="stags">
+          <span class="stag">Python</span><span class="stag">SQL</span>
+          <span class="stag">Power BI</span><span class="stag">Excel</span>
+        </div>
+      </div>
+      <div class="skill-card reveal d2">
+        <span class="sk-icon">◈</span>
+        <span class="sk-cat">KI &amp; Automatisierung</span>
+        <h3>API-Integration &amp; End-to-End-Umsetzung</h3>
+        <div class="stags">
+          <span class="stag">Anthropic API</span><span class="stag">OpenAI</span>
+          <span class="stag">n8n</span><span class="stag">Prompt Engineering</span>
+        </div>
+      </div>
+      <div class="skill-card reveal d3">
+        <span class="sk-icon">◉</span>
+        <span class="sk-cat">Design &amp; Digital</span>
+        <h3>Visuelle Kommunikation</h3>
+        <div class="stags">
+          <span class="stag">Figma</span><span class="stag">Canva</span>
+          <span class="stag">Photoshop</span><span class="stag">HTML/CSS</span>
+        </div>
+      </div>
+      <div class="skill-card reveal d1">
+        <span class="sk-icon">◌</span>
+        <span class="sk-cat">Forschung</span>
+        <h3>Strukturiertes Denken &amp; Recherche</h3>
+        <div class="stags">
+          <span class="stag">Literaturrecherche</span>
+          <span class="stag">Sozialpsychologie</span>
+          <span class="stag">HCI-Methoden</span>
+          <span class="stag">AI Ethics</span>
+        </div>
+      </div>
+      <div class="skill-card reveal d2">
+        <span class="sk-icon">◍</span>
+        <span class="sk-cat">Sprachen</span>
+        <h3>Interkulturelle Kommunikation</h3>
+        <div class="stags">
+          <span class="stag">Deutsch C1</span>
+          <span class="stag">Englisch C1</span>
+          <span class="stag">Französisch B1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">Erfahrung</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item reveal">
+        <div class="exp-date">05/2025 –<br/>09/2025</div>
+        <div>
+          <div class="exp-role">Assistentin</div>
+          <div class="exp-org">Gero Strauss Praxis · Berlin</div>
+          <ul class="exp-bullets">
+            <li>Koordination &amp; Optimierung der Terminorganisation für hohe Patientenzahlen</li>
+            <li>Administrative Aufgaben inkl. strukturierter Abläufe und Rechnungswesen</li>
+            <li>Verbesserung der internen Organisation durch zuverlässige, eigenständige Arbeitsweise</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item reveal d1">
+        <div class="exp-date">04/2024 –<br/>04/2025</div>
+        <div>
+          <div class="exp-role">Call Operator</div>
+          <div class="exp-org">Sumsub · Remote / Berlin</div>
+          <ul class="exp-bullets">
+            <li>Bearbeitung internationaler Kundenanfragen im technologiebezogenen B2B-Umfeld</li>
+            <li>Analyse von Anliegen, strukturierte Dokumentation, lösungsorientierte Kommunikation</li>
+            <li>Routinierter Umgang mit digitalen Prozessen und präziser Datenpflege</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item reveal d2">
+        <div class="exp-date">10/2022 –<br/>07/2023</div>
+        <div>
+          <div class="exp-role">Social Media Managerin</div>
+          <div class="exp-org">Locally · Kairo</div>
+          <ul class="exp-bullets">
+            <li>Entwicklung datenbasierter Content-Strategien für TikTok und Instagram</li>
+            <li>Analyse von Reichweite &amp; Engagement zur inhaltlichen Optimierung</li>
+            <li>Steigerung der Reichweite um 45 % innerhalb von drei Monaten</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item reveal d3">
+        <div class="exp-date">seit 01/2025</div>
+        <div>
+          <div class="exp-role">Sprachmittlerin für Geflüchtete</div>
+          <div class="exp-org">KUB · Berlin · Ehrenamt</div>
+          <ul class="exp-bullets">
+            <li>Sprachliche &amp; kulturelle Vermittlung bei Behördengängen und im Alltag</li>
+            <li>Unterstützung bei Integration und administrativen Prozessen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Projekte</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card featured reveal">
+        <div class="proj-num">01</div>
+        <div class="proj-name">activity-intelligence</div>
+        <p class="proj-desc">Ein CLI-Tool, das trackt, woran du arbeitest, es per KI klassifiziert und dir am Ende der Woche zeigt, wo deine Zeit wirklich geblieben ist. Du tippst einen Satz. Das System übernimmt den Rest: kategorisiert, verknüpft Events, speichert lokal in SQLite und generiert wöchentliche KI-Reviews deiner Fokusgewohnheiten. Mit Reminder-System (auch per iPhone Shortcut via iCloud), ActivityWatch-Integration für passives App-Tracking und einem Daily Command Center, das dir mit einem Befehl deinen ganzen Tag zeigt. Gebaut weil ich aufgehört habe, einer Woche "busy" gewesen zu sein und trotzdem nicht sagen konnte was.</p>
+        <div class="proj-stack">
+          <span class="ptag">Python</span>
+          <span class="ptag">OpenAI API</span>
+          <span class="ptag">SQLite</span>
+          <span class="ptag">ActivityWatch</span>
+          <span class="ptag">iCloud Sync</span>
+          <span class="ptag">Shell</span>
+        </div>
+        <a class="proj-link" href="https://github.com/zayzyyazy/activity-intelligence" target="_blank">GitHub ansehen ↗</a>
+      </div>
+      <div class="proj-card featured reveal d1">
+        <div class="proj-num">02</div>
+        <div class="proj-name">pdf-reading-tracker</div>
+        <p class="proj-desc">Eine Dokumentenpipeline, die PDF, TXT und DOCX einliest, den Volltext extrahiert, per KI zusammenfasst, automatisch kategorisiert und alles als saubere Daten in Google Sheets und Power BI exportiert. Entstanden aus einem simplen Problem: zu viele Dokumente, kein System. Kein Demo-Projekt, sondern etwas, das ich selbst täglich nutze.</p>
+        <div class="proj-stack">
+          <span class="ptag">Python</span>
+          <span class="ptag">KI-API</span>
+          <span class="ptag">n8n</span>
+          <span class="ptag">Google Sheets</span>
+          <span class="ptag">Power BI</span>
+        </div>
+        <a class="proj-link" href="https://github.com/zayzyyazy/pdf-reading-tracker" target="_blank">GitHub ansehen ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-inner reveal">
+      <h2 class="contact-h">Lass uns<br/><em>reden</em></h2>
+      <p class="contact-sub">
+        Ich bin offen für Werkstudentenstellen und Praktika in Forschung, Datenanalyse, KI oder HCI.
+        Kein Anschreiben nötig. Eine kurze Nachricht reicht.
+      </p>
+      <div class="contact-btns">
+        <a class="cbtn primary" href="mailto:zaraselim04@gmail.com">zaraselim04@gmail.com</a>
+        <a class="cbtn" href="https://github.com/zayzyyazy" target="_blank">GitHub</a>
+        <a class="cbtn" href="tel:+4916279017649">+49 162 7901764</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Zara Selim · März 2026</span>
+  <span>Duisburg, Deutschland</span>
+</footer>
+
+<script>
+// PARTICLES
+(function(){
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+  let mx = W/2, my = H/2;
+
+  window.addEventListener('resize', function(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+  window.addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; });
+
+  var COLORS = ['200,184,255','139,224,196','240,194,127'];
+  var pts = [];
+  for(var i=0;i<80;i++){
+    pts.push({
+      x:Math.random()*window.innerWidth,
+      y:Math.random()*window.innerHeight,
+      vx:(Math.random()-0.5)*0.22,
+      vy:(Math.random()-0.5)*0.22,
+      r:Math.random()*1.3+0.3,
+      life:Math.random(),
+      decay:Math.random()*0.002+0.001,
+      col:COLORS[Math.floor(Math.random()*COLORS.length)]
+    });
+  }
+
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<pts.length;i++){
+      var p=pts[i];
+      p.x+=p.vx+(mx/W-0.5)*0.12;
+      p.y+=p.vy+(my/H-0.5)*0.12;
+      p.life-=p.decay;
+      if(p.life<=0||p.x<-20||p.x>W+20||p.y<-20||p.y>H+20){
+        p.x=Math.random()*W; p.y=Math.random()*H; p.life=1;
+      }
+      ctx.globalAlpha=p.life*0.5;
+      ctx.fillStyle='rgb('+p.col+')';
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+      for(var j=i+1;j<pts.length;j++){
+        var q=pts[j];
+        var dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<85){
+          ctx.globalAlpha=(1-d/85)*0.045;
+          ctx.strokeStyle='rgb('+p.col+')';
+          ctx.lineWidth=0.4;
+          ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();
+        }
+      }
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// NAV
+(function(){
+  var nav=document.getElementById('nav');
+  window.addEventListener('scroll',function(){
+    nav.classList.toggle('scrolled',window.scrollY>50);
+  },{passive:true});
+})();
+
+// SCROLL REVEAL
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting) e.target.classList.add('in');
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+  els.forEach(function(el){io.observe(el);});
+})();
+</script>
+
+</body>
+</html>
