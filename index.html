@@ -1,610 +1,648 @@
 <!DOCTYPE html>
 
-<html lang="de">
+<html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Zara Selim — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zay — Human-Centered Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#0a0a0f;
-  --surface:#111118;
-  --border:#1e1e2e;
-  --accent:#c8b8ff;
-  --accent2:#8be0c4;
-  --accent3:#f0c27f;
-  --text:#e8e4f0;
-  --muted:#7a7590;
-  --faint:#15151f;
+:root {
+  --void:    #050508;
+  --deep:    #0b0b12;
+  --surface: #111120;
+  --lift:    #191930;
+  --border:  rgba(255,255,255,0.06);
+  --text:    #e6e2f4;
+  --muted:   #635f7a;
+  --faint:   #1e1c35;
+  --cyan:    #00e5ff;
+  --violet:  #8b5cf6;
+  --rose:    #f43f5e;
+  --amber:   #f59e0b;
+  --lime:    #a3e635;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans:  'Syne', sans-serif;
+  --mono:  'IBM Plex Mono', monospace;
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'DM Sans',sans-serif;
-  font-weight:300;
-  overflow-x:hidden;
-}
-#particles-canvas{
-  position:fixed;top:0;left:0;
-  width:100%;height:100%;
-  z-index:0;pointer-events:none;
-}
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  padding:22px 48px;
-  display:flex;justify-content:space-between;align-items:center;
-  transition:background 0.4s,border-color 0.4s;
-  border-bottom:1px solid transparent;
-}
-nav.scrolled{
-  background:rgba(10,10,15,0.88);
-  backdrop-filter:blur(20px);
-  border-color:var(--border);
-}
-.nav-logo{
-  font-family:'DM Serif Display',serif;font-size:1.15rem;
-  color:var(--text);text-decoration:none;
-}
-.nav-links{display:flex;gap:28px}
-.nav-links a{
-  font-family:'DM Mono',monospace;font-size:0.68rem;
-  color:var(--muted);text-decoration:none;letter-spacing:0.09em;
-  text-transform:uppercase;transition:color 0.2s;
-}
-.nav-links a:hover{color:var(--accent)}
-section{position:relative;z-index:10}
+body{background:var(--void);color:var(--text);font-family:var(--sans);overflow-x:hidden;cursor:none}
+#cur{position:fixed;width:8px;height:8px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s,background .2s;mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(0,229,255,0.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .22s cubic-bezier(.25,.46,.45,.94)}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:0.45}
 
-/* HERO */
-#hero{
-min-height:100vh;
-display:flex;flex-direction:column;justify-content:center;
-padding:0 10vw;padding-top:80px;
-}
-.hero-eyebrow{
-font-family:‘DM Mono’,monospace;font-size:0.7rem;
-color:var(–accent2);letter-spacing:0.16em;text-transform:uppercase;
-margin-bottom:22px;
-animation:fadeUp 0.7s 0.2s both;
-}
-.hero-name{
-font-family:‘DM Serif Display’,serif;
-font-size:clamp(3.8rem,9vw,8rem);
-line-height:0.93;letter-spacing:-0.02em;color:var(–text);
-animation:fadeUp 0.8s 0.4s both;
-}
-.hero-name em{font-style:italic;color:var(–accent)}
-.hero-sub{
-margin-top:28px;max-width:500px;
-font-size:1rem;line-height:1.75;color:var(–muted);
-animation:fadeUp 0.7s 0.65s both;
-}
-.hero-tags{
-margin-top:36px;display:flex;flex-wrap:wrap;gap:9px;
-animation:fadeUp 0.7s 0.85s both;
-}
-.htag{
-font-family:‘DM Mono’,monospace;font-size:0.66rem;
-padding:5px 13px;border:1px solid var(–border);border-radius:100px;
-color:var(–muted);letter-spacing:0.06em;transition:border-color 0.2s,color 0.2s;
-}
-.htag:hover{border-color:var(–accent);color:var(–accent)}
-.scroll-cue{
-position:absolute;bottom:36px;left:10vw;
-font-family:‘DM Mono’,monospace;font-size:0.63rem;
-color:var(–muted);letter-spacing:0.1em;
-display:flex;align-items:center;gap:10px;
-animation:fadeIn 1s 1.4s both;
-}
-.scroll-cue::before{content:’’;width:36px;height:1px;background:var(–muted)}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.4rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+nav.scrolled{border-color:var(–border);background:rgba(5,5,8,0.88);backdrop-filter:blur(16px)}
+.nav-logo{font-family:var(–mono);font-size:.7rem;letter-spacing:.2em;color:var(–cyan);text-transform:uppercase;text-decoration:none}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{font-family:var(–mono);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);text-decoration:none;transition:color .2s;position:relative;cursor:none}
+.nav-links a::after{content:’’;position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(–cyan);transition:width .25s}
+.nav-links a:hover{color:var(–text)}
+.nav-links a:hover::after{width:100%}
 
-/* SHARED */
-.wrap{max-width:1100px;margin:0 auto;padding:110px 48px}
-.sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:60px}
-.sec-num{font-family:‘DM Mono’,monospace;font-size:0.66rem;color:var(–accent);letter-spacing:0.1em}
-.sec-title{
-font-family:‘DM Serif Display’,serif;
-font-size:clamp(2rem,4vw,3rem);color:var(–text);letter-spacing:-0.01em;
-}
-.divider{flex:1;height:1px;background:var(–border);margin-left:20px;align-self:center}
-.reveal{
-opacity:0;transform:translateY(36px);
-transition:opacity 0.65s cubic-bezier(0.22,1,0.36,1),transform 0.65s cubic-bezier(0.22,1,0.36,1);
-}
-.reveal.in{opacity:1;transform:none}
-.d1{transition-delay:0.08s}.d2{transition-delay:0.16s}
-.d3{transition-delay:0.24s}.d4{transition-delay:0.32s}
+/* ENTRY */
+#entry{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:6rem 2rem 4rem}
+.entry-bg{position:absolute;inset:0;z-index:0}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.1;animation:drift 18s ease-in-out infinite alternate}
+.orb1{width:600px;height:600px;background:var(–violet);top:-120px;left:-160px;animation-delay:0s}
+.orb2{width:420px;height:420px;background:var(–cyan);bottom:-60px;right:-100px;animation-delay:-7s}
+.orb3{width:280px;height:280px;background:var(–rose);top:30%;right:12%;animation-delay:-13s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(40px,28px) scale(1.08)}}
+.entry-inner{position:relative;z-index:1;text-align:center;max-width:920px}
+.entry-eyebrow{font-family:var(–mono);font-size:.63rem;letter-spacing:.28em;text-transform:uppercase;color:var(–cyan);margin-bottom:2rem;opacity:0;animation:fadeup .8s .2s forwards}
+.entry-name{font-family:var(–serif);font-size:clamp(5rem,13vw,11rem);line-height:.9;font-weight:400;letter-spacing:-.02em;margin-bottom:.5rem;opacity:0;animation:fadeup .9s .35s forwards}
+.entry-name .line2{font-style:italic;color:var(–violet)}
+.entry-role{font-family:var(–mono);font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(–muted);margin-bottom:2.8rem;opacity:0;animation:fadeup .8s .55s forwards}
+.entry-statement{font-size:1.08rem;line-height:1.88;color:rgba(230,226,244,0.68);max-width:540px;margin:0 auto 3.2rem;font-weight:400;opacity:0;animation:fadeup .8s .7s forwards}
+.entry-statement em{font-family:var(–serif);font-style:italic;color:var(–text)}
+.entry-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeup .8s .9s forwards}
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(–mono);font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:.8rem 1.7rem;border:1px solid;transition:all .25s;cursor:none}
+.btn-primary{background:var(–cyan);color:var(–void);border-color:var(–cyan)}
+.btn-primary:hover{background:transparent;color:var(–cyan)}
+.btn-ghost{background:transparent;color:var(–muted);border-color:var(–border)}
+.btn-ghost:hover{border-color:var(–violet);color:var(–violet)}
+.scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);font-family:var(–mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(–muted);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeup .8s 1.4s forwards}
+.scroll-line{width:1px;height:38px;background:linear-gradient(to bottom,var(–violet),transparent);animation:spulse 2s ease-in-out infinite}
+@keyframes spulse{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-/* FUN FACTS */
-#facts{background:var(–bg)}
-.facts-label{
-font-family:‘DM Mono’,monospace;font-size:0.68rem;
-color:var(–accent);letter-spacing:0.13em;text-transform:uppercase;
-margin-bottom:40px;
-}
-.facts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.fact-card{
-padding:26px 22px;border:1px solid var(–border);border-radius:14px;
-background:var(–surface);
-transition:border-color 0.3s,transform 0.3s cubic-bezier(0.22,1,0.36,1);
-}
-.fact-card:hover{transform:translateY(-5px)}
-.fact-card:nth-child(1):hover{border-color:var(–accent)}
-.fact-card:nth-child(2):hover{border-color:var(–accent3)}
-.fact-card:nth-child(3):hover{border-color:var(–accent2)}
-.fact-card:nth-child(4):hover{border-color:var(–accent)}
-.fact-card:nth-child(5):hover{border-color:var(–accent3)}
-.fact-emoji{font-size:1.5rem;margin-bottom:12px;display:block}
-.fact-text{font-size:0.86rem;line-height:1.68;color:var(–muted)}
-.fact-text strong{color:var(–text);font-weight:500}
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(–border);border-bottom:1px solid var(–border);padding:.85rem 0}
+.marquee-track{display:flex;gap:3rem;animation:marquee 22s linear infinite;width:max-content}
+.marquee-item{font-family:var(–mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(–muted);white-space:nowrap;display:flex;align-items:center;gap:1.4rem}
+.marquee-item::after{content:‘✦’;color:var(–violet);font-size:.48rem}
+@keyframes marquee{to{transform:translateX(-50%)}}
 
-/* ABOUT */
-#about{background:var(–surface)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
-.about-text p{font-size:1rem;line-height:1.8;color:var(–muted);margin-bottom:18px}
-.about-text strong{color:var(–text);font-weight:500}
-.stats{display:flex;flex-direction:column;gap:20px}
-.stat{
-padding:22px;border:1px solid var(–border);border-radius:12px;
-background:var(–faint);transition:border-color 0.3s,transform 0.3s;
-}
-.stat:hover{border-color:var(–accent);transform:translateX(5px)}
-.stat-n{font-family:‘DM Serif Display’,serif;font-size:2rem;color:var(–accent);display:block;line-height:1}
-.stat-l{font-family:‘DM Mono’,monospace;font-size:0.65rem;color:var(–muted);letter-spacing:0.08em;text-transform:uppercase;margin-top:6px;display:block}
+/* SIGNAL */
+#signal{padding:8rem 2rem;position:relative}
+.signal-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.section-tag{font-family:var(–mono);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(–cyan);margin-bottom:1.5rem;display:flex;align-items:center;gap:.7rem}
+.section-tag::before{content:’’;width:22px;height:1px;background:var(–cyan)}
+.signal-headline{font-family:var(–serif);font-size:clamp(2.2rem,4vw,3.4rem);line-height:1.1;font-weight:400;margin-bottom:1.8rem}
+.signal-headline em{font-style:italic;color:var(–violet)}
+.signal-body{font-size:.95rem;line-height:1.85;color:rgba(230,226,244,0.65);margin-bottom:1.4rem}
+.thought-card{border:1px solid var(–border);padding:1.4rem 1.6rem;background:var(–surface);position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;opacity:0;transform:translateX(20px)}
+.thought-card.vis{opacity:1;transform:translateX(0);transition:opacity .6s ease,transform .6s ease,border-color .3s,box-shadow .3s}
+.thought-card::before{content:’’;position:absolute;inset:0;background:linear-gradient(135deg,transparent 60%,rgba(124,58,237,0.04));pointer-events:none}
+.thought-card:hover{border-color:rgba(139,92,246,0.35);transform:translateY(-2px);box-shadow:0 8px 32px rgba(139,92,246,0.1)}
+.signal-right{display:flex;flex-direction:column;gap:1rem}
+.thought-num{font-family:var(–mono);font-size:.55rem;letter-spacing:.2em;color:var(–muted);margin-bottom:.45rem}
+.thought-text{font-size:.9rem;line-height:1.72;color:rgba(230,226,244,0.78)}
+.thought-text strong{color:var(–text);font-weight:600}
 
-/* SKILLS */
-#skills{background:var(–bg)}
-.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.skill-card{
-padding:28px;border:1px solid var(–border);border-radius:14px;
-background:var(–surface);position:relative;overflow:hidden;
-transition:border-color 0.3s,transform 0.35s cubic-bezier(0.22,1,0.36,1);
-}
-.skill-card::after{
-content:’’;position:absolute;top:0;left:0;right:0;height:2px;
-opacity:0;transition:opacity 0.3s;
-background:linear-gradient(90deg,transparent,var(–accent),transparent);
-}
-.skill-card:hover{transform:translateY(-4px)}
-.skill-card:hover::after{opacity:1}
-.skill-card:nth-child(1):hover{border-color:var(–accent)}
-.skill-card:nth-child(2):hover{border-color:var(–accent2)}
-.skill-card:nth-child(3):hover{border-color:var(–accent3)}
-.skill-card:nth-child(4):hover{border-color:var(–accent)}
-.skill-card:nth-child(5):hover{border-color:var(–accent2)}
-.sk-icon{font-size:1.6rem;margin-bottom:14px;display:block}
-.sk-cat{font-family:‘DM Mono’,monospace;font-size:0.63rem;color:var(–accent);letter-spacing:0.11em;text-transform:uppercase;margin-bottom:10px;display:block}
-.skill-card h3{font-size:0.95rem;font-weight:500;color:var(–text);margin-bottom:12px}
-.stags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-.stag{font-family:‘DM Mono’,monospace;font-size:0.6rem;padding:3px 9px;background:var(–faint);border:1px solid var(–border);border-radius:100px;color:var(–muted)}
+/* FIELD */
+#field{padding:8rem 2rem;border-top:1px solid var(–border);position:relative;overflow:hidden}
+.field-bg{position:absolute;right:-200px;top:50%;transform:translateY(-50%);width:580px;height:580px;border:1px solid rgba(0,229,255,0.04);border-radius:50%;pointer-events:none}
+.field-bg::before{content:’’;position:absolute;inset:60px;border:1px solid rgba(0,229,255,0.04);border-radius:50%}
+.field-bg::after{content:’’;position:absolute;inset:120px;border:1px solid rgba(0,229,255,0.04);border-radius:50%}
+.field-inner{max-width:1100px;margin:0 auto}
+.field-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4rem;gap:2rem;flex-wrap:wrap}
+.field-title{font-family:var(–serif);font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;font-weight:400}
+.field-title em{font-style:italic;color:var(–amber)}
+.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(–border)}
+.method-cell{background:var(–void);padding:2.4rem 2rem;position:relative;overflow:hidden;transition:background .3s}
+.method-cell:hover{background:var(–surface)}
+.method-cell::after{content:attr(data-num);position:absolute;bottom:-12px;right:1rem;font-family:var(–serif);font-size:5rem;font-style:italic;color:rgba(255,255,255,0.02);pointer-events:none;line-height:1;transition:color .3s}
+.method-cell:hover::after{color:rgba(139,92,246,0.06)}
+.method-icon{font-size:1.05rem;margin-bottom:1rem;display:block}
+.method-title{font-size:.92rem;font-weight:700;margin-bottom:.55rem;color:var(–text)}
+.method-desc{font-size:.8rem;line-height:1.72;color:var(–muted)}
+.method-tag{margin-top:1rem;display:inline-flex;align-items:center;font-family:var(–mono);font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;padding:.22rem .55rem;border:1px solid;border-radius:2px}
+.tag-cyan{color:var(–cyan);border-color:rgba(0,229,255,0.25)}
+.tag-violet{color:var(–violet);border-color:rgba(139,92,246,0.3)}
+.tag-amber{color:var(–amber);border-color:rgba(245,158,11,0.3)}
+.tag-rose{color:var(–rose);border-color:rgba(244,63,94,0.3)}
+.tag-lime{color:var(–lime);border-color:rgba(163,230,53,0.3)}
 
-/* EXPERIENCE */
-#experience{background:var(–surface)}
-.exp-list{display:flex;flex-direction:column}
-.exp-item{display:grid;grid-template-columns:190px 1fr;gap:44px;padding:36px 0;border-bottom:1px solid var(–border)}
-.exp-item:first-child{border-top:1px solid var(–border)}
-.exp-date{font-family:‘DM Mono’,monospace;font-size:0.7rem;color:var(–muted);letter-spacing:0.04em;padding-top:3px;line-height:1.5}
-.exp-role{font-family:‘DM Serif Display’,serif;font-size:1.25rem;color:var(–text);margin-bottom:4px;transition:color 0.25s}
-.exp-item:hover .exp-role{color:var(–accent)}
-.exp-org{font-family:‘DM Mono’,monospace;font-size:0.7rem;color:var(–accent);letter-spacing:0.05em;margin-bottom:14px}
-.exp-bullets{list-style:none}
-.exp-bullets li{font-size:0.86rem;line-height:1.65;color:var(–muted);padding-left:14px;position:relative;margin-bottom:5px}
-.exp-bullets li::before{content:‘→’;position:absolute;left:0;color:var(–accent);font-size:0.7rem;top:1px}
+/* ARTIFACTS */
+#artifacts{padding:8rem 2rem;position:relative}
+.artifacts-inner{max-width:1100px;margin:0 auto}
+.artifacts-header{margin-bottom:5rem}
+.artifacts-subtitle{font-size:.95rem;color:var(–muted);max-width:480px;margin-top:.9rem;line-height:1.75}
+.project-list{display:flex;flex-direction:column;gap:0}
+.project-item{border-top:1px solid var(–border);padding:2.6rem 0;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:start;position:relative;cursor:none;transition:padding-left .3s}
+.project-item:last-child{border-bottom:1px solid var(–border)}
+.project-item::before{content:’’;position:absolute;left:0;top:0;height:1px;width:0;background:linear-gradient(90deg,var(–cyan),var(–violet));transition:width .45s cubic-bezier(.77,0,.18,1)}
+.project-item:hover::before{width:100%}
+.project-item:hover{padding-left:1.4rem}
+.project-meta{font-family:var(–mono);font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);margin-bottom:.65rem;display:flex;gap:1rem}
+.project-name{font-family:var(–serif);font-size:clamp(1.55rem,2.8vw,2.3rem);font-weight:400;line-height:1.1;margin-bottom:.85rem;transition:color .25s}
+.project-item:hover .project-name{color:var(–cyan)}
+.project-desc{font-size:.88rem;line-height:1.78;color:var(–muted);max-width:540px;margin-bottom:1.1rem}
+.project-tags{display:flex;gap:.45rem;flex-wrap:wrap}
+.p-tag{font-family:var(–mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .52rem;border:1px solid var(–border);color:var(–muted);border-radius:2px;transition:all .2s}
+.project-item:hover .p-tag{border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)}
+.project-right{display:flex;flex-direction:column;align-items:flex-end;gap:.65rem;padding-top:.25rem}
+.project-arrow{width:42px;height:42px;border:1px solid var(–border);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0;cursor:none;text-decoration:none}
+.project-item:hover .project-arrow{border-color:var(–cyan);background:rgba(0,229,255,0.07);transform:rotate(-45deg)}
+.project-arrow svg{width:15px;height:15px;stroke:var(–muted);fill:none;stroke-width:1.5;transition:stroke .25s}
+.project-item:hover .project-arrow svg{stroke:var(–cyan)}
+.project-year{font-family:var(–mono);font-size:.58rem;color:var(–muted);letter-spacing:.1em}
+.project-featured{position:relative;background:var(–surface);border:1px solid var(–border);padding:2.6rem;margin-bottom:1px;overflow:hidden;transition:border-color .3s;cursor:none}
+.project-featured::before{content:‘FEATURED’;position:absolute;top:1.3rem;right:1.5rem;font-family:var(–mono);font-size:.54rem;letter-spacing:.25em;text-transform:uppercase;color:var(–amber);background:rgba(245,158,11,0.07);padding:.22rem .55rem;border:1px solid rgba(245,158,11,0.2)}
+.project-featured:hover{border-color:rgba(245,158,11,0.22)}
+.project-featured::after{content:’’;position:absolute;inset:0;background:radial-gradient(ellipse at 0% 100%,rgba(245,158,11,0.025),transparent 60%);pointer-events:none}
 
-/* PROJECTS */
-#projects{background:var(–bg)}
-.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.proj-card{padding:32px;border:1px solid var(–border);border-radius:14px;background:var(–surface);display:flex;flex-direction:column;transition:border-color 0.3s,transform 0.35s cubic-bezier(0.22,1,0.36,1)}
-.proj-card:hover{transform:translateY(-5px)}
-.proj-card.featured{background:linear-gradient(135deg,var(–surface),var(–faint))}
-.proj-card.featured:nth-child(1):hover{border-color:var(–accent)}
-.proj-card.featured:nth-child(2):hover{border-color:var(–accent2)}
-.proj-num{font-family:‘DM Mono’,monospace;font-size:0.6rem;color:var(–muted);letter-spacing:0.1em;margin-bottom:14px}
-.proj-name{font-family:‘DM Serif Display’,serif;font-size:1.35rem;color:var(–text);margin-bottom:10px}
-.proj-desc{font-size:0.86rem;line-height:1.65;color:var(–muted);flex:1}
-.proj-stack{display:flex;flex-wrap:wrap;gap:5px;margin-top:20px}
-.ptag{font-family:‘DM Mono’,monospace;font-size:0.58rem;padding:3px 8px;background:var(–faint);border:1px solid var(–border);border-radius:4px;color:var(–accent2);letter-spacing:0.05em}
-.proj-link{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:‘DM Mono’,monospace;font-size:0.68rem;color:var(–muted);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;width:fit-content}
-.proj-link:hover{color:var(–accent2)}
+/* FREQUENCY */
+#frequency{padding:8rem 2rem;border-top:1px solid var(–border);position:relative;overflow:hidden}
+.freq-bg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:800px;height:800px;pointer-events:none}
+.freq-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(139,92,246,0.06);animation:spin 40s linear infinite}
+.freq-ring:nth-child(1){width:200px;height:200px}
+.freq-ring:nth-child(2){width:380px;height:380px;animation-direction:reverse;animation-duration:55s}
+.freq-ring:nth-child(3){width:560px;height:560px;animation-duration:70s}
+.freq-ring:nth-child(4){width:720px;height:720px;animation-direction:reverse}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.freq-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;text-align:center}
+.freq-title{font-family:var(–serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:400;margin-bottom:1rem}
+.freq-title em{font-style:italic;color:var(–rose)}
+.freq-lead{font-size:.95rem;color:var(–muted);line-height:1.82;max-width:500px;margin:0 auto 4rem}
+.questions-orbit{display:flex;flex-direction:column;gap:1px;text-align:left}
+.q-item{padding:1.55rem 2rem;border:1px solid transparent;position:relative;transition:all .3s;opacity:0;transform:translateY(10px);cursor:none}
+.q-item.vis{opacity:1;transform:translateY(0)}
+.q-item:hover{border-color:var(–border);background:var(–surface)}
+.q-item::before{content:attr(data-index);font-family:var(–mono);font-size:.56rem;letter-spacing:.2em;color:var(–muted);position:absolute;left:2rem;top:1.55rem}
+.q-text{font-family:var(–serif);font-size:1.3rem;font-style:italic;padding-left:3rem;color:rgba(230,226,244,0.82);line-height:1.45}
+.q-item:hover .q-text{color:var(–text)}
+.q-domain{font-family:var(–mono);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding-left:3rem;margin-top:.4rem;color:var(–muted);transition:color .3s}
+.q-item:nth-child(1):hover .q-domain{color:var(–cyan)}
+.q-item:nth-child(2):hover .q-domain{color:var(–violet)}
+.q-item:nth-child(3):hover .q-domain{color:var(–rose)}
+.q-item:nth-child(4):hover .q-domain{color:var(–amber)}
+.q-item:nth-child(5):hover .q-domain{color:var(–lime)}
 
-/* CONTACT */
-#contact{background:var(–surface)}
-.contact-inner{text-align:center;max-width:580px;margin:0 auto}
-.contact-h{font-family:‘DM Serif Display’,serif;font-size:clamp(2rem,5vw,3.3rem);color:var(–text);margin-bottom:18px;line-height:1.1}
-.contact-h em{color:var(–accent);font-style:italic}
-.contact-sub{font-size:0.93rem;line-height:1.75;color:var(–muted);margin-bottom:44px}
-.contact-btns{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
-.cbtn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:1px solid var(–border);border-radius:100px;color:var(–muted);text-decoration:none;font-family:‘DM Mono’,monospace;font-size:0.7rem;letter-spacing:0.06em;transition:border-color 0.25s,color 0.25s,transform 0.25s}
-.cbtn:hover{border-color:var(–accent);color:var(–accent);transform:translateY(-2px)}
-.cbtn.primary{background:var(–accent);border-color:var(–accent);color:#0a0a0f;font-weight:500}
-.cbtn.primary:hover{background:transparent;color:var(–accent)}
+/* COORDINATES */
+#coordinates{padding:8rem 2rem;border-top:1px solid var(–border)}
+.coord-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.coord-label{font-family:var(–mono);font-size:.56rem;letter-spacing:.25em;text-transform:uppercase;color:var(–muted);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+.coord-label::before{content:’’;width:6px;height:6px;border-radius:50%;background:var(–lime);box-shadow:0 0 8px var(–lime);flex-shrink:0}
+.coord-headline{font-family:var(–serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;line-height:1.15;margin-bottom:1rem}
+.coord-headline em{font-style:italic;color:var(–lime)}
+.coord-body{font-size:.88rem;line-height:1.82;color:var(–muted)}
+.coord-body strong{color:var(–text);font-weight:600}
+.coord-now{margin-bottom:3rem}
+.stat-stack{display:flex;flex-direction:column;gap:0}
+.stat-row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:1.35rem 0;border-bottom:1px solid var(–border)}
+.stat-row:first-child{border-top:1px solid var(–border)}
+.stat-name{font-size:.86rem;color:var(–muted)}
+.stat-name strong{color:var(–text);display:block;margin-bottom:.12rem;font-size:.92rem}
+.stat-val{font-family:var(–mono);font-size:.68rem;letter-spacing:.1em;padding:.28rem .65rem;border:1px solid var(–border);color:var(–muted);white-space:nowrap}
+.coord-horizon{margin-top:3rem;padding:2rem;border:1px solid var(–faint);background:var(–surface);position:relative;overflow:hidden}
+.coord-horizon::before{content:‘→ TRAJECTORY’;position:absolute;top:1rem;right:1.2rem;font-family:var(–mono);font-size:.54rem;letter-spacing:.2em;color:var(–muted)}
+.horizon-items{display:flex;flex-direction:column;gap:.65rem;margin-top:.4rem}
+.horizon-item{display:flex;align-items:baseline;gap:.8rem;font-size:.86rem}
+.horizon-item::before{content:’’;width:4px;height:4px;border-radius:50%;background:var(–violet);flex-shrink:0;margin-top:.3rem}
+.horizon-item span{color:var(–muted);line-height:1.55}
+.horizon-item span strong{color:var(–text);font-weight:600}
 
-footer{padding:28px 48px;border-top:1px solid var(–border);display:flex;justify-content:space-between;align-items:center;font-family:‘DM Mono’,monospace;font-size:0.63rem;color:var(–muted);position:relative;z-index:10}
+/* OPEN */
+#open{padding:8rem 2rem;border-top:1px solid var(–border);position:relative;overflow:hidden}
+.open-bg{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:700px;height:350px;background:radial-gradient(ellipse at bottom,rgba(139,92,246,0.07),transparent 70%);pointer-events:none}
+.open-inner{max-width:800px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.open-eyebrow{font-family:var(–mono);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(–violet);margin-bottom:2rem}
+.open-title{font-family:var(–serif);font-size:clamp(2.8rem,6vw,5.5rem);font-weight:400;line-height:1.05;margin-bottom:1.5rem}
+.open-title em{font-style:italic;color:var(–violet)}
+.open-sub{font-size:.95rem;color:var(–muted);line-height:1.82;max-width:480px;margin:0 auto 3.2rem}
+.open-email{display:inline-flex;align-items:center;gap:.8rem;font-family:var(–mono);font-size:.78rem;letter-spacing:.15em;color:var(–cyan);text-decoration:none;border-bottom:1px solid rgba(0,229,255,0.22);padding-bottom:3px;transition:all .25s;margin-bottom:2.8rem;cursor:none}
+.open-email:hover{color:var(–text);border-color:var(–text)}
+.open-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+.open-link{font-family:var(–mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);text-decoration:none;transition:color .2s;cursor:none}
+.open-link:hover{color:var(–text)}
+footer{border-top:1px solid var(–border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:1rem}
+.footer-sig{font-family:var(–mono);font-size:.57rem;letter-spacing:.15em;color:var(–muted)}
+.footer-sig span{color:var(–cyan)}
+.footer-built{font-family:var(–mono);font-size:.57rem;letter-spacing:.12em;color:var(–muted)}
+.footer-built em{font-style:normal;color:var(–violet)}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
 
+/* RESPONSIVE */
 @media(max-width:768px){
-nav{padding:18px 20px}.nav-links{display:none}
-#hero{padding:0 6vw;padding-top:80px}
-.wrap{padding:72px 20px}
-.facts-grid,.skills-grid,.proj-grid,.about-grid{grid-template-columns:1fr}
-.exp-item{grid-template-columns:1fr;gap:6px}
-footer{flex-direction:column;gap:6px;text-align:center}
+nav{padding:1rem 1.4rem}
+.nav-links{display:none}
+.signal-inner,.coord-inner{grid-template-columns:1fr;gap:3rem}
+.method-grid{grid-template-columns:1fr}
+.project-item{grid-template-columns:1fr}
+footer{flex-direction:column;align-items:flex-start}
 }
+::selection{background:rgba(139,92,246,0.3);color:var(–text)}
 </style>
 
 </head>
 <body>
 
-<canvas id="particles-canvas"></canvas>
+<div id="cur"></div>
+<div id="cur-r"></div>
 
 <nav id="nav">
-  <a href="#hero" class="nav-logo">ZS</a>
-  <div class="nav-links">
-    <a href="#facts">Über mich</a>
-    <a href="#about">Profil</a>
-    <a href="#skills">Kenntnisse</a>
-    <a href="#experience">Erfahrung</a>
-    <a href="#projects">Projekte</a>
-    <a href="#contact">Kontakt</a>
-  </div>
+  <a href="#entry" class="nav-logo">ZAY</a>
+  <ul class="nav-links">
+    <li><a href="#signal">Thinking</a></li>
+    <li><a href="#field">Process</a></li>
+    <li><a href="#artifacts">Work</a></li>
+    <li><a href="#frequency">Questions</a></li>
+    <li><a href="#open">Contact</a></li>
+  </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ══ ENTRY ══ -->
 
-<section id="hero">
-  <p class="hero-eyebrow">Werkstudentin · Human-Centered Tech · Berlin / Duisburg</p>
-  <h1 class="hero-name">Zara<br/><em>Selim</em></h1>
-  <p class="hero-sub">
-    Ich suche einen Werkstudentenjob in Forschung, Datenanalyse oder KI.
-    Irgendwo, wo Neugier zählt und man Dinge wirklich zu Ende bringt.
-  </p>
-  <div class="hero-tags">
-    <span class="htag">Python</span>
-    <span class="htag">SQL</span>
-    <span class="htag">Power BI</span>
-    <span class="htag">KI-APIs</span>
-    <span class="htag">n8n</span>
-    <span class="htag">Forschung</span>
-    <span class="htag">AI Ethics</span>
-    <span class="htag">HCI</span>
+<section id="entry">
+  <div class="entry-bg">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
   </div>
-  <div class="scroll-cue">scrollen</div>
-</section>
-
-<!-- FUN FACTS -->
-
-<section id="facts">
-  <div class="wrap">
-    <p class="facts-label reveal">Ein paar Dinge, die nirgendwo sonst reinpassen</p>
-    <div class="facts-grid">
-      <div class="fact-card reveal d1">
-        <span class="fact-emoji">φ</span>
-        <p class="fact-text">Ich habe ein Jahr <strong>Philosophie</strong> studiert. So bin ich in die Tech-Welt gekommen. Die meisten finden das komisch. Ich finde es die einzig logische Reihenfolge.</p>
-      </div>
-      <div class="fact-card reveal d2">
-        <span class="fact-emoji">📦</span>
-        <p class="fact-text"><strong>Drei Städte. Drei Jahre.</strong> Ich bin oft genug umgezogen, dass Packen kein Stress mehr ist — eher ein Sortieralgorithmus, den ich inzwischen gut beherrsche.</p>
-  
-      <div class="fact-card reveal d1">
-        <span class="fact-emoji">🐈</span>
-        <p class="fact-text">Ich habe eine orangene Katze. Letzte Woche war ich auf der Beerdigung einer Katze, die ich für meine hielt — bis ich meine eigene, quicklebendig, auf der Straße fand. <strong>Sie führt ein Doppelleben.</strong> Wir reden nicht darüber.</p>
-      </div>
-      <div class="fact-card reveal d2">
-        <span class="fact-emoji">✍️</span>
-        <p class="fact-text">Ich schreibe einen Blog, in dem ich über <strong>Existenz jammere</strong>. Nicht im Selbsthilfe-Sinne. Eher im „warum ist das alles so wie es ist"-Sinne. Hilft. Wahrscheinlich.</p>
-      </div>
+  <div class="entry-inner">
+    <div class="entry-eyebrow">Human-Centered Computing · Universität Duisburg-Essen · Year 01</div>
+    <h1 class="entry-name">
+      Zay<br><span class="line2">thinks,<br>builds.</span>
+    </h1>
+    <div class="entry-role">HCI Student &nbsp;·&nbsp; Builder &nbsp;·&nbsp; Thinker in Progress</div>
+    <p class="entry-statement">
+      I'm early in the journey — and <em>that's the interesting part.</em><br>
+      I build real things using AI tools, ask uncomfortable questions about technology,<br>
+      and care deeply about what systems do to the people inside them.
+    </p>
+    <div class="entry-cta">
+      <a href="#artifacts" class="btn btn-primary">See the work ↓</a>
+      <a href="#signal" class="btn btn-ghost">How I think →</a>
     </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ══ MARQUEE ══ -->
 
-<section id="about">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="sec-num">01</span>
-      <h2 class="sec-title">Profil</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="about-grid">
-      <div class="about-text reveal d1">
-        <p>Ich studiere im 2. Semester <strong>Menschzentrierte Informatik &amp; Psychologie</strong> an der Uni Duisburg-Essen. Das Programm ist genau das, was es klingt: halb Informatik, halb Psychologie, viel darüber nachdenken, was Technologie eigentlich mit Menschen macht.</p>
-        <p>Ich bin jemand, der Muster sieht. In Daten, in Verhalten, in Systemen. Das kombiniere ich mit wachsenden technischen Kenntnissen in <strong>Python, SQL und Power BI</strong> und der Fähigkeit, KI-APIs so einzusetzen, dass am Ende etwas Funktionierendes rauskommt.</p>
-        <p>Die letzten Monate habe ich eigene Tools gebaut: von einer kompletten <strong>Dokumentenpipeline mit KI-Zusammenfassung</strong> bis zu einem CLI-System, das meine Arbeitszeit trackt und per KI auswertet. Kein Demo-Kram. Echte Tools, die ich selbst nutze.</p>
-        <p>Sprachen: <strong>Deutsch C1</strong>, <strong>Englisch C1</strong>, <strong>Französisch B1</strong>. Ich bin außerdem ehrenamtlich als Sprachmittlerin für Geflüchtete in Berlin tätig.</p>
-      </div>
-      <div class="stats reveal d2">
-        <div class="stat">
-          <span class="stat-n">2.</span>
-          <span class="stat-l">Fachsemester — B.Sc. MIPSY, UDE</span>
-        </div>
-        <div class="stat">
-          <span class="stat-n">10+</span>
-          <span class="stat-l">GitHub-Repos &amp; eigene Projekte</span>
-        </div>
-        <div class="stat">
-          <span class="stat-n">45%</span>
-          <span class="stat-l">Reichweitenwachstum bei Locally in 3 Monaten</span>
-        </div>
-        <div class="stat">
-          <span class="stat-n">3</span>
-          <span class="stat-l">Gesprochene Sprachen</span>
-        </div>
-      </div>
-    </div>
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">HCI + Psychology</span>
+    <span class="marquee-item">AI-Assisted Building</span>
+    <span class="marquee-item">Tech Ethics</span>
+    <span class="marquee-item">Automation</span>
+    <span class="marquee-item">Document Intelligence</span>
+    <span class="marquee-item">Human Behavior</span>
+    <span class="marquee-item">Friction Reduction</span>
+    <span class="marquee-item">Personal Knowledge Systems</span>
+    <span class="marquee-item">Philosophical Tech</span>
+    <span class="marquee-item">Data Analysis</span>
+    <span class="marquee-item">HCI + Psychology</span>
+    <span class="marquee-item">AI-Assisted Building</span>
+    <span class="marquee-item">Tech Ethics</span>
+    <span class="marquee-item">Automation</span>
+    <span class="marquee-item">Document Intelligence</span>
+    <span class="marquee-item">Human Behavior</span>
+    <span class="marquee-item">Friction Reduction</span>
+    <span class="marquee-item">Personal Knowledge Systems</span>
+    <span class="marquee-item">Philosophical Tech</span>
+    <span class="marquee-item">Data Analysis</span>
   </div>
-</section>
+</div>
 
-<!-- SKILLS -->
+<!-- ══ SIGNAL — Who I am ══ -->
 
-<section id="skills">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="sec-num">02</span>
-      <h2 class="sec-title">Kenntnisse</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card reveal d1">
-        <span class="sk-icon">⬡</span>
-        <span class="sk-cat">Daten &amp; Analyse</span>
-        <h3>Muster erkennen, Daten einordnen</h3>
-        <div class="stags">
-          <span class="stag">Python</span><span class="stag">SQL</span>
-          <span class="stag">Power BI</span><span class="stag">Excel</span>
-        </div>
-      </div>
-      <div class="skill-card reveal d2">
-        <span class="sk-icon">◈</span>
-        <span class="sk-cat">KI &amp; Automatisierung</span>
-        <h3>API-Integration &amp; End-to-End-Umsetzung</h3>
-        <div class="stags">
-          <span class="stag">Anthropic API</span><span class="stag">OpenAI</span>
-          <span class="stag">n8n</span><span class="stag">Prompt Engineering</span>
-        </div>
-      </div>
-      <div class="skill-card reveal d3">
-        <span class="sk-icon">◉</span>
-        <span class="sk-cat">Design &amp; Digital</span>
-        <h3>Visuelle Kommunikation</h3>
-        <div class="stags">
-          <span class="stag">Figma</span><span class="stag">Canva</span>
-          <span class="stag">Photoshop</span><span class="stag">HTML/CSS</span>
-        </div>
-      </div>
-      <div class="skill-card reveal d1">
-        <span class="sk-icon">◌</span>
-        <span class="sk-cat">Forschung</span>
-        <h3>Strukturiertes Denken &amp; Recherche</h3>
-        <div class="stags">
-          <span class="stag">Literaturrecherche</span>
-          <span class="stag">Sozialpsychologie</span>
-          <span class="stag">HCI-Methoden</span>
-          <span class="stag">AI Ethics</span>
-        </div>
-      </div>
-      <div class="skill-card reveal d2">
-        <span class="sk-icon">◍</span>
-        <span class="sk-cat">Sprachen</span>
-        <h3>Interkulturelle Kommunikation</h3>
-        <div class="stags">
-          <span class="stag">Deutsch C1</span>
-          <span class="stag">Englisch C1</span>
-          <span class="stag">Französisch B1</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-
-<section id="experience">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="sec-num">03</span>
-      <h2 class="sec-title">Erfahrung</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="exp-list">
-      <div class="exp-item reveal">
-        <div class="exp-date">05/2025 –<br/>09/2025</div>
-        <div>
-          <div class="exp-role">Assistentin</div>
-          <div class="exp-org">Gero Strauss Praxis · Berlin</div>
-          <ul class="exp-bullets">
-            <li>Koordination &amp; Optimierung der Terminorganisation für hohe Patientenzahlen</li>
-            <li>Administrative Aufgaben inkl. strukturierter Abläufe und Rechnungswesen</li>
-            <li>Verbesserung der internen Organisation durch zuverlässige, eigenständige Arbeitsweise</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item reveal d1">
-        <div class="exp-date">04/2024 –<br/>04/2025</div>
-        <div>
-          <div class="exp-role">Call Operator</div>
-          <div class="exp-org">Sumsub · Remote / Berlin</div>
-          <ul class="exp-bullets">
-            <li>Bearbeitung internationaler Kundenanfragen im technologiebezogenen B2B-Umfeld</li>
-            <li>Analyse von Anliegen, strukturierte Dokumentation, lösungsorientierte Kommunikation</li>
-            <li>Routinierter Umgang mit digitalen Prozessen und präziser Datenpflege</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item reveal d2">
-        <div class="exp-date">10/2022 –<br/>07/2023</div>
-        <div>
-          <div class="exp-role">Social Media Managerin</div>
-          <div class="exp-org">Locally · Kairo</div>
-          <ul class="exp-bullets">
-            <li>Entwicklung datenbasierter Content-Strategien für TikTok und Instagram</li>
-            <li>Analyse von Reichweite &amp; Engagement zur inhaltlichen Optimierung</li>
-            <li>Steigerung der Reichweite um 45 % innerhalb von drei Monaten</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item reveal d3">
-        <div class="exp-date">seit 01/2025</div>
-        <div>
-          <div class="exp-role">Sprachmittlerin für Geflüchtete</div>
-          <div class="exp-org">KUB · Berlin · Ehrenamt</div>
-          <ul class="exp-bullets">
-            <li>Sprachliche &amp; kulturelle Vermittlung bei Behördengängen und im Alltag</li>
-            <li>Unterstützung bei Integration und administrativen Prozessen</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-
-<section id="projects">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="sec-num">04</span>
-      <h2 class="sec-title">Projekte</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="proj-grid">
-      <div class="proj-card featured reveal">
-        <div class="proj-num">01</div>
-        <div class="proj-name">activity-intelligence</div>
-        <p class="proj-desc">Ein CLI-Tool, das trackt, woran du arbeitest, es per KI klassifiziert und dir am Ende der Woche zeigt, wo deine Zeit wirklich geblieben ist. Du tippst einen Satz. Das System übernimmt den Rest: kategorisiert, verknüpft Events, speichert lokal in SQLite und generiert wöchentliche KI-Reviews deiner Fokusgewohnheiten. Mit Reminder-System (auch per iPhone Shortcut via iCloud), ActivityWatch-Integration für passives App-Tracking und einem Daily Command Center, das dir mit einem Befehl deinen ganzen Tag zeigt. Gebaut weil ich aufgehört habe, einer Woche "busy" gewesen zu sein und trotzdem nicht sagen konnte was.</p>
-        <div class="proj-stack">
-          <span class="ptag">Python</span>
-          <span class="ptag">OpenAI API</span>
-          <span class="ptag">SQLite</span>
-          <span class="ptag">ActivityWatch</span>
-          <span class="ptag">iCloud Sync</span>
-          <span class="ptag">Shell</span>
-        </div>
-        <a class="proj-link" href="https://github.com/zayzyyazy/activity-intelligence" target="_blank">GitHub ansehen ↗</a>
-      </div>
-      <div class="proj-card featured reveal d1">
-        <div class="proj-num">02</div>
-        <div class="proj-name">pdf-reading-tracker</div>
-        <p class="proj-desc">Eine Dokumentenpipeline, die PDF, TXT und DOCX einliest, den Volltext extrahiert, per KI zusammenfasst, automatisch kategorisiert und alles als saubere Daten in Google Sheets und Power BI exportiert. Entstanden aus einem simplen Problem: zu viele Dokumente, kein System. Kein Demo-Projekt, sondern etwas, das ich selbst täglich nutze.</p>
-        <div class="proj-stack">
-          <span class="ptag">Python</span>
-          <span class="ptag">KI-API</span>
-          <span class="ptag">n8n</span>
-          <span class="ptag">Google Sheets</span>
-          <span class="ptag">Power BI</span>
-        </div>
-        <a class="proj-link" href="https://github.com/zayzyyazy/pdf-reading-tracker" target="_blank">GitHub ansehen ↗</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-
-<section id="contact">
-  <div class="wrap">
-    <div class="contact-inner reveal">
-      <h2 class="contact-h">Lass uns<br/><em>reden</em></h2>
-      <p class="contact-sub">
-        Ich bin offen für Werkstudentenstellen und Praktika in Forschung, Datenanalyse, KI oder HCI.
-        Kein Anschreiben nötig. Eine kurze Nachricht reicht.
+<section id="signal">
+  <div class="signal-inner">
+    <div class="signal-left">
+      <div class="section-tag reveal">Signal</div>
+      <h2 class="signal-headline reveal">I'm a thinker<br>who learned<br>to <em>build.</em></h2>
+      <p class="signal-body reveal">
+        Philosophy before code. I got into HCI because I kept asking the same question:
+        <em>what does this do to the person using it?</em> — and realized the only way
+        to answer it seriously was to get close to the technology itself.
       </p>
-      <div class="contact-btns">
-        <a class="cbtn primary" href="mailto:zaraselim04@gmail.com">zaraselim04@gmail.com</a>
-        <a class="cbtn" href="https://github.com/zayzyyazy" target="_blank">GitHub</a>
-        <a class="cbtn" href="tel:+4916279017649">+49 162 7901764</a>
+    </div>
+    <div class="signal-right">
+      <div class="thought-card">
+        <div class="thought-num">Currently obsessed with</div>
+        <div class="thought-text">Synthetic companions — what it means when <strong>loneliness becomes a design problem</strong> someone ships a product to solve.</div>
       </div>
+      <div class="thought-card">
+        <div class="thought-num">Keeps me up at night</div>
+        <div class="thought-text">The slow integration of AI into everything — not as a tool anymore, but as <strong>ambient infrastructure</strong> no one consciously chose.</div>
+      </div>
+      <div class="thought-card">
+        <div class="thought-num">Philosophy shelf</div>
+        <div class="thought-text">Identity, free will, the self under pressure. <strong>What stays human</strong> when the environment is engineered to shape you.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FIELD NOTES — How I work ══ -->
+
+<section id="field">
+  <div class="field-bg"></div>
+  <div class="field-inner">
+    <div class="field-header">
+      <div>
+        <div class="section-tag reveal">Field Notes</div>
+        <h2 class="field-title reveal">How I<br>actually <em>work</em></h2>
+      </div>
+      <p class="reveal" style="max-width:310px;font-size:.88rem;line-height:1.78;color:var(--muted)">
+        First-year student. Real tools. Real outputs. No pretending otherwise.
+      </p>
+    </div>
+    <div class="method-grid reveal" style="grid-template-columns:repeat(3,1fr)">
+      <div class="method-cell" data-num="1">
+        <span class="method-icon">◎</span>
+        <div class="method-title">Problem first, always</div>
+        <div class="method-desc">Every project starts from something that genuinely bothered me. If I can't feel the friction myself, I probably can't fix it well.</div>
+        <span class="method-tag tag-cyan">Intuition-driven</span>
+      </div>
+      <div class="method-cell" data-num="2">
+        <span class="method-icon">⌬</span>
+        <div class="method-title">AI is my build infrastructure</div>
+        <div class="method-desc">I use Claude and Cursor to close the gap between an idea and a working thing. The thinking is mine. The velocity is shared.</div>
+        <span class="method-tag tag-violet">AI-Augmented</span>
+      </div>
+      <div class="method-cell" data-num="3">
+        <span class="method-icon">◈</span>
+        <div class="method-title">I ask the uncomfortable question</div>
+        <div class="method-desc">Should this exist? What does the person lose when this friction disappears? I build things — but I'm suspicious of building for its own sake.</div>
+        <span class="method-tag tag-rose">Ethics-aware</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ARTIFACTS — Projects ══ -->
+
+<section id="artifacts">
+  <div class="artifacts-inner">
+    <div class="artifacts-header">
+      <div class="section-tag reveal">Artifacts</div>
+      <h2 class="reveal" style="font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1.1">Things I've made<br><em style="font-style:italic;color:var(--cyan)">real</em></h2>
+      <p class="artifacts-subtitle reveal">Not polished demos. Not tutorial projects. Real tools I built because they needed to exist — each one a version of a question I was trying to answer by building.</p>
+    </div>
+
+```
+<div class="project-list">
+
+  <!-- FEATURED 1: PDF Tracker -->
+  <div class="project-featured reveal">
+    <div class="project-meta">
+      <span>Python</span><span>·</span><span>AI Integration</span><span>·</span><span>Automation</span>
+    </div>
+    <div style="font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;line-height:1.1;margin-bottom:.85rem">
+      PDF Reading Tracker
+    </div>
+    <p style="font-size:.9rem;line-height:1.8;color:var(--muted);max-width:620px;margin-bottom:.9rem">
+      I had a growing pile of documents — papers, reports, saved PDFs — that I kept meaning to read
+      and never did, because there was no system. So I built one. The pipeline accepts PDF, TXT,
+      and DOCX files, extracts full text from each, summarizes using an AI model, automatically
+      tags and categorizes the content, and saves everything to a clean CSV. Connected to n8n for
+      automation, Google Sheets as a live knowledge base, and Power BI for visual overviews.
+    </p>
+    <p style="font-size:.85rem;line-height:1.75;color:var(--muted);max-width:620px;margin-bottom:1.4rem;font-style:italic;border-left:2px solid rgba(245,158,11,0.35);padding-left:1rem">
+      The first project where every piece connected into something I actually use daily.
+      Not a demo — a real tool solving a real problem I had.
+    </p>
+    <div style="display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.5rem">
+      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">PDF parsing</span>
+      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">AI summarization</span>
+      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">Auto-tagging</span>
+      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">n8n</span>
+      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">Power BI</span>
+      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">Google Sheets</span>
+    </div>
+    <a href="https://github.com/zayzyyazy/pdf-reading-tracker" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);text-decoration:none;border-bottom:1px solid rgba(245,158,11,0.28);padding-bottom:2px;transition:all .2s;cursor:none">
+      View on GitHub ↗
+    </a>
+  </div>
+
+  <!-- FEATURED 2: Job Application Tracker -->
+  <div class="project-featured reveal" style="margin-top:1px;border-top:none">
+    <div style="position:absolute;top:1.3rem;right:1.5rem;font-family:var(--mono);font-size:.54rem;letter-spacing:.25em;text-transform:uppercase;color:var(--violet);background:rgba(139,92,246,0.07);padding:.22rem .55rem;border:1px solid rgba(139,92,246,0.2)">FEATURED</div>
+    <div class="project-meta">
+      <span>Python</span><span>·</span><span>Data Pipeline</span><span>·</span><span>Automation</span>
+    </div>
+    <div style="font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;line-height:1.1;margin-bottom:.85rem">
+      Job Application Tracker
+    </div>
+    <p style="font-size:.9rem;line-height:1.8;color:var(--muted);max-width:620px;margin-bottom:.9rem">
+      Job hunting is chaotic by default — applications scattered across tabs, follow-up dates lost
+      in email threads, no clear picture of where you actually stand. I built a structured tracker
+      to fix that. It centralizes application status, company info, contact details, and key dates
+      into one system, with automated reminders and a clean dashboard view. Designed to remove
+      the cognitive overhead of managing a search so you can focus on the actual work of getting hired.
+    </p>
+    <p style="font-size:.85rem;line-height:1.75;color:var(--muted);max-width:620px;margin-bottom:1.4rem;font-style:italic;border-left:2px solid rgba(139,92,246,0.35);padding-left:1rem">
+      Built it while actively job-searching. The friction was immediate and personal —
+      which is exactly when you build the best tools.
+    </p>
+    <div style="display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.5rem">
+      <span class="p-tag" style="border-color:rgba(139,92,246,0.25);color:rgba(139,92,246,0.75)">Python</span>
+      <span class="p-tag" style="border-color:rgba(139,92,246,0.25);color:rgba(139,92,246,0.75)">Automation</span>
+      <span class="p-tag" style="border-color:rgba(139,92,246,0.25);color:rgba(139,92,246,0.75)">Status tracking</span>
+      <span class="p-tag" style="border-color:rgba(139,92,246,0.25);color:rgba(139,92,246,0.75)">Dashboard</span>
+    </div>
+    <a href="https://github.com/zayzyyazy" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(139,92,246,0.3);padding-bottom:2px;transition:all .2s;cursor:none">
+      View on GitHub ↗
+    </a>
+  </div>
+
+  <!-- COMPACT: other projects -->
+  <div style="border-top:1px solid var(--border);padding-top:2.5rem;margin-top:2.5rem" class="reveal">
+    <div class="section-tag" style="margin-bottom:1.8rem">Also Built</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)">
+      <div style="background:var(--void);padding:1.6rem;transition:background .25s" onmouseenter="this.style.background='var(--surface)'" onmouseleave="this.style.background='var(--void)'">
+        <div style="font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem">Python</div>
+        <div style="font-size:.97rem;font-weight:600;margin-bottom:.4rem">Smart Friction Logger</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.65">Log and categorize moments where workflows break or frustrate. If you can't measure friction, you can't reduce it.</div>
+        <a href="https://github.com/zayzyyazy/smart-friction-logger" target="_blank" rel="noopener" style="display:inline-flex;margin-top:.9rem;font-family:var(--mono);font-size:.57rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;cursor:none" onmouseenter="this.style.color='var(--cyan)'" onmouseleave="this.style.color='var(--muted)'">GitHub ↗</a>
+      </div>
+      <div style="background:var(--void);padding:1.6rem;transition:background .25s" onmouseenter="this.style.background='var(--surface)'" onmouseleave="this.style.background='var(--void)'">
+        <div style="font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem">Python</div>
+        <div style="font-size:.97rem;font-weight:600;margin-bottom:.4rem">Activity Intelligence</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.65">Tracks behavior patterns to surface the gap between what you plan and what you actually do.</div>
+        <a href="https://github.com/zayzyyazy/activity-intelligence" target="_blank" rel="noopener" style="display:inline-flex;margin-top:.9rem;font-family:var(--mono);font-size:.57rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;cursor:none" onmouseenter="this.style.color='var(--cyan)'" onmouseleave="this.style.color='var(--muted)'">GitHub ↗</a>
+      </div>
+      <div style="background:var(--void);padding:1.6rem;transition:background .25s" onmouseenter="this.style.background='var(--surface)'" onmouseleave="this.style.background='var(--void)'">
+        <div style="font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem">CSS · Python</div>
+        <div style="font-size:.97rem;font-weight:600;margin-bottom:.4rem">Studysprint Kanban</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.65">A study session board. Most kanban tools are overkill — this one isn't.</div>
+        <a href="https://github.com/zayzyyazy/Studysprint-kanban" target="_blank" rel="noopener" style="display:inline-flex;margin-top:.9rem;font-family:var(--mono);font-size:.57rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;cursor:none" onmouseenter="this.style.color='var(--cyan)'" onmouseleave="this.style.color='var(--muted)'">GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ══ FREQUENCY — Questions I orbit ══ -->
+
+<section id="frequency">
+  <div class="freq-bg">
+    <div class="freq-ring"></div>
+    <div class="freq-ring"></div>
+    <div class="freq-ring"></div>
+    <div class="freq-ring"></div>
+  </div>
+  <div class="freq-inner">
+    <div class="section-tag reveal" style="justify-content:center">On My Mind</div>
+    <h2 class="freq-title reveal">Questions I can't<br>stop <em>orbiting</em></h2>
+    <p class="freq-lead reveal">These aren't research topics. They're the questions that keep surfacing — when I build, when I read, when I watch a system fail in a deeply human way.</p>
+    <div class="questions-orbit">
+      <div class="q-item" data-index="01">
+        <div class="q-text">"When AI removes friction from a task, what does the person lose in doing it?"</div>
+        <div class="q-domain">Cognitive Science · HCI · AI Ethics</div>
+      </div>
+      <div class="q-item" data-index="02">
+        <div class="q-text">"Does the interface reveal who you are, or gradually become who you are?"</div>
+        <div class="q-domain">Identity · Technology · Psychology</div>
+      </div>
+      <div class="q-item" data-index="03">
+        <div class="q-text">"What would it mean to design a tool that actively refuses to manipulate its user?"</div>
+        <div class="q-domain">Ethics · Design · Power</div>
+      </div>
+      <div class="q-item" data-index="04">
+        <div class="q-text">"Is there a meaningful difference between a tool that augments thinking and one that replaces it?"</div>
+        <div class="q-domain">Cognition · AI · Philosophy</div>
+      </div>
+      <div class="q-item" data-index="05">
+        <div class="q-text">"What does it mean to be 'good with technology' when the technology is partly doing the thinking?"</div>
+        <div class="q-domain">AI Literacy · Skill · Agency</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COORDINATES ══ -->
+
+<section id="coordinates">
+  <div class="coord-inner">
+    <div class="coord-left">
+      <div class="coord-now">
+        <div class="coord-label reveal">Currently</div>
+        <h2 class="coord-headline reveal">Essen, Germany.<br><em>Year one</em> of something<br>much longer.</h2>
+        <p class="coord-body reveal">
+          Studying <strong>Menschzentrierte Informatik & Psychologie</strong> at Universität
+          Duisburg-Essen — a degree built at the intersection of HCI and psychology, which is exactly
+          where I want to be. Learning <strong>SQL, Power BI, and Python</strong> alongside the
+          academic curriculum, and actively looking for a <strong>Werkstudentenstelle</strong>
+          in data analysis, research automation, or anything at the HCI/AI intersection.
+        </p>
+      </div>
+      <div class="coord-horizon reveal">
+        <div class="section-tag" style="margin-bottom:1.1rem">Growing Into</div>
+        <div class="horizon-items">
+          <div class="horizon-item"><span>Research at the <strong>intersection of AI behavior and human psychology</strong></span></div>
+          <div class="horizon-item"><span>Tools that handle information without flattening the person using them</span></div>
+          <div class="horizon-item"><span><strong>Data analysis and automation</strong> work connected to real human workflows</span></div>
+          <div class="horizon-item"><span>A technical foundation deep enough to <strong>build what I can currently only imagine</strong></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="coord-right reveal">
+      <div class="stat-stack">
+        <div class="stat-row">
+          <div class="stat-name"><strong>Degree</strong>B.Sc. HCI + Psychology</div>
+          <div class="stat-val">Year 01</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-name"><strong>University</strong>Univ. Duisburg-Essen</div>
+          <div class="stat-val">Essen, DE</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-name"><strong>Languages</strong>German · English</div>
+          <div class="stat-val">C1 · C1</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-name"><strong>Primary Tools</strong>Python · AI APIs · n8n</div>
+          <div class="stat-val">Active</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-name"><strong>Learning</strong>SQL · Power BI</div>
+          <div class="stat-val">In Progress</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-name"><strong>Open to</strong>Werkstudentenstelle</div>
+          <div class="stat-val" style="color:var(--lime);border-color:rgba(163,230,53,0.3)">Available</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OPEN SIGNAL ══ -->
+
+<section id="open">
+  <div class="open-bg"></div>
+  <div class="open-inner">
+    <div class="open-eyebrow reveal">Open Signal</div>
+    <h2 class="open-title reveal">Let's think about<br>something <em>together.</em></h2>
+    <p class="open-sub reveal">I'm interested in research collaborations, student roles in data and automation, and conversations with people building things that take humans seriously.</p>
+    <a href="mailto:zaraselim04@gmail.com" class="open-email reveal">zaraselim04@gmail.com</a>
+    <div class="open-links reveal">
+      <a href="https://github.com/zayzyyazy" target="_blank" rel="noopener" class="open-link">GitHub ↗</a>
+      <span style="color:var(--muted);font-family:var(--mono);font-size:.58rem">·</span>
+      <a href="mailto:zaraselim04@gmail.com" class="open-link">Email ↗</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <span>Zara Selim · März 2026</span>
-  <span>Duisburg, Deutschland</span>
+  <div class="footer-sig">ZAY &nbsp;·&nbsp; <span>Building intentionally</span> &nbsp;·&nbsp; 2025</div>
+  <div class="footer-built">Built with <em>Claude</em> &nbsp;·&nbsp; Edited by hand &nbsp;·&nbsp; No template</div>
 </footer>
 
 <script>
-// PARTICLES
-(function(){
-  const canvas = document.getElementById('particles-canvas');
-  const ctx = canvas.getContext('2d');
-  let W = canvas.width = window.innerWidth;
-  let H = canvas.height = window.innerHeight;
-  let mx = W/2, my = H/2;
-
-  window.addEventListener('resize', function(){
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  });
-  window.addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; });
-
-  var COLORS = ['200,184,255','139,224,196','240,194,127'];
-  var pts = [];
-  for(var i=0;i<80;i++){
-    pts.push({
-      x:Math.random()*window.innerWidth,
-      y:Math.random()*window.innerHeight,
-      vx:(Math.random()-0.5)*0.22,
-      vy:(Math.random()-0.5)*0.22,
-      r:Math.random()*1.3+0.3,
-      life:Math.random(),
-      decay:Math.random()*0.002+0.001,
-      col:COLORS[Math.floor(Math.random()*COLORS.length)]
-    });
-  }
-
-  function tick(){
-    ctx.clearRect(0,0,W,H);
-    for(var i=0;i<pts.length;i++){
-      var p=pts[i];
-      p.x+=p.vx+(mx/W-0.5)*0.12;
-      p.y+=p.vy+(my/H-0.5)*0.12;
-      p.life-=p.decay;
-      if(p.life<=0||p.x<-20||p.x>W+20||p.y<-20||p.y>H+20){
-        p.x=Math.random()*W; p.y=Math.random()*H; p.life=1;
-      }
-      ctx.globalAlpha=p.life*0.5;
-      ctx.fillStyle='rgb('+p.col+')';
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
-      for(var j=i+1;j<pts.length;j++){
-        var q=pts[j];
-        var dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy);
-        if(d<85){
-          ctx.globalAlpha=(1-d/85)*0.045;
-          ctx.strokeStyle='rgb('+p.col+')';
-          ctx.lineWidth=0.4;
-          ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();
-        }
-      }
-    }
-    ctx.globalAlpha=1;
-    requestAnimationFrame(tick);
-  }
-  tick();
+// CURSOR
+const cur = document.getElementById('cur');
+const curR = document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function loop(){
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+  curR.style.left=rx+'px';curR.style.top=ry+'px';
+  requestAnimationFrame(loop);
 })();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';curR.style.transform='translate(-50%,-50%) scale(1.5)'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';curR.style.transform='translate(-50%,-50%) scale(1)'});
+});
 
 // NAV
-(function(){
-  var nav=document.getElementById('nav');
-  window.addEventListener('scroll',function(){
-    nav.classList.toggle('scrolled',window.scrollY>50);
-  },{passive:true});
-})();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
 
-// SCROLL REVEAL
-(function(){
-  var els=document.querySelectorAll('.reveal');
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting) e.target.classList.add('in');
-    });
-  },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
-  els.forEach(function(el){io.observe(el);});
-})();
+// SCROLL REVEAL — generic
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}});
+},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// THOUGHT CARDS
+const tcObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');tcObs.unobserve(e.target)}});
+},{threshold:0.12});
+document.querySelectorAll('.thought-card').forEach((el,i)=>{
+  el.style.transitionDelay=(i*110)+'ms';
+  tcObs.observe(el);
+});
+
+// Q ITEMS
+const qObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');qObs.unobserve(e.target)}});
+},{threshold:0.1});
+document.querySelectorAll('.q-item').forEach((el,i)=>{
+  el.style.transitionDelay=(i*95)+'ms';
+  qObs.observe(el);
+});
 </script>
 
 </body>
