@@ -1,695 +1,1253 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zay — LLM Systems · Automation · Local-First Tools</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Zara Selim builds applied AI, automation, API and workflow systems for real business processes." />
+<title>Zara Selim - Applied AI and Intelligent Operations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
-:root {
-  --void:    #050508;
-  --deep:    #0b0b12;
-  --surface: #111120;
-  --lift:    #191930;
-  --border:  rgba(255,255,255,0.06);
-  --text:    #e6e2f4;
-  --muted:   #635f7a;
-  --faint:   #1e1c35;
-  --cyan:    #00e5ff;
-  --violet:  #8b5cf6;
-  --rose:    #f43f5e;
-  --amber:   #f59e0b;
-  --lime:    #a3e635;
-  --serif: 'Instrument Serif', Georgia, serif;
-  --sans:  'Syne', sans-serif;
-  --mono:  'IBM Plex Mono', monospace;
+:root{
+  color-scheme:dark;
+  --bg:#05070a;
+  --bg-2:#090d12;
+  --panel:#0d1218;
+  --panel-2:#111821;
+  --line:#23303c;
+  --line-strong:#3b4d5d;
+  --text:#eef4f0;
+  --muted:#99a7a9;
+  --soft:#68777b;
+  --green:#63e6be;
+  --amber:#f0c36a;
+  --blue:#8db7ff;
+  --rose:#ff8fa3;
+  --ink:#07100e;
+  --radius:8px;
+  --shadow:0 24px 70px rgba(0,0,0,.36);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--void);color:var(--text);font-family:var(--sans);overflow-x:hidden;cursor:none}
-#cur{position:fixed;width:8px;height:8px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s,background .2s;mix-blend-mode:difference}
-#cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(0,229,255,0.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .22s cubic-bezier(.25,.46,.45,.94)}
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:0.45}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.4rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
-nav.scrolled{border-color:var(–border);background:rgba(5,5,8,0.88);backdrop-filter:blur(16px)}
-.nav-logo{font-family:var(–mono);font-size:.7rem;letter-spacing:.2em;color:var(–cyan);text-transform:uppercase;text-decoration:none}
-.nav-links{display:flex;gap:2.2rem;list-style:none}
-.nav-links a{font-family:var(–mono);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);text-decoration:none;transition:color .2s;position:relative;cursor:none}
-.nav-links a::after{content:’’;position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(–cyan);transition:width .25s}
-.nav-links a:hover{color:var(–text)}
-.nav-links a:hover::after{width:100%}
-
-/* ENTRY */
-#entry{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:6rem 2rem 4rem}
-.entry-bg{position:absolute;inset:0;z-index:0}
-.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.1;animation:drift 18s ease-in-out infinite alternate}
-.orb1{width:600px;height:600px;background:var(–violet);top:-120px;left:-160px;animation-delay:0s}
-.orb2{width:420px;height:420px;background:var(–cyan);bottom:-60px;right:-100px;animation-delay:-7s}
-.orb3{width:280px;height:280px;background:var(–rose);top:30%;right:12%;animation-delay:-13s}
-@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(40px,28px) scale(1.08)}}
-.entry-inner{position:relative;z-index:1;text-align:center;max-width:920px}
-.entry-eyebrow{font-family:var(–mono);font-size:.63rem;letter-spacing:.28em;text-transform:uppercase;color:var(–cyan);margin-bottom:2rem;opacity:0;animation:fadeup .8s .2s forwards}
-.entry-name{font-family:var(–serif);font-size:clamp(5rem,13vw,11rem);line-height:.9;font-weight:400;letter-spacing:-.02em;margin-bottom:.5rem;opacity:0;animation:fadeup .9s .35s forwards}
-.entry-name .line2{font-style:italic;color:var(–violet)}
-.entry-role{font-family:var(–mono);font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(–muted);margin-bottom:2.8rem;opacity:0;animation:fadeup .8s .55s forwards}
-.entry-statement{font-size:1.08rem;line-height:1.88;color:rgba(230,226,244,0.68);max-width:540px;margin:0 auto 3.2rem;font-weight:400;opacity:0;animation:fadeup .8s .7s forwards}
-.entry-statement em{font-family:var(–serif);font-style:italic;color:var(–text)}
-.entry-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeup .8s .9s forwards}
-.btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(–mono);font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:.8rem 1.7rem;border:1px solid;transition:all .25s;cursor:none}
-.btn-primary{background:var(–cyan);color:var(–void);border-color:var(–cyan)}
-.btn-primary:hover{background:transparent;color:var(–cyan)}
-.btn-ghost{background:transparent;color:var(–muted);border-color:var(–border)}
-.btn-ghost:hover{border-color:var(–violet);color:var(–violet)}
-.scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);font-family:var(–mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(–muted);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeup .8s 1.4s forwards}
-.scroll-line{width:1px;height:38px;background:linear-gradient(to bottom,var(–violet),transparent);animation:spulse 2s ease-in-out infinite}
-@keyframes spulse{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
-@keyframes fadeup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-
-/* MARQUEE */
-.marquee-wrap{overflow:hidden;border-top:1px solid var(–border);border-bottom:1px solid var(–border);padding:.85rem 0}
-.marquee-track{display:flex;gap:3rem;animation:marquee 22s linear infinite;width:max-content}
-.marquee-item{font-family:var(–mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(–muted);white-space:nowrap;display:flex;align-items:center;gap:1.4rem}
-.marquee-item::after{content:‘✦’;color:var(–violet);font-size:.48rem}
-@keyframes marquee{to{transform:translateX(-50%)}}
-
-/* SIGNAL */
-#signal{padding:8rem 2rem;position:relative}
-.signal-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
-.section-tag{font-family:var(–mono);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(–cyan);margin-bottom:1.5rem;display:flex;align-items:center;gap:.7rem}
-.section-tag::before{content:’’;width:22px;height:1px;background:var(–cyan)}
-.signal-headline{font-family:var(–serif);font-size:clamp(2.2rem,4vw,3.4rem);line-height:1.1;font-weight:400;margin-bottom:1.8rem}
-.signal-headline em{font-style:italic;color:var(–violet)}
-.signal-body{font-size:.95rem;line-height:1.85;color:rgba(230,226,244,0.65);margin-bottom:1.4rem}
-.thought-card{border:1px solid var(–border);padding:1.4rem 1.6rem;background:var(–surface);position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;opacity:0;transform:translateX(20px)}
-.thought-card.vis{opacity:1;transform:translateX(0);transition:opacity .6s ease,transform .6s ease,border-color .3s,box-shadow .3s}
-.thought-card::before{content:’’;position:absolute;inset:0;background:linear-gradient(135deg,transparent 60%,rgba(124,58,237,0.04));pointer-events:none}
-.thought-card:hover{border-color:rgba(139,92,246,0.35);transform:translateY(-2px);box-shadow:0 8px 32px rgba(139,92,246,0.1)}
-.signal-right{display:flex;flex-direction:column;gap:1rem}
-.thought-num{font-family:var(–mono);font-size:.55rem;letter-spacing:.2em;color:var(–muted);margin-bottom:.45rem}
-.thought-text{font-size:.9rem;line-height:1.72;color:rgba(230,226,244,0.78)}
-.thought-text strong{color:var(–text);font-weight:600}
-
-/* FIELD */
-#field{padding:8rem 2rem;border-top:1px solid var(–border);position:relative;overflow:hidden}
-.field-bg{position:absolute;right:-200px;top:50%;transform:translateY(-50%);width:580px;height:580px;border:1px solid rgba(0,229,255,0.04);border-radius:50%;pointer-events:none}
-.field-bg::before{content:’’;position:absolute;inset:60px;border:1px solid rgba(0,229,255,0.04);border-radius:50%}
-.field-bg::after{content:’’;position:absolute;inset:120px;border:1px solid rgba(0,229,255,0.04);border-radius:50%}
-.field-inner{max-width:1100px;margin:0 auto}
-.field-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4rem;gap:2rem;flex-wrap:wrap}
-.field-title{font-family:var(–serif);font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;font-weight:400}
-.field-title em{font-style:italic;color:var(–amber)}
-.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(–border)}
-.method-cell{background:var(–void);padding:2.4rem 2rem;position:relative;overflow:hidden;transition:background .3s}
-.method-cell:hover{background:var(–surface)}
-.method-cell::after{content:attr(data-num);position:absolute;bottom:-12px;right:1rem;font-family:var(–serif);font-size:5rem;font-style:italic;color:rgba(255,255,255,0.02);pointer-events:none;line-height:1;transition:color .3s}
-.method-cell:hover::after{color:rgba(139,92,246,0.06)}
-.method-icon{font-size:1.05rem;margin-bottom:1rem;display:block}
-.method-title{font-size:.92rem;font-weight:700;margin-bottom:.55rem;color:var(–text)}
-.method-desc{font-size:.8rem;line-height:1.72;color:var(–muted)}
-.method-tag{margin-top:1rem;display:inline-flex;align-items:center;font-family:var(–mono);font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;padding:.22rem .55rem;border:1px solid;border-radius:2px}
-.tag-cyan{color:var(–cyan);border-color:rgba(0,229,255,0.25)}
-.tag-violet{color:var(–violet);border-color:rgba(139,92,246,0.3)}
-.tag-amber{color:var(–amber);border-color:rgba(245,158,11,0.3)}
-.tag-rose{color:var(–rose);border-color:rgba(244,63,94,0.3)}
-.tag-lime{color:var(–lime);border-color:rgba(163,230,53,0.3)}
-
-/* ARTIFACTS */
-#artifacts{padding:8rem 2rem;position:relative}
-.artifacts-inner{max-width:1100px;margin:0 auto}
-.artifacts-header{margin-bottom:5rem}
-.artifacts-subtitle{font-size:.95rem;color:var(–muted);max-width:480px;margin-top:.9rem;line-height:1.75}
-.project-list{display:flex;flex-direction:column;gap:0}
-.project-item{border-top:1px solid var(–border);padding:2.6rem 0;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:start;position:relative;cursor:none;transition:padding-left .3s}
-.project-item:last-child{border-bottom:1px solid var(–border)}
-.project-item::before{content:’’;position:absolute;left:0;top:0;height:1px;width:0;background:linear-gradient(90deg,var(–cyan),var(–violet));transition:width .45s cubic-bezier(.77,0,.18,1)}
-.project-item:hover::before{width:100%}
-.project-item:hover{padding-left:1.4rem}
-.project-meta{font-family:var(–mono);font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);margin-bottom:.65rem;display:flex;gap:1rem}
-.project-name{font-family:var(–serif);font-size:clamp(1.55rem,2.8vw,2.3rem);font-weight:400;line-height:1.1;margin-bottom:.85rem;transition:color .25s}
-.project-item:hover .project-name{color:var(–cyan)}
-.project-desc{font-size:.88rem;line-height:1.78;color:var(–muted);max-width:540px;margin-bottom:1.1rem}
-.project-tags{display:flex;gap:.45rem;flex-wrap:wrap}
-.p-tag{font-family:var(–mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .52rem;border:1px solid var(–border);color:var(–muted);border-radius:2px;transition:all .2s}
-.project-item:hover .p-tag{border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)}
-.project-right{display:flex;flex-direction:column;align-items:flex-end;gap:.65rem;padding-top:.25rem}
-.project-arrow{width:42px;height:42px;border:1px solid var(–border);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0;cursor:none;text-decoration:none}
-.project-item:hover .project-arrow{border-color:var(–cyan);background:rgba(0,229,255,0.07);transform:rotate(-45deg)}
-.project-arrow svg{width:15px;height:15px;stroke:var(–muted);fill:none;stroke-width:1.5;transition:stroke .25s}
-.project-item:hover .project-arrow svg{stroke:var(–cyan)}
-.project-year{font-family:var(–mono);font-size:.58rem;color:var(–muted);letter-spacing:.1em}
-.project-featured{position:relative;background:var(–surface);border:1px solid var(–border);padding:2.6rem;margin-bottom:1px;overflow:hidden;transition:border-color .3s;cursor:none}
-.project-featured::before{content:‘FEATURED’;position:absolute;top:1.3rem;right:1.5rem;font-family:var(–mono);font-size:.54rem;letter-spacing:.25em;text-transform:uppercase;color:var(–amber);background:rgba(245,158,11,0.07);padding:.22rem .55rem;border:1px solid rgba(245,158,11,0.2)}
-.project-featured:hover{border-color:rgba(245,158,11,0.22)}
-.project-featured::after{content:’’;position:absolute;inset:0;background:radial-gradient(ellipse at 0% 100%,rgba(245,158,11,0.025),transparent 60%);pointer-events:none}
-
-/* FREQUENCY */
-#frequency{padding:8rem 2rem;border-top:1px solid var(–border);position:relative;overflow:hidden}
-.freq-bg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:800px;height:800px;pointer-events:none}
-.freq-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(139,92,246,0.06);animation:spin 40s linear infinite}
-.freq-ring:nth-child(1){width:200px;height:200px}
-.freq-ring:nth-child(2){width:380px;height:380px;animation-direction:reverse;animation-duration:55s}
-.freq-ring:nth-child(3){width:560px;height:560px;animation-duration:70s}
-.freq-ring:nth-child(4){width:720px;height:720px;animation-direction:reverse}
-@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-.freq-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;text-align:center}
-.freq-title{font-family:var(–serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:400;margin-bottom:1rem}
-.freq-title em{font-style:italic;color:var(–rose)}
-.freq-lead{font-size:.95rem;color:var(–muted);line-height:1.82;max-width:500px;margin:0 auto 4rem}
-.questions-orbit{display:flex;flex-direction:column;gap:1px;text-align:left}
-.q-item{padding:1.55rem 2rem;border:1px solid transparent;position:relative;transition:all .3s;opacity:0;transform:translateY(10px);cursor:none}
-.q-item.vis{opacity:1;transform:translateY(0)}
-.q-item:hover{border-color:var(–border);background:var(–surface)}
-.q-item::before{content:attr(data-index);font-family:var(–mono);font-size:.56rem;letter-spacing:.2em;color:var(–muted);position:absolute;left:2rem;top:1.55rem}
-.q-text{font-family:var(–serif);font-size:1.3rem;font-style:italic;padding-left:3rem;color:rgba(230,226,244,0.82);line-height:1.45}
-.q-item:hover .q-text{color:var(–text)}
-.q-domain{font-family:var(–mono);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding-left:3rem;margin-top:.4rem;color:var(–muted);transition:color .3s}
-.q-item:nth-child(1):hover .q-domain{color:var(–cyan)}
-.q-item:nth-child(2):hover .q-domain{color:var(–violet)}
-.q-item:nth-child(3):hover .q-domain{color:var(–rose)}
-.q-item:nth-child(4):hover .q-domain{color:var(–amber)}
-.q-item:nth-child(5):hover .q-domain{color:var(–lime)}
-
-/* COORDINATES */
-#coordinates{padding:8rem 2rem;border-top:1px solid var(–border)}
-.coord-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.coord-label{font-family:var(–mono);font-size:.56rem;letter-spacing:.25em;text-transform:uppercase;color:var(–muted);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
-.coord-label::before{content:’’;width:6px;height:6px;border-radius:50%;background:var(–lime);box-shadow:0 0 8px var(–lime);flex-shrink:0}
-.coord-headline{font-family:var(–serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;line-height:1.15;margin-bottom:1rem}
-.coord-headline em{font-style:italic;color:var(–lime)}
-.coord-body{font-size:.88rem;line-height:1.82;color:var(–muted)}
-.coord-body strong{color:var(–text);font-weight:600}
-.coord-now{margin-bottom:3rem}
-.stat-stack{display:flex;flex-direction:column;gap:0}
-.stat-row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:1.35rem 0;border-bottom:1px solid var(–border)}
-.stat-row:first-child{border-top:1px solid var(–border)}
-.stat-name{font-size:.86rem;color:var(–muted)}
-.stat-name strong{color:var(–text);display:block;margin-bottom:.12rem;font-size:.92rem}
-.stat-val{font-family:var(–mono);font-size:.68rem;letter-spacing:.1em;padding:.28rem .65rem;border:1px solid var(–border);color:var(–muted);white-space:nowrap}
-.coord-horizon{margin-top:3rem;padding:2rem;border:1px solid var(–faint);background:var(–surface);position:relative;overflow:hidden}
-.coord-horizon::before{content:‘→ TRAJECTORY’;position:absolute;top:1rem;right:1.2rem;font-family:var(–mono);font-size:.54rem;letter-spacing:.2em;color:var(–muted)}
-.horizon-items{display:flex;flex-direction:column;gap:.65rem;margin-top:.4rem}
-.horizon-item{display:flex;align-items:baseline;gap:.8rem;font-size:.86rem}
-.horizon-item::before{content:’’;width:4px;height:4px;border-radius:50%;background:var(–violet);flex-shrink:0;margin-top:.3rem}
-.horizon-item span{color:var(–muted);line-height:1.55}
-.horizon-item span strong{color:var(–text);font-weight:600}
-
-/* OPEN */
-#open{padding:8rem 2rem;border-top:1px solid var(–border);position:relative;overflow:hidden}
-.open-bg{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:700px;height:350px;background:radial-gradient(ellipse at bottom,rgba(139,92,246,0.07),transparent 70%);pointer-events:none}
-.open-inner{max-width:800px;margin:0 auto;text-align:center;position:relative;z-index:1}
-.open-eyebrow{font-family:var(–mono);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(–violet);margin-bottom:2rem}
-.open-title{font-family:var(–serif);font-size:clamp(2.8rem,6vw,5.5rem);font-weight:400;line-height:1.05;margin-bottom:1.5rem}
-.open-title em{font-style:italic;color:var(–violet)}
-.open-sub{font-size:.95rem;color:var(–muted);line-height:1.82;max-width:480px;margin:0 auto 3.2rem}
-.open-email{display:inline-flex;align-items:center;gap:.8rem;font-family:var(–mono);font-size:.78rem;letter-spacing:.15em;color:var(–cyan);text-decoration:none;border-bottom:1px solid rgba(0,229,255,0.22);padding-bottom:3px;transition:all .25s;margin-bottom:2.8rem;cursor:none}
-.open-email:hover{color:var(–text);border-color:var(–text)}
-.open-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
-.open-link{font-family:var(–mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);text-decoration:none;transition:color .2s;cursor:none}
-.open-link:hover{color:var(–text)}
-footer{border-top:1px solid var(–border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:1rem}
-.footer-sig{font-family:var(–mono);font-size:.57rem;letter-spacing:.15em;color:var(–muted)}
-.footer-sig span{color:var(–cyan)}
-.footer-built{font-family:var(–mono);font-size:.57rem;letter-spacing:.12em;color:var(–muted)}
-.footer-built em{font-style:normal;color:var(–violet)}
-
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
-.reveal.vis{opacity:1;transform:translateY(0)}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-nav{padding:1rem 1.4rem}
-.nav-links{display:none}
-.signal-inner,.coord-inner{grid-template-columns:1fr;gap:3rem}
-.method-grid{grid-template-columns:1fr}
-.project-item{grid-template-columns:1fr}
-footer{flex-direction:column;align-items:flex-start}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 18% 8%,rgba(99,230,190,.14),transparent 30rem),
+    radial-gradient(circle at 86% 14%,rgba(141,183,255,.11),transparent 28rem),
+    linear-gradient(180deg,#05070a 0%,#071015 42%,#05070a 100%);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  overflow-x:hidden;
 }
-::selection{background:rgba(139,92,246,0.3);color:var(–text)}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.4;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:linear-gradient(to bottom,black 0%,transparent 78%);
+}
+a{color:inherit}
+button,a{ -webkit-tap-highlight-color:transparent }
+.system-canvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  pointer-events:none;
+  opacity:.72;
+}
+.page{
+  position:relative;
+  z-index:2;
+}
+.nav{
+  position:fixed;
+  inset:0 0 auto 0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding:18px clamp(18px,4vw,54px);
+  border-bottom:1px solid transparent;
+  transition:background .25s ease,border-color .25s ease;
+}
+.nav.is-scrolled{
+  background:rgba(5,7,10,.8);
+  border-color:rgba(99,230,190,.13);
+  backdrop-filter:blur(18px);
+}
+.mark{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+.mark-sigil{
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(99,230,190,.55);
+  background:rgba(99,230,190,.08);
+  color:var(--green);
+  font-family:"DM Mono",monospace;
+  font-size:.78rem;
+  box-shadow:0 0 26px rgba(99,230,190,.12);
+}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  font-family:"DM Mono",monospace;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+}
+.nav-links a{
+  text-decoration:none;
+  transition:color .2s ease;
+}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{
+  padding:9px 12px;
+  border:1px solid rgba(99,230,190,.45);
+  background:rgba(99,230,190,.08);
+  color:var(--green);
+}
+.hero{
+  min-height:100svh;
+  display:grid;
+  grid-template-columns:minmax(0,1.06fr) minmax(340px,.94fr);
+  align-items:center;
+  gap:clamp(34px,6vw,80px);
+  padding:128px clamp(18px,5vw,72px) 80px;
+}
+.eyebrow,.mono{
+  font-family:"DM Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:.72rem;
+  color:var(--green);
+}
+.availability{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px;
+  border:1px solid rgba(99,230,190,.22);
+  background:rgba(5,7,10,.52);
+  color:var(--muted);
+}
+.pulse{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 0 0 rgba(99,230,190,.72);
+  animation:pulse 2.6s infinite;
+}
+h1{
+  max-width:980px;
+  margin-top:24px;
+  font-size:clamp(3rem,7.9vw,8.45rem);
+  line-height:.89;
+  letter-spacing:0;
+  font-weight:800;
+}
+.text-glow{
+  color:var(--green);
+  text-shadow:0 0 34px rgba(99,230,190,.18);
+}
+.mobile-only{display:none}
+.hero-copy{
+  max-width:720px;
+  margin-top:28px;
+  color:#bfcbca;
+  font-size:clamp(1.03rem,1.6vw,1.27rem);
+  line-height:1.65;
+}
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:32px;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:12px 17px;
+  border:1px solid var(--line-strong);
+  background:rgba(13,18,24,.74);
+  color:var(--text);
+  text-decoration:none;
+  font-family:"DM Mono",monospace;
+  font-size:.78rem;
+  letter-spacing:.04em;
+  transition:transform .2s ease,border-color .2s ease,background .2s ease,color .2s ease;
+}
+.btn:hover{
+  transform:translateY(-2px);
+  border-color:var(--green);
+  color:var(--green);
+}
+.btn.primary{
+  background:var(--green);
+  border-color:var(--green);
+  color:var(--ink);
+  font-weight:700;
+}
+.btn.primary:hover{
+  background:#8ff1d2;
+  color:var(--ink);
+}
+.hero-proof{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-top:38px;
+  max-width:760px;
+}
+.proof{
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(8,13,18,.7);
+  padding:13px;
+}
+.proof strong{
+  display:block;
+  color:var(--text);
+  font-size:.95rem;
+  margin-bottom:5px;
+}
+.proof span{
+  display:block;
+  color:var(--muted);
+  font-size:.78rem;
+  line-height:1.35;
+}
+.orchestration{
+  position:relative;
+  min-height:560px;
+  border:1px solid rgba(255,255,255,.12);
+  background:
+    linear-gradient(180deg,rgba(17,24,33,.88),rgba(7,12,16,.92)),
+    radial-gradient(circle at 50% 20%,rgba(99,230,190,.14),transparent 20rem);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.orchestration::before{
+  content:"";
+  position:absolute;
+  inset:16px;
+  border:1px solid rgba(99,230,190,.1);
+  pointer-events:none;
+}
+.orbit-label{
+  position:absolute;
+  top:18px;
+  left:18px;
+  right:18px;
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  color:var(--soft);
+  font-family:"DM Mono",monospace;
+  font-size:.65rem;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.system-map{
+  position:absolute;
+  inset:74px 34px 104px;
+}
+.wire{
+  position:absolute;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(99,230,190,.7),rgba(141,183,255,.55),transparent);
+  transform-origin:left center;
+  opacity:.7;
+}
+.wire.w1{width:44%;left:14%;top:28%;transform:rotate(18deg)}
+.wire.w2{width:40%;left:42%;top:35%;transform:rotate(-24deg)}
+.wire.w3{width:46%;left:21%;top:62%;transform:rotate(-7deg)}
+.wire.w4{width:34%;left:51%;top:67%;transform:rotate(17deg)}
+.packet{
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 22px var(--green);
+  animation:packet 4.6s linear infinite;
+}
+.packet.p1{left:20%;top:32%;animation-delay:0s}
+.packet.p2{left:54%;top:38%;animation-delay:1.2s;background:var(--blue);box-shadow:0 0 22px var(--blue)}
+.packet.p3{left:29%;top:63%;animation-delay:2.1s;background:var(--amber);box-shadow:0 0 22px var(--amber)}
+.node{
+  position:absolute;
+  width:126px;
+  min-height:86px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(8,13,18,.84);
+  backdrop-filter:blur(12px);
+  box-shadow:0 14px 40px rgba(0,0,0,.22);
+}
+.node::after{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 18px var(--green);
+}
+.node span{
+  color:var(--muted);
+  font-family:"DM Mono",monospace;
+  font-size:.61rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.node strong{
+  font-size:.9rem;
+  line-height:1.15;
+}
+.node.n1{left:2%;top:8%}
+.node.n2{right:2%;top:17%}
+.node.n3{left:24%;bottom:6%}
+.node.n4{right:20%;bottom:0}
+.node.n5{left:39%;top:35%;border-color:rgba(99,230,190,.45);box-shadow:0 0 52px rgba(99,230,190,.1)}
+.decision{
+  position:absolute;
+  left:22px;
+  right:22px;
+  bottom:22px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.state{
+  padding:10px 11px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(5,7,10,.55);
+}
+.state b{
+  display:block;
+  margin-bottom:5px;
+  font-family:"DM Mono",monospace;
+  font-size:.68rem;
+  letter-spacing:.08em;
+}
+.state span{
+  display:block;
+  color:var(--muted);
+  font-size:.72rem;
+  line-height:1.35;
+}
+.state.ok b{color:var(--green)}
+.state.watch b{color:var(--amber)}
+.state.exception b{color:var(--rose)}
+section{
+  padding:110px clamp(18px,5vw,72px);
+}
+.section-inner{
+  max-width:1180px;
+  margin:0 auto;
+}
+.section-head{
+  display:grid;
+  grid-template-columns:minmax(0,.78fr) minmax(280px,.52fr);
+  gap:34px;
+  align-items:end;
+  margin-bottom:34px;
+}
+.section-title{
+  margin-top:14px;
+  font-size:clamp(2rem,4.5vw,4rem);
+  line-height:.98;
+  letter-spacing:0;
+}
+.section-kicker{
+  color:var(--muted);
+  line-height:1.65;
+}
+.band{
+  border-top:1px solid rgba(255,255,255,.09);
+  border-bottom:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(180deg,rgba(13,18,24,.62),rgba(7,12,16,.72));
+}
+.profile-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(300px,.42fr);
+  gap:18px;
+}
+.copy-panel,.stack-panel,.experience-panel,.project-card,.contact-panel{
+  border:1px solid rgba(255,255,255,.11);
+  background:rgba(13,18,24,.78);
+}
+.copy-panel{
+  padding:clamp(24px,4vw,42px);
+}
+.copy-panel p{
+  color:#c7d2d0;
+  font-size:1.02rem;
+  line-height:1.78;
+  margin-top:18px;
+}
+.copy-panel p:first-child{margin-top:0}
+.copy-panel strong{color:var(--text);font-weight:700}
+.principles{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:28px;
+}
+.principle{
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(5,7,10,.38);
+  padding:16px;
+}
+.principle b{
+  display:block;
+  margin-bottom:8px;
+  color:var(--green);
+  font-family:"DM Mono",monospace;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.principle span{
+  color:var(--muted);
+  font-size:.86rem;
+  line-height:1.48;
+}
+.stack-panel{
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:22px;
+}
+.stack-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  min-height:30px;
+  padding:7px 9px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(5,7,10,.42);
+  color:#c7d2d0;
+  font-family:"DM Mono",monospace;
+  font-size:.68rem;
+  letter-spacing:.03em;
+}
+.tag.live{color:var(--green);border-color:rgba(99,230,190,.34)}
+.learning{
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.learning h3,.stack-panel h3{
+  margin-bottom:12px;
+  font-size:1rem;
+}
+.learning p{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:.93rem;
+}
+.experience-panel{
+  display:grid;
+  grid-template-columns:260px minmax(0,1fr);
+  gap:0;
+}
+.experience-side{
+  padding:28px;
+  border-right:1px solid rgba(255,255,255,.1);
+  background:
+    linear-gradient(180deg,rgba(99,230,190,.1),transparent),
+    rgba(5,7,10,.32);
+}
+.experience-side h3{
+  font-size:1.55rem;
+  line-height:1.05;
+  margin-bottom:16px;
+}
+.experience-side p{
+  color:var(--muted);
+  line-height:1.58;
+}
+.experience-main{
+  padding:28px;
+}
+.ops-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.ops-item{
+  padding:16px;
+  min-height:132px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(5,7,10,.36);
+}
+.ops-item b{
+  display:block;
+  color:var(--text);
+  margin-bottom:10px;
+}
+.ops-item span{
+  display:block;
+  color:var(--muted);
+  line-height:1.5;
+  font-size:.9rem;
+}
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.project-card{
+  position:relative;
+  min-height:355px;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  transition:transform .24s ease,border-color .24s ease,background .24s ease;
+}
+.project-card::before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto 0;
+  height:3px;
+  background:linear-gradient(90deg,var(--green),var(--blue),transparent);
+  opacity:.78;
+}
+.project-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(99,230,190,.38);
+  background:rgba(17,24,33,.86);
+}
+.project-top{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:22px;
+}
+.project-name{
+  font-size:1.32rem;
+  font-weight:800;
+  letter-spacing:0;
+}
+.project-kind{
+  flex:0 0 auto;
+  color:var(--green);
+  font-family:"DM Mono",monospace;
+  font-size:.66rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.project-card p{
+  color:#bfcbca;
+  line-height:1.64;
+  font-size:.96rem;
+}
+.case-flow{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:22px 0;
+}
+.case-step{
+  position:relative;
+  padding:12px 10px;
+  min-height:66px;
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(5,7,10,.42);
+}
+.case-step b{
+  display:block;
+  margin-bottom:5px;
+  color:var(--text);
+  font-size:.83rem;
+}
+.case-step span{
+  display:block;
+  color:var(--soft);
+  font-family:"DM Mono",monospace;
+  font-size:.62rem;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.project-links{
+  margin-top:auto;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.small-link{
+  color:var(--muted);
+  font-family:"DM Mono",monospace;
+  font-size:.73rem;
+  text-decoration:none;
+  border-bottom:1px solid rgba(99,230,190,.36);
+  padding-bottom:3px;
+}
+.small-link:hover{color:var(--green)}
+.matrix{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.matrix-card{
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(13,18,24,.74);
+  padding:22px;
+}
+.matrix-card h3{
+  margin-bottom:14px;
+  color:var(--green);
+  font-size:1.05rem;
+}
+.matrix-card p{
+  color:var(--muted);
+  line-height:1.62;
+}
+.fit-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.fit{
+  min-height:150px;
+  padding:18px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(5,7,10,.36);
+}
+.fit b{
+  display:block;
+  margin-bottom:12px;
+  color:var(--text);
+}
+.fit span{
+  display:block;
+  color:var(--muted);
+  line-height:1.52;
+  font-size:.9rem;
+}
+.contact-panel{
+  position:relative;
+  overflow:hidden;
+  padding:clamp(26px,5vw,54px);
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:28px;
+  align-items:end;
+}
+.contact-panel::before{
+  content:"";
+  position:absolute;
+  inset:auto -20% -45% 42%;
+  height:280px;
+  background:radial-gradient(circle,rgba(99,230,190,.18),transparent 68%);
+  pointer-events:none;
+}
+.contact-panel h2{
+  position:relative;
+  font-size:clamp(2rem,5vw,4.5rem);
+  line-height:.96;
+  letter-spacing:0;
+  max-width:780px;
+}
+.contact-panel p{
+  position:relative;
+  margin-top:20px;
+  max-width:650px;
+  color:var(--muted);
+  line-height:1.65;
+}
+.contact-actions{
+  position:relative;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:10px;
+}
+footer{
+  position:relative;
+  z-index:2;
+  padding:26px clamp(18px,5vw,72px);
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  border-top:1px solid rgba(255,255,255,.09);
+  color:var(--soft);
+  font-family:"DM Mono",monospace;
+  font-size:.68rem;
+  letter-spacing:.04em;
+}
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .62s ease,transform .62s ease;
+}
+.reveal.in{
+  opacity:1;
+  transform:none;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(99,230,190,.68)}
+  70%{box-shadow:0 0 0 12px rgba(99,230,190,0)}
+  100%{box-shadow:0 0 0 0 rgba(99,230,190,0)}
+}
+@keyframes packet{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  12%{opacity:1}
+  50%{transform:translate3d(120px,-34px,0)}
+  86%{opacity:1}
+  100%{transform:translate3d(230px,14px,0);opacity:0}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+  .system-canvas{display:none}
+}
+@media (max-width:1040px){
+  .hero{
+    grid-template-columns:1fr;
+    padding-top:112px;
+  }
+  .orchestration{min-height:520px}
+  .section-head,.profile-grid,.experience-panel,.contact-panel{
+    grid-template-columns:1fr;
+  }
+  .experience-side{border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}
+  .contact-actions{justify-content:flex-start}
+  .matrix,.fit-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:760px){
+  .nav{padding:14px 16px}
+  .nav-links a:not(.nav-cta){display:none}
+  .nav-links{gap:0}
+  .hero{padding:96px 16px 58px}
+  .hero > *{
+    min-width:0;
+    max-width:100%;
+  }
+  .hero > div:first-child,
+  .orchestration{
+    width:calc(100vw - 32px);
+    max-width:calc(100vw - 32px);
+  }
+  .availability{
+    width:100%;
+    align-items:flex-start;
+    white-space:normal;
+    line-height:1.45;
+    letter-spacing:.09em;
+    overflow-wrap:anywhere;
+  }
+  h1{
+    font-size:clamp(2.35rem,11vw,2.8rem);
+    line-height:.96;
+    overflow-wrap:break-word;
+  }
+  .text-glow{
+    display:block;
+  }
+  .mobile-only{display:block}
+  .hero-copy{
+    max-width:100%;
+    font-size:1rem;
+    line-height:1.55;
+    overflow-wrap:break-word;
+  }
+  .hero-proof,.principles,.ops-list,.projects-grid,.matrix,.fit-grid{
+    grid-template-columns:1fr;
+  }
+  .orchestration{
+    min-height:620px;
+  }
+  .system-map{inset:72px 18px 128px}
+  .wire,.packet{display:none}
+  .node{
+    position:relative;
+    inset:auto!important;
+    width:auto;
+    min-height:72px;
+    margin-bottom:10px;
+  }
+  .decision{
+    grid-template-columns:1fr;
+  }
+  section{padding:72px 16px}
+  .project-top{
+    flex-direction:column;
+    gap:8px;
+  }
+  .case-flow{
+    grid-template-columns:1fr;
+  }
+  footer{
+    flex-direction:column;
+  }
+}
 </style>
-
 </head>
 <body>
-
-<div id="cur"></div>
-<div id="cur-r"></div>
-
-<nav id="nav">
-  <a href="#entry" class="nav-logo">ZAY</a>
-  <ul class="nav-links">
-    <li><a href="#signal">Thinking</a></li>
-    <li><a href="#field">Process</a></li>
-    <li><a href="#artifacts">Work</a></li>
-    <li><a href="#frequency">Questions</a></li>
-    <li><a href="#open">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- ══ ENTRY ══ -->
-
-<section id="entry">
-  <div class="entry-bg">
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
-  </div>
-  <div class="entry-inner">
-    <div class="entry-eyebrow">LLM Systems · Automation · Universität Duisburg-Essen · Year 1 Done</div>
-    <h1 class="entry-name">
-      Zay<br><span class="line2">builds,<br>ships.</span>
-    </h1>
-    <div class="entry-role">NLP &nbsp;·&nbsp; LLM Systems &nbsp;·&nbsp; Local-First Builder</div>
-    <p class="entry-statement">
-      End of year one at university. <em>Working at an NLP company.</em><br>
-      Building local-first tools where language models do structured work —<br>
-      desktop apps that actually run, store, and process something useful.
-    </p>
-    <div class="entry-cta">
-      <a href="#artifacts" class="btn btn-primary">See the work ↓</a>
-      <a href="#signal" class="btn btn-ghost">How I think →</a>
+<canvas class="system-canvas" id="systemCanvas" aria-hidden="true"></canvas>
+<div class="page">
+  <nav class="nav" id="nav">
+    <a class="mark" href="#top" aria-label="Zara Selim home">
+      <span class="mark-sigil">ZS</span>
+      <span>Zara Selim</span>
+    </a>
+    <div class="nav-links" aria-label="Primary navigation">
+      <a href="#work">Work</a>
+      <a href="#systems">Systems</a>
+      <a href="#projects">Projects</a>
+      <a href="#fit">Fit</a>
+      <a class="nav-cta" href="mailto:zaraselim04@gmail.com">Contact</a>
     </div>
-  </div>
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
+  </nav>
 
-<!-- ══ MARQUEE ══ -->
-
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span class="marquee-item">LLM Systems</span>
-    <span class="marquee-item">Automation</span>
-    <span class="marquee-item">Local-First Tools</span>
-    <span class="marquee-item">Tauri + Rust</span>
-    <span class="marquee-item">Workflow Design</span>
-    <span class="marquee-item">Applied NLP</span>
-    <span class="marquee-item">Structured AI Output</span>
-    <span class="marquee-item">Desktop Products</span>
-    <span class="marquee-item">SQLite Pipelines</span>
-    <span class="marquee-item">API Integration</span>
-    <span class="marquee-item">LLM Systems</span>
-    <span class="marquee-item">Automation</span>
-    <span class="marquee-item">Local-First Tools</span>
-    <span class="marquee-item">Tauri + Rust</span>
-    <span class="marquee-item">Workflow Design</span>
-    <span class="marquee-item">Applied NLP</span>
-    <span class="marquee-item">Structured AI Output</span>
-    <span class="marquee-item">Desktop Products</span>
-    <span class="marquee-item">SQLite Pipelines</span>
-    <span class="marquee-item">API Integration</span>
-  </div>
-</div>
-
-<!-- ══ SIGNAL — Who I am ══ -->
-
-<section id="signal">
-  <div class="signal-inner">
-    <div class="signal-left">
-      <div class="section-tag reveal">Signal</div>
-      <h2 class="signal-headline reveal">I build tools<br>that do<br><em>real work.</em></h2>
-      <p class="signal-body reveal">
-        The pattern I keep coming back to: messy input → structured AI processing →
-        <em>persistent, useful output.</em> Not a chatbot wrapper, not a demo —
-        tools that actually transform and organize things. Local storage, real UI, structured LLM calls.
-      </p>
-    </div>
-    <div class="signal-right">
-      <div class="thought-card">
-        <div class="thought-num">Currently building</div>
-        <div class="thought-text">A local study OS — PDFs in, <strong>structured study cards and quizzes out</strong>. All stored on your machine. Electron + React + OpenAI.</div>
-      </div>
-      <div class="thought-card">
-        <div class="thought-num">What keeps pulling me</div>
-        <div class="thought-text">Making AI output <strong>actually persistent and queryable</strong> — not just a response in a chat window, but something stored in SQLite you can actually use.</div>
-      </div>
-      <div class="thought-card">
-        <div class="thought-num">Current stack obsession</div>
-        <div class="thought-text">Tauri + Rust backends for desktop apps. <strong>Local-first by default</strong> — your data on your machine, not someone's server.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FIELD NOTES — How I work ══ -->
-
-<section id="field">
-  <div class="field-bg"></div>
-  <div class="field-inner">
-    <div class="field-header">
+  <main id="top">
+    <section class="hero">
       <div>
-        <div class="section-tag reveal">Field Notes</div>
-        <h2 class="field-title reveal">How I<br>actually <em>work</em></h2>
-      </div>
-      <p class="reveal" style="max-width:310px;font-size:.88rem;line-height:1.78;color:var(--muted)">
-        First-year student. Up to date tools. Real outputs. 
-      </p>
-    </div>
-    <div class="method-grid reveal" style="grid-template-columns:repeat(3,1fr)">
-      <div class="method-cell" data-num="1">
-        <span class="method-icon">◎</span>
-        <div class="method-title">Problem first, always</div>
-        <div class="method-desc">Every project starts from something that genuinely bothered me. If I can't feel the friction myself, I probably can't fix it well.</div>
-        <span class="method-tag tag-cyan">Intuition-driven</span>
-      </div>
-      <div class="method-cell" data-num="2">
-        <span class="method-icon">⌬</span>
-        <div class="method-title">AI is my build infrastructure</div>
-        <div class="method-desc">I use Claude and Cursor to close the gap between an idea and a working thing. The thinking is mine. The velocity is shared.</div>
-        <span class="method-tag tag-violet">AI-Augmented</span>
-      </div>
-      <div class="method-cell" data-num="3">
-        <span class="method-icon">◈</span>
-        <div class="method-title">I ask the uncomfortable question</div>
-        <div class="method-desc">Should this exist? What does the person lose when this friction disappears? I build things — but I'm suspicious of building for its own sake.</div>
-        <span class="method-tag tag-rose">Ethics-aware</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ ARTIFACTS — Projects ══ -->
-
-<section id="artifacts">
-  <div class="artifacts-inner">
-    <div class="artifacts-header">
-      <div class="section-tag reveal">Artifacts</div>
-      <h2 class="reveal" style="font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1.1">Things I've made<br><em style="font-style:italic;color:var(--cyan)">real</em></h2>
-      <p class="artifacts-subtitle reveal">Not polished demos. Not tutorial projects. Real tools I built because they needed to exist — each one a version of a question I was trying to answer by building.</p>
-    </div>
-
-```
-<div class="project-list">
-
-  <!-- FEATURED 1: AI Support Operations Console -->
-  <div class="project-featured reveal">
-    <div class="project-meta">
-      <span>React</span><span>·</span><span>Electron</span><span>·</span><span>HubSpot CRM</span>
-    </div>
-    <div style="font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;line-height:1.1;margin-bottom:.85rem">
-      AI Support Operations Console
-    </div>
-    <p style="font-size:.9rem;line-height:1.8;color:var(--muted);max-width:620px;margin-bottom:.9rem">
-      Support teams still read every message manually and decide what to do with it. It's the
-      kind of work that drains people fast and doesn't really need a human at the front. So I
-      built a console that takes incoming messages, classifies them with an LLM, assigns urgency,
-      calculates SLA deadlines, and creates structured tickets directly in HubSpot — with a
-      rule-based fallback when the model isn't confident. Local-first, real CRM connected, not
-      a demo.
-    </p>
-    <p style="font-size:.85rem;line-height:1.75;color:var(--muted);max-width:620px;margin-bottom:1.4rem;font-style:italic;border-left:2px solid rgba(245,158,11,0.35);padding-left:1rem">
-      The first project where I felt the shape of real internal tooling. AI handles the routine,
-      humans only see the edge cases. That ratio is what good automation looks like.
-    </p>
-    <div style="display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.5rem">
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">React</span>
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">Express</span>
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">Electron</span>
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">OpenAI</span>
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">HubSpot CRM</span>
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">SLA logic</span>
-    </div>
-    <a href="https://github.com/zayzyyazy/AI-Support-panel" target="_blank" rel="noopener"
-       style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);text-decoration:none;border-bottom:1px solid rgba(245,158,11,0.28);padding-bottom:2px;transition:all .2s;cursor:none">
-      View on GitHub ↗
-    </a>
-  </div>
-
-  <!-- FEATURED 2: Job Pipeline -->
-  <div class="project-featured reveal" style="margin-top:1px;border-top:none">
-    <div style="position:absolute;top:1.3rem;right:1.5rem;font-family:var(--mono);font-size:.54rem;letter-spacing:.25em;text-transform:uppercase;color:var(--violet);background:rgba(139,92,246,0.07);padding:.22rem .55rem;border:1px solid rgba(139,92,246,0.2)">FEATURED</div>
-    <div class="project-meta">
-      <span>Python</span><span>·</span><span>Gmail API</span><span>·</span><span>Local-First</span>
-    </div>
-    <div style="font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;line-height:1.1;margin-bottom:.85rem">
-      Job Pipeline
-    </div>
-    <p style="font-size:.9rem;line-height:1.8;color:var(--muted);max-width:620px;margin-bottom:.9rem">
-      Job alerts come in scattered across email, the actual description is buried in snippets,
-      and researching each one by hand takes forever. I built a local-first pipeline that pulls
-      Gmail alerts via OAuth, extracts structured leads with heuristics plus an AI fallback for
-      messy formats, optionally finds the original posting on the open web, and runs analysis
-      for skills, fit, and source quality. Everything stored locally in SQLite with a Saved /
-      Applied / Ignored decision dashboard.
-    </p>
-    <p style="font-size:.85rem;line-height:1.75;color:var(--muted);max-width:620px;margin-bottom:1.4rem;font-style:italic;border-left:2px solid rgba(139,92,246,0.35);padding-left:1rem">
-      Built it while actively job-searching. The friction was immediate and personal —
-      which is exactly when you build the best tools.
-    </p>
-    <div style="display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.5rem">
-      <span class="p-tag" style="border-color:rgba(139,92,246,0.25);color:rgba(139,92,246,0.75)">Python</span>
-      <span class="p-tag" style="border-color:rgba(139,92,246,0.25);color:rgba(139,92,246,0.75)">Flask</span>
-      <span class="p-tag" style="border-color:rgba(139,92,246,0.25);color:rgba(139,92,246,0.75)">SQLite</span>
-      <span class="p-tag" style="border-color:rgba(139,92,246,0.25);color:rgba(139,92,246,0.75)">Gmail API</span>
-      <span class="p-tag" style="border-color:rgba(139,92,246,0.25);color:rgba(139,92,246,0.75)">OAuth</span>
-      <span class="p-tag" style="border-color:rgba(139,92,246,0.25);color:rgba(139,92,246,0.75)">OpenAI</span>
-    </div>
-    <a href="https://github.com/zayzyyazy/job-pipeline" target="_blank" rel="noopener"
-       style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(139,92,246,0.3);padding-bottom:2px;transition:all .2s;cursor:none">
-      View on GitHub ↗
-    </a>
-  </div>
-
-  <!-- FEATURED 3: Project Explainer -->
-  <div class="project-featured reveal" style="margin-top:1px;border-top:none">
-    <div style="position:absolute;top:1.3rem;right:1.5rem;font-family:var(--mono);font-size:.54rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cyan);background:rgba(0,229,255,0.07);padding:.22rem .55rem;border:1px solid rgba(0,229,255,0.2)">FEATURED</div>
-    <div class="project-meta">
-      <span>Tauri</span><span>·</span><span>Rust</span><span>·</span><span>Claude API</span>
-    </div>
-    <div style="font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;line-height:1.1;margin-bottom:.85rem">
-      Project Explainer
-    </div>
-    <p style="font-size:.9rem;line-height:1.8;color:var(--muted);max-width:620px;margin-bottom:.9rem">
-      Every time I opened an unfamiliar codebase I wasted time just figuring out what it was.
-      So I built a desktop app that imports any local project folder, scans it with sensible
-      ignore rules, sends a capped snapshot to the Claude API, and stores a structured
-      explanation in a personal SQLite library. Built local-first so nothing leaves your
-      machine except the API call itself — and I had to learn how to keep LLM inputs
-      properly bounded for the system to stay reliable.
-    </p>
-    <p style="font-size:.85rem;line-height:1.75;color:var(--muted);max-width:620px;margin-bottom:1.4rem;font-style:italic;border-left:2px solid rgba(0,229,255,0.35);padding-left:1rem">
-      The project where I got serious about Rust and the constraints of working with LLMs.
-      Token caps and validated outputs aren't a detail — they're the whole game.
-    </p>
-    <div style="display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.5rem">
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">Rust</span>
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">TypeScript</span>
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">React</span>
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">Tauri</span>
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">SQLite</span>
-      <span class="p-tag" style="border-color:rgba(0,229,255,0.2);color:rgba(0,229,255,0.65)">Claude API</span>
-    </div>
-    <a href="https://github.com/zayzyyazy/project-explainer" target="_blank" rel="noopener"
-       style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(0,229,255,0.28);padding-bottom:2px;transition:all .2s;cursor:none">
-      View on GitHub ↗
-    </a>
-  </div>
-
-  <!-- COMPACT: other projects -->
-  <div style="border-top:1px solid var(--border);padding-top:2.5rem;margin-top:2.5rem" class="reveal">
-    <div class="section-tag" style="margin-bottom:1.8rem">Also Built</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)">
-      <div style="background:var(--void);padding:1.6rem;transition:background .25s" onmouseenter="this.style.background='var(--surface)'" onmouseleave="this.style.background='var(--void)'">
-        <div style="font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem">Python</div>
-        <div style="font-size:.97rem;font-weight:600;margin-bottom:.4rem">Activity Intelligence</div>
-        <div style="font-size:.8rem;color:var(--muted);line-height:1.65">Personal decision engine — context in, one concrete next action out. Tauri + Rust + React + ActivityWatch.</div>
-        <a href="https://github.com/zayzyyazy/activity-intelligence" target="_blank" rel="noopener" style="display:inline-flex;margin-top:.9rem;font-family:var(--mono);font-size:.57rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;cursor:none" onmouseenter="this.style.color='var(--cyan)'" onmouseleave="this.style.color='var(--muted)'">GitHub ↗</a>
-      </div>
-      <div style="background:var(--void);padding:1.6rem;transition:background .25s" onmouseenter="this.style.background='var(--surface)'" onmouseleave="this.style.background='var(--void)'">
-        <div style="font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem">Python · FastAPI</div>
-        <div style="font-size:.97rem;font-weight:600;margin-bottom:.4rem">Study Workflow</div>
-        <div style="font-size:.8rem;color:var(--muted);line-height:1.65">Local study-material OS that turns lecture files into glossaries, worked examples, and revision packs.</div>
-        <a href="https://github.com/zayzyyazy/study-workflow" target="_blank" rel="noopener" style="display:inline-flex;margin-top:.9rem;font-family:var(--mono);font-size:.57rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;cursor:none" onmouseenter="this.style.color='var(--cyan)'" onmouseleave="this.style.color='var(--muted)'">GitHub ↗</a>
-      </div>
-      <div style="background:var(--void);padding:1.6rem;transition:background .25s" onmouseenter="this.style.background='var(--surface)'" onmouseleave="this.style.background='var(--void)'">
-        <div style="font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem">Python</div>
-        <div style="font-size:.97rem;font-weight:600;margin-bottom:.4rem">AI Paper Analyzer</div>
-        <div style="font-size:.8rem;color:var(--muted);line-height:1.65">Goes beyond summaries — extracts main argument, supporting logic, and weaknesses in reasoning.</div>
-        <a href="https://github.com/zayzyyazy/ai-paper-analyzer" target="_blank" rel="noopener" style="display:inline-flex;margin-top:.9rem;font-family:var(--mono);font-size:.57rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;cursor:none" onmouseenter="this.style.color='var(--cyan)'" onmouseleave="this.style.color='var(--muted)'">GitHub ↗</a>
-      </div>
-    </div>
-  </div>
-
-</div>
-```
-
-  </div>
-</section>
-
-<!-- ══ FREQUENCY — Questions I orbit ══ -->
-
-<section id="frequency">
-  <div class="freq-bg">
-    <div class="freq-ring"></div>
-    <div class="freq-ring"></div>
-    <div class="freq-ring"></div>
-    <div class="freq-ring"></div>
-  </div>
-  <div class="freq-inner">
-    <div class="section-tag reveal" style="justify-content:center">On My Mind</div>
-    <h2 class="freq-title reveal">Questions I can't<br>stop <em>orbiting</em></h2>
-    <p class="freq-lead reveal">These aren't research topics. They're the questions that keep surfacing — when I build, when I read, when I watch a system fail in a deeply human way.</p>
-    <div class="questions-orbit">
-      <div class="q-item" data-index="01">
-        <div class="q-text">"Is control today about forcing people, or about designing environments they don't question?"</div>
-        <div class="q-domain">Control · Design · Ethics</div>
-      </div>
-      <div class="q-item" data-index="02">
-        <div class="q-text">"If your thoughts are influenced by systems you don't see, where does your free will actually start?"</div>
-        <div class="q-domain">Identity · Technology · Psychology</div>
-      </div>
-      <div class="q-item" data-index="03">
-        <div class="q-text">"If an AI can understand you better than people around you, what does that do to your relationships?"</div>
-        <div class="q-domain">AI · Human · Technology</div>
-      </div>
-      <div class="q-item" data-index="04">
-        <div class="q-text">"How much of your personality is actually yours, and how much is trained by what you interact with?"</div>
-        <div class="q-domain">Cognition · Psychology · Philosophy</div>
-      </div>
-      <div class="q-item" data-index="05">
-        <div class="q-text">"Are synthetic relationships filling a gap, or quietly replacing something essential?"</div>
-        <div class="q-domain">AI · Humans · Agency</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ COORDINATES ══ -->
-
-<section id="coordinates">
-  <div class="coord-inner">
-    <div class="coord-left">
-      <div class="coord-now">
-        <div class="coord-label reveal">Currently</div>
-        <h2 class="coord-headline reveal">Essen, Germany.<br><em>Year one</em> of something<br>much longer.</h2>
-        <p class="coord-body reveal">
-          Studying <strong>Menschzentrierte Informatik & Psychologie</strong> at Universität
-          Duisburg-Essen. Currently working at an NLP company — building tools in the LLM space
-          alongside the degree. Working with <strong>Tauri, Rust, React, Python, and LLM APIs</strong>
-          across projects, and actively looking for a <strong>Werkstudentenstelle</strong>
-          in LLM systems, automation, workflow tooling, or applied NLP.
+        <div class="availability mono"><span class="pulse"></span> Germany based - open to applied AI and automation roles</div>
+        <h1>Intelligent<br class="mobile-only" /> systems for <span class="text-glow">real operations.</span></h1>
+        <p class="hero-copy">
+          I build applied AI and automation systems that connect model behavior, APIs, workflow logic, business rules, state and human review. My strongest work is implementation: making AI useful inside processes that actually do things.
         </p>
-      </div>
-      <div class="coord-horizon reveal">
-        <div class="section-tag" style="margin-bottom:1.1rem">Growing Into</div>
-        <div class="horizon-items">
-          <div class="horizon-item"><span>Deeper <strong>LLM orchestration</strong> — structured outputs, chained tools, reliable pipelines</span></div>
-          <div class="horizon-item"><span><strong>Local-first desktop products</strong> with Tauri + Rust as the standard architecture</span></div>
-          <div class="horizon-item"><span><strong>Applied NLP tooling</strong> — building on what I'm already doing professionally</span></div>
-          <div class="horizon-item"><span>A technical foundation deep enough to <strong>build what I can currently only imagine</strong></span></div>
+        <div class="hero-actions">
+          <a class="btn primary" href="#projects">View systems</a>
+          <a class="btn" href="mailto:zaraselim04@gmail.com">Email me</a>
+          <a class="btn" href="https://github.com/zayzyyazy" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+        <div class="hero-proof" aria-label="Portfolio proof points">
+          <div class="proof">
+            <strong>Production AI voice agent</strong>
+            <span>Prompt behavior, routing/tool nodes, CRM/API actions, post-call workflows and edge-case testing.</span>
+          </div>
+          <div class="proof">
+            <strong>Operational workflows</strong>
+            <span>Reconciliation, document validation, research pipelines and case classification.</span>
+          </div>
+          <div class="proof">
+            <strong>Reliability mindset</strong>
+            <span>Fallbacks, structured outputs, exception paths and human-review routing.</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="coord-right reveal">
-      <div class="stat-stack">
-        <div class="stat-row">
-          <div class="stat-name"><strong>Degree</strong>B.Sc. HCI + Psychology</div>
-          <div class="stat-val">Year 1 Done</div>
+
+      <aside class="orchestration" aria-label="Interactive operations system diagram">
+        <div class="orbit-label">
+          <span>Applied AI orchestration</span>
+          <span id="cursorState">signal stable</span>
         </div>
-        <div class="stat-row">
-          <div class="stat-name"><strong>University</strong>Univ. Duisburg-Essen</div>
-          <div class="stat-val">Essen, DE</div>
+        <div class="system-map" id="systemMap">
+          <span class="wire w1"></span>
+          <span class="wire w2"></span>
+          <span class="wire w3"></span>
+          <span class="wire w4"></span>
+          <span class="packet p1"></span>
+          <span class="packet p2"></span>
+          <span class="packet p3"></span>
+          <div class="node n1"><span>input</span><strong>Customer call or document</strong></div>
+          <div class="node n2"><span>tools</span><strong>APIs and CRM actions</strong></div>
+          <div class="node n3"><span>logic</span><strong>Rules, state and validation</strong></div>
+          <div class="node n4"><span>review</span><strong>Human escalation path</strong></div>
+          <div class="node n5"><span>model</span><strong>Structured AI output</strong></div>
         </div>
-        <div class="stat-row">
-          <div class="stat-name"><strong>Languages</strong>German · English · French</div>
-          <div class="stat-val">C1 · C1 · B1</div>
+        <div class="decision" aria-label="System state examples">
+          <div class="state ok"><b>HEALTHY</b><span>Known path, action can continue.</span></div>
+          <div class="state watch"><b>WATCH</b><span>Retry, monitor or gather missing context.</span></div>
+          <div class="state exception"><b>EXCEPTION</b><span>Route to a person with evidence.</span></div>
         </div>
-        <div class="stat-row">
-          <div class="stat-name"><strong>Desktop</strong>Tauri · Rust · React · Electron</div>
-          <div class="stat-val">Active</div>
+      </aside>
+    </section>
+
+    <section class="band" id="work">
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Positioning</p>
+            <h2 class="section-title">Applied AI, not AI theater.</h2>
+          </div>
+          <p class="section-kicker">
+            I am early-career and intentionally building toward deeper SQL, deployment, persistent state and custom Python/business logic. I do not present myself as a senior backend engineer or ML researcher. I am strongest where AI has to connect to a business process.
+          </p>
         </div>
-        <div class="stat-row">
-          <div class="stat-name"><strong>AI / Pipelines</strong>OpenAI · Claude API · Ollama · SQLite</div>
-          <div class="stat-val">Active</div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-name"><strong>Research &amp; Writing</strong>Breakdowns · Demos · Docs</div>
-          <div class="stat-val">Active</div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-name"><strong>Tools</strong>Cursor · Claude Code · Figma</div>
-          <div class="stat-val">Daily</div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-name"><strong>Open to</strong>Werkstudentenstelle</div>
-          <div class="stat-val" style="color:var(--lime);border-color:rgba(163,230,53,0.3)">Available</div>
+        <div class="profile-grid">
+          <div class="copy-panel reveal">
+            <p>
+              My practical experience comes from working around a production AI voice agent where model output connects to operational actions: routing, function/tool nodes, structured JSON, API/CRM integrations, post-call workflows, outbound flows, ticket creation, evaluation and human-review paths.
+            </p>
+            <p>
+              That work taught me to think beyond the prompt. The real system includes missing data, tool ordering, ambiguous outcomes, recovery logic, internal handoffs and the question nobody likes until production: what happens when the model is wrong?
+            </p>
+            <div class="principles">
+              <div class="principle"><b>Model where useful</b><span>Classification, interpretation and structured recommendations.</span></div>
+              <div class="principle"><b>Rules where needed</b><span>Business constraints, validations, known state transitions and guardrails.</span></div>
+              <div class="principle"><b>Humans where it matters</b><span>Ambiguous, risky or policy-sensitive cases routed with context.</span></div>
+            </div>
+          </div>
+          <aside class="stack-panel reveal">
+            <div>
+              <h3>Working stack</h3>
+              <div class="stack-list">
+                <span class="tag live">n8n</span>
+                <span class="tag live">REST APIs</span>
+                <span class="tag live">Webhooks</span>
+                <span class="tag live">Structured JSON</span>
+                <span class="tag live">Function/tool calling</span>
+                <span class="tag live">JavaScript</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">Python</span>
+                <span class="tag">SQLite</span>
+                <span class="tag">React</span>
+                <span class="tag">MCP</span>
+                <span class="tag">Ollama</span>
+                <span class="tag">Qdrant</span>
+              </div>
+            </div>
+            <div class="learning">
+              <h3>Currently expanding</h3>
+              <p>PostgreSQL, relational modeling, persistent state, deployment reliability, more custom Python and production-oriented backend logic.</p>
+            </div>
+          </aside>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ══ OPEN SIGNAL ══ -->
+    <section id="systems">
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Production experience</p>
+            <h2 class="section-title">Voice-agent work shaped my systems instincts.</h2>
+          </div>
+          <p class="section-kicker">
+            Details stay confidential, but the important signal is clear: I have worked with an AI system where conversation, tools and business operations meet.
+          </p>
+        </div>
+        <div class="experience-panel reveal">
+          <aside class="experience-side">
+            <h3>MARIE and related voice-agent systems</h3>
+            <p>Production behavior, operational routing and failure analysis around real calls, not a demo chatbot.</p>
+          </aside>
+          <div class="experience-main">
+            <div class="ops-list">
+              <div class="ops-item"><b>Conversation and prompt behavior</b><span>Testing edge cases, improving system behavior and tightening structured outputs.</span></div>
+              <div class="ops-item"><b>Function and routing nodes</b><span>Connecting tool calls, CRM/API actions, scheduler flows and post-call logic.</span></div>
+              <div class="ops-item"><b>Operational workflows</b><span>Ticket creation, outbound workflows, human-review routing and follow-up paths.</span></div>
+              <div class="ops-item"><b>Evaluation and debugging</b><span>Finding production failures, comparing intended outcome to side effects and improving recovery paths.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section id="open">
-  <div class="open-bg"></div>
-  <div class="open-inner">
-    <div class="open-eyebrow reveal">Open Signal</div>
-    <h2 class="open-title reveal">Let's think about<br>something <em>together.</em></h2>
-    <p class="open-sub reveal">I'm interested in research collaborations, student roles in AI workflows and automation, and conversations with people building things that take humans seriously.</p>
-    <a href="mailto:zaraselim04@gmail.com" class="open-email reveal">zaraselim04@gmail.com</a>
-    <div class="open-links reveal">
-      <a href="https://github.com/zayzyyazy" target="_blank" rel="noopener" class="open-link">GitHub ↗</a>
-      <span style="color:var(--muted);font-family:var(--mono);font-size:.58rem">·</span>
-      <a href="mailto:zaraselim04@gmail.com" class="open-link">Email ↗</a>
-    </div>
-  </div>
-</section>
+    <section class="band" id="projects">
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Selected systems</p>
+            <h2 class="section-title">Projects that show operational AI thinking.</h2>
+          </div>
+          <p class="section-kicker">
+            These are implementation-focused projects and portfolio systems using synthetic data where needed. I avoid fabricated metrics and focus on architecture, failure handling and what the system actually does.
+          </p>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card reveal">
+            <div class="project-top">
+              <h3 class="project-name">WAYBILL</h3>
+              <span class="project-kind">Reconciliation</span>
+            </div>
+            <p>Multi-source shipment reconciliation across Shopify, carrier/API data and Drive documents. It normalizes records, applies business rules and classifies cases into operational states.</p>
+            <div class="case-flow">
+              <div class="case-step"><b>Ingest</b><span>Shopify / carrier / Drive</span></div>
+              <div class="case-step"><b>Reconcile</b><span>Tracking and rules</span></div>
+              <div class="case-step"><b>Classify</b><span>Healthy / watch / exception</span></div>
+            </div>
+            <div class="project-links">
+              <span class="tag">n8n</span><span class="tag">Shopify GraphQL</span><span class="tag">REST API</span><span class="tag">JavaScript rules</span>
+              <a class="small-link" href="https://github.com/zayzyyazy/n8n-waybill-reconciliation" target="_blank" rel="noreferrer">Repository</a>
+            </div>
+          </article>
 
+          <article class="project-card reveal">
+            <div class="project-top">
+              <h3 class="project-name">PAPERGUARD</h3>
+              <span class="project-kind">Document validation</span>
+            </div>
+            <p>Document-processing and validation workflow. It ingests documents, extracts evidence, checks policy constraints and routes ambiguous or failed cases instead of pretending everything passed.</p>
+            <div class="case-flow">
+              <div class="case-step"><b>Parse</b><span>DOCX / OOXML</span></div>
+              <div class="case-step"><b>Validate</b><span>Policy checks</span></div>
+              <div class="case-step"><b>Report</b><span>Pass / fail / review</span></div>
+            </div>
+            <div class="project-links">
+              <span class="tag">n8n</span><span class="tag">OOXML</span><span class="tag">JavaScript</span><span class="tag">Structured report</span>
+              <a class="small-link" href="https://github.com/zayzyyazy/n8n-paperguard-document-validator" target="_blank" rel="noreferrer">Repository</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top">
+              <h3 class="project-name">AI Call QA / Incident Review</h3>
+              <span class="project-kind">Post-call QA</span>
+            </div>
+            <p>Systems for evaluating call outcomes, structured post-call information, exception detection and human review. The core idea is comparing what was said, what tools did and what actually happened.</p>
+            <div class="case-flow">
+              <div class="case-step"><b>Capture</b><span>Conversation and traces</span></div>
+              <div class="case-step"><b>Compare</b><span>Claim vs side effect</span></div>
+              <div class="case-step"><b>Route</b><span>Human review</span></div>
+            </div>
+            <div class="project-links">
+              <span class="tag">TypeScript</span><span class="tag">Next.js</span><span class="tag">MongoDB</span><span class="tag">Failure classification</span>
+              <a class="small-link" href="https://github.com/zayzyyazy/ai-call-qa-cockpit" target="_blank" rel="noreferrer">QA cockpit</a>
+              <a class="small-link" href="https://github.com/zayzyyazy/Incident-Room" target="_blank" rel="noreferrer">Incident Room</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top">
+              <h3 class="project-name">Local AI Knowledge System</h3>
+              <span class="project-kind">Knowledge workflow</span>
+            </div>
+            <p>Local AI system with workflow orchestration, Docker, Ollama, vector search, embeddings, Drive and webhook-based ingestion. It is technical evidence, but intentionally secondary to operational business systems.</p>
+            <div class="case-flow">
+              <div class="case-step"><b>Collect</b><span>Drive and webhooks</span></div>
+              <div class="case-step"><b>Index</b><span>Embeddings and vectors</span></div>
+              <div class="case-step"><b>Retrieve</b><span>Local model support</span></div>
+            </div>
+            <div class="project-links">
+              <span class="tag">Docker</span><span class="tag">Ollama</span><span class="tag">Qdrant</span><span class="tag">n8n</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">How I decide</p>
+            <h2 class="section-title">AI is one component in the system.</h2>
+          </div>
+          <p class="section-kicker">
+            The strongest systems are not "all AI". They mix models, deterministic code, business rules, storage and human judgment.
+          </p>
+        </div>
+        <div class="matrix">
+          <div class="matrix-card reveal">
+            <h3>Deterministic logic</h3>
+            <p>Use for rules, calculations, validation, known constraints, order of operations and safety-critical state transitions.</p>
+          </div>
+          <div class="matrix-card reveal">
+            <h3>AI</h3>
+            <p>Use for interpretation, classification, summarization, recommendations and unstructured language where strict rules are not enough.</p>
+          </div>
+          <div class="matrix-card reveal">
+            <h3>Human review</h3>
+            <p>Use for ambiguity, policy-sensitive outcomes, exceptions and cases where the right answer needs responsibility, not just probability.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="fit">
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Role fit</p>
+            <h2 class="section-title">Where I can contribute now.</h2>
+          </div>
+          <p class="section-kicker">
+            Best fit: early-career roles where applied AI, automation, integrations and process thinking matter more than inflated seniority.
+          </p>
+        </div>
+        <div class="fit-grid">
+          <div class="fit reveal"><b>Applied AI Engineer</b><span>Implementation work around prompts, tools, APIs, structured outputs and reliability.</span></div>
+          <div class="fit reveal"><b>AI Automation Engineer</b><span>Workflow orchestration, business rules, exception handling and integrations.</span></div>
+          <div class="fit reveal"><b>AI Solutions Builder</b><span>Turning messy operational needs into working systems with clear handoffs.</span></div>
+          <div class="fit reveal"><b>Technical AI Implementation</b><span>Bridging model behavior, product constraints and day-to-day operations.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-inner">
+        <div class="contact-panel reveal">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2>Let us build the part where AI meets the actual work.</h2>
+            <p>I am open to applied AI, intelligent operations, workflow automation and integration work in Germany or remote-friendly teams.</p>
+          </div>
+          <div class="contact-actions">
+            <a class="btn primary" href="mailto:zaraselim04@gmail.com">zaraselim04@gmail.com</a>
+            <a class="btn" href="https://github.com/zayzyyazy" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
 <footer>
-  <div class="footer-sig">ZAY &nbsp;·&nbsp; <span>Building intentionally</span> &nbsp;·&nbsp; 2026</div>
+  <span>Zara Selim - Applied AI / Intelligent Systems / Automation</span>
+  <span>Germany - 2026</span>
 </footer>
 
 <script>
-// CURSOR
-const cur = document.getElementById('cur');
-const curR = document.getElementById('cur-r');
-let mx=0,my=0,rx=0,ry=0;
-window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
-(function loop(){
-  cur.style.left=mx+'px';cur.style.top=my+'px';
-  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
-  curR.style.left=rx+'px';curR.style.top=ry+'px';
-  requestAnimationFrame(loop);
+(function(){
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const nav = document.getElementById("nav");
+  const cursorState = document.getElementById("cursorState");
+  const map = document.getElementById("systemMap");
+
+  window.addEventListener("scroll", function(){
+    nav.classList.toggle("is-scrolled", window.scrollY > 32);
+  }, { passive:true });
+
+  if(map && !reduceMotion){
+    map.addEventListener("pointermove", function(event){
+      const rect = map.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - .5) * 10;
+      const y = ((event.clientY - rect.top) / rect.height - .5) * 10;
+      map.style.transform = "perspective(900px) rotateX(" + (-y) + "deg) rotateY(" + x + "deg)";
+      cursorState.textContent = "signal tracking";
+    });
+    map.addEventListener("pointerleave", function(){
+      map.style.transform = "";
+      cursorState.textContent = "signal stable";
+    });
+  }
+
+  const revealEls = Array.from(document.querySelectorAll(".reveal"));
+  const observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add("in");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold:.12, rootMargin:"0px 0px -40px 0px" });
+  revealEls.forEach(function(el){ observer.observe(el); });
+
+  if(reduceMotion){ return; }
+
+  const canvas = document.getElementById("systemCanvas");
+  const ctx = canvas.getContext("2d");
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let pointer = { x:.5, y:.5 };
+  const nodes = [];
+  const palette = ["99,230,190","141,183,255","240,195,106"];
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    seed();
+  }
+
+  function seed(){
+    nodes.length = 0;
+    const count = Math.max(32, Math.min(70, Math.floor(width / 22)));
+    for(let i = 0; i < count; i += 1){
+      nodes.push({
+        x:Math.random() * width,
+        y:Math.random() * height,
+        vx:(Math.random() - .5) * .16,
+        vy:(Math.random() - .5) * .16,
+        r:Math.random() * 1.7 + .6,
+        color:palette[i % palette.length],
+        phase:Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  window.addEventListener("resize", resize, { passive:true });
+  window.addEventListener("pointermove", function(event){
+    pointer.x = event.clientX / Math.max(width,1);
+    pointer.y = event.clientY / Math.max(height,1);
+  }, { passive:true });
+
+  function draw(time){
+    ctx.clearRect(0,0,width,height);
+    for(let i = 0; i < nodes.length; i += 1){
+      const a = nodes[i];
+      a.x += a.vx + (pointer.x - .5) * .05;
+      a.y += a.vy + (pointer.y - .5) * .05;
+      if(a.x < -20) a.x = width + 20;
+      if(a.x > width + 20) a.x = -20;
+      if(a.y < -20) a.y = height + 20;
+      if(a.y > height + 20) a.y = -20;
+
+      for(let j = i + 1; j < nodes.length; j += 1){
+        const b = nodes[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if(distance < 132){
+          ctx.globalAlpha = (1 - distance / 132) * .12;
+          ctx.strokeStyle = "rgb(" + a.color + ")";
+          ctx.lineWidth = .7;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+
+      ctx.globalAlpha = .25 + Math.sin(time * .001 + a.phase) * .08;
+      ctx.fillStyle = "rgb(" + a.color + ")";
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  requestAnimationFrame(draw);
 })();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';curR.style.transform='translate(-50%,-50%) scale(1.5)'});
-  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';curR.style.transform='translate(-50%,-50%) scale(1)'});
-});
-
-// NAV
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
-
-// SCROLL REVEAL — generic
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}});
-},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-// THOUGHT CARDS
-const tcObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');tcObs.unobserve(e.target)}});
-},{threshold:0.12});
-document.querySelectorAll('.thought-card').forEach((el,i)=>{
-  el.style.transitionDelay=(i*110)+'ms';
-  tcObs.observe(el);
-});
-
-// Q ITEMS
-const qObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');qObs.unobserve(e.target)}});
-},{threshold:0.1});
-document.querySelectorAll('.q-item').forEach((el,i)=>{
-  el.style.transitionDelay=(i*95)+'ms';
-  qObs.observe(el);
-});
 </script>
-
 </body>
 </html>
