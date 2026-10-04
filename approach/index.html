@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Approach — Zara Selim</title>
+<meta name="description" content="How Zara Selim decides what should be AI, what should be deterministic code, and what needs a person, with examples from real projects." />
+<meta name="author" content="Zara Selim" />
+<meta name="theme-color" content="#f6f6f4" />
+<link rel="canonical" href="https://zaraselim.com/approach/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://zaraselim.com/approach/" />
+<meta property="og:title" content="Approach — Zara Selim" />
+<meta property="og:description" content="How Zara Selim decides what should be AI, what should be deterministic code, and what needs a person, with examples from real projects." />
+<meta property="og:image" content="https://zaraselim.com/assets/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Approach — Zara Selim" />
+<meta name="twitter:description" content="How Zara Selim decides what should be AI, what should be deterministic code, and what needs a person, with examples from real projects." />
+<meta name="twitter:image" content="https://zaraselim.com/assets/img/og.png" />
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/css/site.css" />
+<script>document.documentElement.classList.add("js");</script>
+</head><body data-page="approach">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="wordmark" href="/" aria-label="Zara Selim, home">Zara Selim<span class="wordmark-dot" aria-hidden="true">.</span></a>
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/experience/">Experience</a></li>
+        <li><a href="/approach/" aria-current="page">Approach</a></li>
+        <li><a href="/contact/" class="nav-contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="menu-button-label">Menu</span>
+      <span class="menu-icon" aria-hidden="true"><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <nav aria-label="Mobile">
+    <ol class="mobile-menu-list">
+      <li><a href="/">Home</a></li>
+      <li><a href="/projects/">Projects</a></li>
+      <li><a href="/experience/">Experience</a></li>
+      <li><a href="/approach/" aria-current="page">Approach</a></li>
+      <li><a href="/contact/">Contact</a></li>
+    </ol>
+  </nav>
+  <div class="mobile-menu-foot">
+    <span class="mono">Email</span>
+    <a href="mailto:zaraselim04@gmail.com">zaraselim04@gmail.com</a>
+    <a href="https://github.com/zayzyyazy" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</div>
+
+<main id="main">
+  <section class="approach page" aria-labelledby="pageTitle">
+    <div class="wrap">
+      <header class="section-head page-head">
+        <p class="section-index mono">Approach</p>
+        <h1 class="section-title page-title" id="pageTitle">AI where it's useful. Rules where they're needed. <em>People where it matters.</em></h1>
+        <p class="section-intro">I don't start with a model. I start with the process, then decide step by step what should be AI, what should be code, and what needs a person. Pick a case to see where it goes. Every example comes from a real project.</p>
+      </header>
+
+      <div class="sorter" id="sorter">
+        <div class="sorter-cases" role="group" aria-label="Example cases">
+          <button type="button" class="case" data-lane="ai" data-why="Free-text intent has no fixed format. Interpreting it is what a model is good at." data-from="call-qa">A caller's reason for cancelling</button>
+          <button type="button" class="case" data-lane="rules" data-why="Policy says Times New Roman. Code checks that the same way every time." data-from="paperguard">Body font is Arial</button>
+          <button type="button" class="case" data-lane="rules" data-why="A fixed threshold, so it's a rule. The result is an EXCEPTION with an issue code." data-from="waybill">Tracking hasn't moved in 4 days</button>
+          <button type="button" class="case" data-lane="human" data-why="High value and major damage: a hard rule requires human approval, whatever the model says." data-from="northstar">AI suggests scrapping an expensive item</button>
+          <button type="button" class="case" data-lane="human" data-why="The parser can't tell who owns the figure, so it's flagged REVIEW_REQUIRED instead of guessed." data-from="paperguard">A figure with an unclear source</button>
+          <button type="button" class="case" data-lane="human" data-why="If the model output can't be parsed, the safe default is MANUAL_REVIEW, not a retry-and-hope." data-from="northstar">The model returns malformed JSON</button>
+          <button type="button" class="case" data-lane="ai" data-why="Turning a recording into a first-draft analysis saves a reviewer time, and the reviewer still edits it." data-from="call-qa">Summarize what went wrong on a call</button>
+          <button type="button" class="case" data-lane="rules" data-why="It only counts if the ticket function returned success. The QA layer flags a promise without function evidence." data-from="inbound">The agent says “I've created a ticket”</button>
+          <button type="button" class="case" data-lane="ai" data-why="Understanding “Tuesday after lunch” is a language problem. Creating the booking is a tool call, and confirming it waits for the tool's result." data-from="scheduler">Caller says “Tuesday after lunch works”</button>
+        </div>
+
+        <div class="lanes">
+          <div class="lane" data-lane="ai">
+            <p class="lane-tag mono">Unstructured / ambiguous</p>
+            <h3 class="lane-title">→ AI</h3>
+            <p class="lane-desc">Interpretation, classification, summarizing language.</p>
+            <div class="lane-slot" aria-hidden="true"></div>
+          </div>
+          <div class="lane" data-lane="rules">
+            <p class="lane-tag mono">Known rule</p>
+            <h3 class="lane-title">→ Code</h3>
+            <p class="lane-desc">Calculations, thresholds, validation, state changes.</p>
+            <div class="lane-slot" aria-hidden="true"></div>
+          </div>
+          <div class="lane" data-lane="human">
+            <p class="lane-tag mono">Uncertain / high-risk</p>
+            <h3 class="lane-title">→ A person</h3>
+            <p class="lane-desc">Exceptions, policy-sensitive calls, anything that needs responsibility.</p>
+            <div class="lane-slot" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <p class="sorter-result" id="sorterResult" aria-live="polite">Pick a case above.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="help" aria-labelledby="helpTitle">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 class="section-title" id="helpTitle">What I can help build</h2>
+      </header>
+      <ol class="help-list">
+        <li class="help-item reveal">
+          <span class="help-num" aria-hidden="true">a</span>
+          <h3>Operational automations</h3>
+          <p>Connect tools, APIs, data and business rules into workflows that actually run, instead of people copying between tabs.</p>
+          <p class="help-seen mono">Seen in <button type="button" data-open="waybill">Waybill</button></p>
+        </li>
+        <li class="help-item reveal">
+          <span class="help-num" aria-hidden="true">b</span>
+          <h3>AI inside workflows</h3>
+          <p>A model where interpretation or classification helps, boxed in by rules so the rest of the system stays predictable.</p>
+          <p class="help-seen mono">Seen in <button type="button" data-open="northstar">NorthStar</button></p>
+        </li>
+        <li class="help-item reveal">
+          <span class="help-num" aria-hidden="true">c</span>
+          <h3>Small internal tools</h3>
+          <p>Focused apps that remove a specific piece of repetitive work: review queues, checkers, dashboards people actually open.</p>
+          <p class="help-seen mono">Seen in <button type="button" data-open="call-qa">Call QA Cockpit</button></p>
+        </li>
+        <li class="help-item reveal">
+          <span class="help-num" aria-hidden="true">d</span>
+          <h3>Reliability &amp; human review</h3>
+          <p>Exception paths, review states and evidence, designed in from the start rather than pretending automation never fails.</p>
+          <p class="help-seen mono">Seen in <button type="button" data-open="paperguard">PaperGuard</button>, <button type="button" data-open="incident-room">Incident Room</button></p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="about" aria-labelledby="aboutTitle">
+    <div class="wrap about-grid">
+      <h2 class="about-title" id="aboutTitle">A bit about me</h2>
+      <div class="about-copy">
+        <p>I'm Zara. I study Human-Centered Informatics &amp; Psychology and spend most of my time building things: workflows, small tools and a lot of experiments, most of them on <a href="https://github.com/zayzyyazy" target="_blank" rel="noopener">GitHub</a>.</p>
+        <p>I learn best through real implementations, and I'm still going deeper on the backend side: databases, deployment, running things long-term. What I can already do is take a messy process, figure out how it really works, and build something that handles it.</p>
+      </div>
+      <ul class="notes" aria-label="Things that are true about how I work">
+        <li>I like understanding messy systems before touching them.</li>
+        <li>I care about what happens when the automation fails.</li>
+        <li>I test with real workflows, not just the happy path.</li>
+        <li>I'd rather build useful AI than impressive-looking AI.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="page-cta" aria-label="Contact">
+    <div class="wrap page-cta-inner">
+      <p class="page-cta-title">Have something messy that should be a system?</p>
+      <a class="btn btn-primary" href="/contact/">Start a conversation <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>Zara Selim · systems for the work between the tools</span>
+    <span class="footer-links"><a href="mailto:zaraselim04@gmail.com">Email</a><a href="https://github.com/zayzyyazy" target="_blank" rel="noopener">GitHub ↗</a></span>
+  </div>
+</footer>
+
+<script src="/assets/js/projects.js"></script>
+<script src="/assets/js/cards.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

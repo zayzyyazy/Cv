@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Projects — Zara Selim</title>
+<meta name="description" content="Case studies of systems Zara Selim has built: production voice agents on Leaping, n8n reconciliation and document validation, AI-assisted decisions with human review, codebase tooling, and AI call QA and incident investigation." />
+<meta name="author" content="Zara Selim" />
+<meta name="theme-color" content="#f6f6f4" />
+<link rel="canonical" href="https://zaraselim.com/projects/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://zaraselim.com/projects/" />
+<meta property="og:title" content="Projects — Zara Selim" />
+<meta property="og:description" content="Case studies of systems Zara Selim has built: production voice agents on Leaping, n8n reconciliation and document validation, AI-assisted decisions with human review, codebase tooling, and AI call QA and incident investigation." />
+<meta property="og:image" content="https://zaraselim.com/assets/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Projects — Zara Selim" />
+<meta name="twitter:description" content="Case studies of systems Zara Selim has built: production voice agents on Leaping, n8n reconciliation and document validation, AI-assisted decisions with human review, codebase tooling, and AI call QA and incident investigation." />
+<meta name="twitter:image" content="https://zaraselim.com/assets/img/og.png" />
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/css/site.css" />
+<script>document.documentElement.classList.add("js");</script>
+</head><body data-page="projects">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="wordmark" href="/" aria-label="Zara Selim, home">Zara Selim<span class="wordmark-dot" aria-hidden="true">.</span></a>
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li><a href="/experience/">Experience</a></li>
+        <li><a href="/approach/">Approach</a></li>
+        <li><a href="/contact/" class="nav-contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="menu-button-label">Menu</span>
+      <span class="menu-icon" aria-hidden="true"><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <nav aria-label="Mobile">
+    <ol class="mobile-menu-list">
+      <li><a href="/">Home</a></li>
+      <li><a href="/projects/" aria-current="page">Projects</a></li>
+      <li><a href="/experience/">Experience</a></li>
+      <li><a href="/approach/">Approach</a></li>
+      <li><a href="/contact/">Contact</a></li>
+    </ol>
+  </nav>
+  <div class="mobile-menu-foot">
+    <span class="mono">Email</span>
+    <a href="mailto:zaraselim04@gmail.com">zaraselim04@gmail.com</a>
+    <a href="https://github.com/zayzyyazy" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</div>
+
+<main id="main">
+  <section class="work page" aria-labelledby="pageTitle">
+    <div class="wrap">
+      <header class="section-head page-head">
+        <p class="section-index mono">Projects</p>
+        <h1 class="section-title page-title" id="pageTitle">Systems I've built</h1>
+        <p class="section-intro">All of them sit around messy operational work. Sometimes AI is the right tool, sometimes plain code is better, and sometimes a person needs to stay in the loop. Open any project for the problem, the real implementation and what I built.</p>
+      </header>
+
+      <div class="projects">
+        <section class="family reveal" aria-labelledby="familyTitle">
+          <header class="family-head">
+            <p class="mono family-kicker">Project family · production work</p>
+            <h2 class="family-title" id="familyTitle">Voice agents</h2>
+            <p class="family-intro">Two production voice systems built on <strong>Leaping</strong>. Separate problems, same lesson: the conversation is the easy part. Shown as sanitized public case studies.</p>
+          </header>
+          <div class="family-grid">
+            <div data-card="inbound"></div>
+            <div data-card="scheduler"></div>
+          </div>
+        </section>
+
+        <div data-card="waybill"></div>
+        <div data-card="paperguard"></div>
+        <div data-card="northstar"></div>
+        <div data-card="explainer"></div>
+
+        <div class="reliability reveal" aria-labelledby="relTitle">
+          <div class="reliability-head">
+            <p class="mono reliability-kicker">Related systems · AI agent reliability</p>
+            <h2 class="reliability-title" id="relTitle">When the conversation and the system disagree.</h2>
+            <div class="said-grid" aria-label="Three versions of what happened on a call">
+              <div class="said"><span class="mono">What was said</span><q>“Can you place my order?”</q></div>
+              <div class="said"><span class="mono">What the agent claimed</span><q>“Great news, it's placed.”</q></div>
+              <div class="said said--truth"><span class="mono">What actually happened</span><code>orderPlaced: false</code></div>
+            </div>
+          </div>
+          <div class="reliability-pair">
+            <div data-card="call-qa"></div>
+            <div class="pair-link" aria-hidden="true"><span>↔</span></div>
+            <div data-card="incident-room"></div>
+          </div>
+        </div>
+      </div>
+      <noscript>
+        <ul class="noscript-list">
+          <li><a href="https://github.com/zayzyyazy/voice-agent-inbound-operations">Inbound Voice Operations</a></li>
+          <li><a href="https://github.com/zayzyyazy/voice-agent-appointment-scheduler">Appointment Scheduler</a></li>
+          <li><a href="https://github.com/zayzyyazy/n8n-waybill-reconciliation">Waybill: shipment reconciliation</a></li>
+          <li><a href="https://github.com/zayzyyazy/n8n-paperguard-document-validator">PaperGuard: document validation</a></li>
+          <li><a href="https://github.com/zayzyyazy/n8n-northstar-human-review">NorthStar: AI-assisted decisions with human review</a></li>
+          <li><a href="https://github.com/zayzyyazy/Project-explainer2">Project Explainer OS</a></li>
+          <li><a href="https://github.com/zayzyyazy/ai-call-qa-cockpit">AI Call QA Cockpit</a></li>
+          <li><a href="https://github.com/zayzyyazy/Incident-Room">Incident Room</a></li>
+        </ul>
+      </noscript>
+    </div>
+  </section>
+
+  <section class="page-cta" aria-label="Contact">
+    <div class="wrap page-cta-inner">
+      <p class="page-cta-title">Have something messy that should be a system?</p>
+      <a class="btn btn-primary" href="/contact/">Start a conversation <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>Zara Selim · systems for the work between the tools</span>
+    <span class="footer-links"><a href="mailto:zaraselim04@gmail.com">Email</a><a href="https://github.com/zayzyyazy" target="_blank" rel="noopener">GitHub ↗</a></span>
+  </div>
+</footer>
+
+<script src="/assets/js/projects.js"></script>
+<script src="/assets/js/cards.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
