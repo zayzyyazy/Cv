@@ -71,17 +71,50 @@
         <p class="contact-copy contact-copy--quiet">Founders, small teams, other builders, open-source people and anyone with an odd experimental idea: all equally welcome.</p>
       </div>
 
-      <!-- Future: replace .contact-card's body with a <form> (name, email, what you're building, optional link).
-           The fields below already describe that form; for now they open a pre-filled email. -->
-      <div class="contact-card" aria-labelledby="cardTitle">
-        <h2 class="mono contact-card-title" id="cardTitle">A good first message</h2>
-        <ol class="contact-fields">
-          <li><span class="mono">01</span><div><b>Your name</b><p>And how to reach you, if not by replying.</p></div></li>
-          <li><span class="mono">02</span><div><b>What you're trying to build or fix</b><p>Roughly how it works today, which tools are involved, and where it breaks.</p></div></li>
-          <li><span class="mono">03</span><div><b>A link</b><p>Optional: a repo, a doc, a screenshot, anything that helps.</p></div></li>
-        </ol>
-        <a class="btn btn-primary contact-card-btn" href="mailto:zaraselim04@gmail.com?subject=Something%20I%27d%20like%20to%20build&amp;body=Hi%20Zara%2C%0A%0AWhat%20I%27m%20trying%20to%20build%20or%20fix%3A%0A%0A%0ALink%20(optional)%3A%0A">Start a conversation <span aria-hidden="true">→</span></a>
-        <p class="contact-card-alt">Opens an email to <a href="mailto:zaraselim04@gmail.com">zaraselim04@gmail.com</a>. Or find me on <a href="https://github.com/zayzyyazy" target="_blank" rel="noopener">GitHub ↗</a>.</p>
+      <div class="contact-card">
+        <h2 class="contact-card-title" id="formTitle">Tell me what you're trying to build or fix</h2>
+        <p class="cf-intro">A few lines is plenty. I read everything and reply myself.</p>
+
+        <!-- Submits to Web3Forms (no backend needed on GitHub Pages). contact.js sends it in the
+             background; without JavaScript it falls back to a normal POST. The access key is
+             public by design. Replace the value below with the key from web3forms.com. -->
+        <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate aria-labelledby="formTitle">
+          <input type="hidden" name="access_key" value="d1e9f6a2-e32e-4d54-9fc3-6678f3d884e8">
+          <input type="hidden" name="subject" value="New message from zaraselim.com">
+          <input type="hidden" name="from_name" value="zaraselim.com">
+          <!-- Honeypot: invisible to people, bots fill it in and Web3Forms discards the submission -->
+          <input type="checkbox" name="botcheck" class="cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="cf-field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Your name" required aria-describedby="cf-name-err">
+            <p class="cf-error" id="cf-name-err" hidden></p>
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required aria-describedby="cf-email-err">
+            <p class="cf-error" id="cf-email-err" hidden></p>
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-message">What are you trying to build or improve?</label>
+            <p class="cf-hint" id="cf-message-hint">The problem, the process as it works today, the tools involved, or the idea you have in mind.</p>
+            <textarea id="cf-message" name="message" rows="7" placeholder="e.g. We copy order details from emails into a spreadsheet and then into our CRM. It takes hours and things get missed…" required aria-describedby="cf-message-hint cf-message-err"></textarea>
+            <p class="cf-error" id="cf-message-err" hidden></p>
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-link">Link <span class="cf-optional">optional</span></label>
+            <input id="cf-link" name="link" type="text" inputmode="url" autocomplete="url" placeholder="Website, doc, job post, reference…" aria-describedby="cf-link-hint">
+            <p class="cf-hint" id="cf-link-hint">Anything that helps me understand the context.</p>
+          </div>
+
+          <button class="btn btn-primary contact-card-btn cf-submit" type="submit">Send message</button>
+          <div class="cf-status" id="cfStatus" role="status" aria-live="polite" tabindex="-1" hidden></div>
+        </form>
+
+        <p class="contact-card-alt">Prefer email? Write to <a href="mailto:zaraselim04@gmail.com">zaraselim04@gmail.com</a>. Or find me on <a href="https://github.com/zayzyyazy" target="_blank" rel="noopener">GitHub ↗</a>.</p>
       </div>
     </div>
   </section>
@@ -97,5 +130,6 @@
 <script src="/assets/js/projects.js"></script>
 <script src="/assets/js/cards.js"></script>
 <script src="/assets/js/main.js"></script>
+<script src="/assets/js/contact.js"></script>
 </body>
 </html>
