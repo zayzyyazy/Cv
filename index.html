@@ -2,1253 +2,505 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Zara Selim helps businesses build practical AI and automation systems around messy operational work." />
-<title>Zara Selim - Practical AI and Automation Systems</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Zara Selim — Applied AI, Automation &amp; Operational Systems</title>
+<meta name="description" content="Zara Selim builds automations, AI-assisted workflows and small internal tools for messy operational processes: APIs, documents, business rules and human review." />
+<meta name="author" content="Zara Selim" />
+<meta name="theme-color" content="#f3ece1" />
+<link rel="canonical" href="https://zaraselim.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://zaraselim.com/" />
+<meta property="og:title" content="Zara Selim — Systems for the work between the tools" />
+<meta property="og:description" content="Automations, AI-assisted workflows and small internal tools for messy operational processes." />
+<meta property="og:image" content="https://zaraselim.com/assets/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Zara Selim — Systems for the work between the tools" />
+<meta name="twitter:description" content="Automations, AI-assisted workflows and small internal tools for messy operational processes." />
+<meta name="twitter:image" content="https://zaraselim.com/assets/img/og.png" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<style>
-:root{
-  color-scheme:dark;
-  --bg:#05070a;
-  --bg-2:#090d12;
-  --panel:#0d1218;
-  --panel-2:#111821;
-  --line:#23303c;
-  --line-strong:#3b4d5d;
-  --text:#eef4f0;
-  --muted:#99a7a9;
-  --soft:#68777b;
-  --green:#63e6be;
-  --amber:#f0c36a;
-  --blue:#8db7ff;
-  --rose:#ff8fa3;
-  --ink:#07100e;
-  --radius:8px;
-  --shadow:0 24px 70px rgba(0,0,0,.36);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background:var(--bg)}
-body{
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 18% 8%,rgba(99,230,190,.14),transparent 30rem),
-    radial-gradient(circle at 86% 14%,rgba(141,183,255,.11),transparent 28rem),
-    linear-gradient(180deg,#05070a 0%,#071015 42%,#05070a 100%);
-  color:var(--text);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  overflow-x:hidden;
-}
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-  opacity:.4;
-  background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
-  background-size:72px 72px;
-  mask-image:linear-gradient(to bottom,black 0%,transparent 78%);
-}
-a{color:inherit}
-button,a{ -webkit-tap-highlight-color:transparent }
-.system-canvas{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:1;
-  pointer-events:none;
-  opacity:.72;
-}
-.page{
-  position:relative;
-  z-index:2;
-}
-.nav{
-  position:fixed;
-  inset:0 0 auto 0;
-  z-index:20;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:24px;
-  padding:18px clamp(18px,4vw,54px);
-  border-bottom:1px solid transparent;
-  transition:background .25s ease,border-color .25s ease;
-}
-.nav.is-scrolled{
-  background:rgba(5,7,10,.8);
-  border-color:rgba(99,230,190,.13);
-  backdrop-filter:blur(18px);
-}
-.mark{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  text-decoration:none;
-  font-weight:800;
-  letter-spacing:.02em;
-}
-.mark-sigil{
-  width:32px;
-  height:32px;
-  display:grid;
-  place-items:center;
-  border:1px solid rgba(99,230,190,.55);
-  background:rgba(99,230,190,.08);
-  color:var(--green);
-  font-family:"DM Mono",monospace;
-  font-size:.78rem;
-  box-shadow:0 0 26px rgba(99,230,190,.12);
-}
-.nav-links{
-  display:flex;
-  align-items:center;
-  gap:22px;
-  font-family:"DM Mono",monospace;
-  font-size:.72rem;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  color:var(--muted);
-}
-.nav-links a{
-  text-decoration:none;
-  transition:color .2s ease;
-}
-.nav-links a:hover{color:var(--green)}
-.nav-cta{
-  padding:9px 12px;
-  border:1px solid rgba(99,230,190,.45);
-  background:rgba(99,230,190,.08);
-  color:var(--green);
-}
-.hero{
-  min-height:100svh;
-  display:grid;
-  grid-template-columns:minmax(0,1.06fr) minmax(340px,.94fr);
-  align-items:center;
-  gap:clamp(34px,6vw,80px);
-  padding:128px clamp(18px,5vw,72px) 80px;
-}
-.eyebrow,.mono{
-  font-family:"DM Mono",monospace;
-  text-transform:uppercase;
-  letter-spacing:.13em;
-  font-size:.72rem;
-  color:var(--green);
-}
-.availability{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 10px;
-  border:1px solid rgba(99,230,190,.22);
-  background:rgba(5,7,10,.52);
-  color:var(--muted);
-}
-.pulse{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 0 0 rgba(99,230,190,.72);
-  animation:pulse 2.6s infinite;
-}
-h1{
-  max-width:980px;
-  margin-top:24px;
-  font-size:clamp(3rem,7.9vw,8.45rem);
-  line-height:.89;
-  letter-spacing:0;
-  font-weight:800;
-}
-.text-glow{
-  color:var(--green);
-  text-shadow:0 0 34px rgba(99,230,190,.18);
-}
-.mobile-only{display:none}
-.hero-copy{
-  max-width:720px;
-  margin-top:28px;
-  color:#bfcbca;
-  font-size:clamp(1.03rem,1.6vw,1.27rem);
-  line-height:1.65;
-}
-.hero-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:32px;
-}
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:44px;
-  padding:12px 17px;
-  border:1px solid var(--line-strong);
-  background:rgba(13,18,24,.74);
-  color:var(--text);
-  text-decoration:none;
-  font-family:"DM Mono",monospace;
-  font-size:.78rem;
-  letter-spacing:.04em;
-  transition:transform .2s ease,border-color .2s ease,background .2s ease,color .2s ease;
-}
-.btn:hover{
-  transform:translateY(-2px);
-  border-color:var(--green);
-  color:var(--green);
-}
-.btn.primary{
-  background:var(--green);
-  border-color:var(--green);
-  color:var(--ink);
-  font-weight:700;
-}
-.btn.primary:hover{
-  background:#8ff1d2;
-  color:var(--ink);
-}
-.hero-proof{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:10px;
-  margin-top:38px;
-  max-width:760px;
-}
-.proof{
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(8,13,18,.7);
-  padding:13px;
-}
-.proof strong{
-  display:block;
-  color:var(--text);
-  font-size:.95rem;
-  margin-bottom:5px;
-}
-.proof span{
-  display:block;
-  color:var(--muted);
-  font-size:.78rem;
-  line-height:1.35;
-}
-.orchestration{
-  position:relative;
-  min-height:560px;
-  border:1px solid rgba(255,255,255,.12);
-  background:
-    linear-gradient(180deg,rgba(17,24,33,.88),rgba(7,12,16,.92)),
-    radial-gradient(circle at 50% 20%,rgba(99,230,190,.14),transparent 20rem);
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-.orchestration::before{
-  content:"";
-  position:absolute;
-  inset:16px;
-  border:1px solid rgba(99,230,190,.1);
-  pointer-events:none;
-}
-.orbit-label{
-  position:absolute;
-  top:18px;
-  left:18px;
-  right:18px;
-  display:flex;
-  justify-content:space-between;
-  gap:18px;
-  color:var(--soft);
-  font-family:"DM Mono",monospace;
-  font-size:.65rem;
-  letter-spacing:.09em;
-  text-transform:uppercase;
-}
-.system-map{
-  position:absolute;
-  inset:74px 34px 104px;
-}
-.wire{
-  position:absolute;
-  height:1px;
-  background:linear-gradient(90deg,transparent,rgba(99,230,190,.7),rgba(141,183,255,.55),transparent);
-  transform-origin:left center;
-  opacity:.7;
-}
-.wire.w1{width:44%;left:14%;top:28%;transform:rotate(18deg)}
-.wire.w2{width:40%;left:42%;top:35%;transform:rotate(-24deg)}
-.wire.w3{width:46%;left:21%;top:62%;transform:rotate(-7deg)}
-.wire.w4{width:34%;left:51%;top:67%;transform:rotate(17deg)}
-.packet{
-  position:absolute;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 22px var(--green);
-  animation:packet 4.6s linear infinite;
-}
-.packet.p1{left:20%;top:32%;animation-delay:0s}
-.packet.p2{left:54%;top:38%;animation-delay:1.2s;background:var(--blue);box-shadow:0 0 22px var(--blue)}
-.packet.p3{left:29%;top:63%;animation-delay:2.1s;background:var(--amber);box-shadow:0 0 22px var(--amber)}
-.node{
-  position:absolute;
-  width:126px;
-  min-height:86px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  gap:12px;
-  padding:13px;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(8,13,18,.84);
-  backdrop-filter:blur(12px);
-  box-shadow:0 14px 40px rgba(0,0,0,.22);
-}
-.node::after{
-  content:"";
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 18px var(--green);
-}
-.node span{
-  color:var(--muted);
-  font-family:"DM Mono",monospace;
-  font-size:.61rem;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-.node strong{
-  font-size:.9rem;
-  line-height:1.15;
-}
-.node.n1{left:2%;top:8%}
-.node.n2{right:2%;top:17%}
-.node.n3{left:24%;bottom:6%}
-.node.n4{right:20%;bottom:0}
-.node.n5{left:39%;top:35%;border-color:rgba(99,230,190,.45);box-shadow:0 0 52px rgba(99,230,190,.1)}
-.decision{
-  position:absolute;
-  left:22px;
-  right:22px;
-  bottom:22px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-.state{
-  padding:10px 11px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(5,7,10,.55);
-}
-.state b{
-  display:block;
-  margin-bottom:5px;
-  font-family:"DM Mono",monospace;
-  font-size:.68rem;
-  letter-spacing:.08em;
-}
-.state span{
-  display:block;
-  color:var(--muted);
-  font-size:.72rem;
-  line-height:1.35;
-}
-.state.ok b{color:var(--green)}
-.state.watch b{color:var(--amber)}
-.state.exception b{color:var(--rose)}
-section{
-  padding:110px clamp(18px,5vw,72px);
-}
-.section-inner{
-  max-width:1180px;
-  margin:0 auto;
-}
-.section-head{
-  display:grid;
-  grid-template-columns:minmax(0,.78fr) minmax(280px,.52fr);
-  gap:34px;
-  align-items:end;
-  margin-bottom:34px;
-}
-.section-title{
-  margin-top:14px;
-  font-size:clamp(2rem,4.5vw,4rem);
-  line-height:.98;
-  letter-spacing:0;
-}
-.section-kicker{
-  color:var(--muted);
-  line-height:1.65;
-}
-.band{
-  border-top:1px solid rgba(255,255,255,.09);
-  border-bottom:1px solid rgba(255,255,255,.09);
-  background:linear-gradient(180deg,rgba(13,18,24,.62),rgba(7,12,16,.72));
-}
-.profile-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(300px,.42fr);
-  gap:18px;
-}
-.copy-panel,.stack-panel,.experience-panel,.project-card,.contact-panel{
-  border:1px solid rgba(255,255,255,.11);
-  background:rgba(13,18,24,.78);
-}
-.copy-panel{
-  padding:clamp(24px,4vw,42px);
-}
-.copy-panel p{
-  color:#c7d2d0;
-  font-size:1.02rem;
-  line-height:1.78;
-  margin-top:18px;
-}
-.copy-panel p:first-child{margin-top:0}
-.copy-panel strong{color:var(--text);font-weight:700}
-.principles{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:28px;
-}
-.principle{
-  border:1px solid rgba(255,255,255,.09);
-  background:rgba(5,7,10,.38);
-  padding:16px;
-}
-.principle b{
-  display:block;
-  margin-bottom:8px;
-  color:var(--green);
-  font-family:"DM Mono",monospace;
-  font-size:.72rem;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-.principle span{
-  color:var(--muted);
-  font-size:.86rem;
-  line-height:1.48;
-}
-.stack-panel{
-  padding:24px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  gap:22px;
-}
-.stack-list{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-.tag{
-  display:inline-flex;
-  align-items:center;
-  min-height:30px;
-  padding:7px 9px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(5,7,10,.42);
-  color:#c7d2d0;
-  font-family:"DM Mono",monospace;
-  font-size:.68rem;
-  letter-spacing:.03em;
-}
-.tag.live{color:var(--green);border-color:rgba(99,230,190,.34)}
-.learning{
-  padding-top:20px;
-  border-top:1px solid rgba(255,255,255,.1);
-}
-.learning h3,.stack-panel h3{
-  margin-bottom:12px;
-  font-size:1rem;
-}
-.learning p{
-  color:var(--muted);
-  line-height:1.6;
-  font-size:.93rem;
-}
-.experience-panel{
-  display:grid;
-  grid-template-columns:260px minmax(0,1fr);
-  gap:0;
-}
-.experience-side{
-  padding:28px;
-  border-right:1px solid rgba(255,255,255,.1);
-  background:
-    linear-gradient(180deg,rgba(99,230,190,.1),transparent),
-    rgba(5,7,10,.32);
-}
-.experience-side h3{
-  font-size:1.55rem;
-  line-height:1.05;
-  margin-bottom:16px;
-}
-.experience-side p{
-  color:var(--muted);
-  line-height:1.58;
-}
-.experience-main{
-  padding:28px;
-}
-.ops-list{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
-}
-.ops-item{
-  padding:16px;
-  min-height:132px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(5,7,10,.36);
-}
-.ops-item b{
-  display:block;
-  color:var(--text);
-  margin-bottom:10px;
-}
-.ops-item span{
-  display:block;
-  color:var(--muted);
-  line-height:1.5;
-  font-size:.9rem;
-}
-.projects-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
-}
-.project-card{
-  position:relative;
-  min-height:355px;
-  padding:24px;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  transition:transform .24s ease,border-color .24s ease,background .24s ease;
-}
-.project-card::before{
-  content:"";
-  position:absolute;
-  inset:0 0 auto 0;
-  height:3px;
-  background:linear-gradient(90deg,var(--green),var(--blue),transparent);
-  opacity:.78;
-}
-.project-card:hover{
-  transform:translateY(-4px);
-  border-color:rgba(99,230,190,.38);
-  background:rgba(17,24,33,.86);
-}
-.project-top{
-  display:flex;
-  justify-content:space-between;
-  gap:18px;
-  margin-bottom:22px;
-}
-.project-name{
-  font-size:1.32rem;
-  font-weight:800;
-  letter-spacing:0;
-}
-.project-kind{
-  flex:0 0 auto;
-  color:var(--green);
-  font-family:"DM Mono",monospace;
-  font-size:.66rem;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-}
-.project-card p{
-  color:#bfcbca;
-  line-height:1.64;
-  font-size:.96rem;
-}
-.case-flow{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin:22px 0;
-}
-.case-step{
-  position:relative;
-  padding:12px 10px;
-  min-height:66px;
-  border:1px solid rgba(255,255,255,.09);
-  background:rgba(5,7,10,.42);
-}
-.case-step b{
-  display:block;
-  margin-bottom:5px;
-  color:var(--text);
-  font-size:.83rem;
-}
-.case-step span{
-  display:block;
-  color:var(--soft);
-  font-family:"DM Mono",monospace;
-  font-size:.62rem;
-  text-transform:uppercase;
-  letter-spacing:.06em;
-}
-.project-links{
-  margin-top:auto;
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-.small-link{
-  color:var(--muted);
-  font-family:"DM Mono",monospace;
-  font-size:.73rem;
-  text-decoration:none;
-  border-bottom:1px solid rgba(99,230,190,.36);
-  padding-bottom:3px;
-}
-.small-link:hover{color:var(--green)}
-.matrix{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-}
-.matrix-card{
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(13,18,24,.74);
-  padding:22px;
-}
-.matrix-card h3{
-  margin-bottom:14px;
-  color:var(--green);
-  font-size:1.05rem;
-}
-.matrix-card p{
-  color:var(--muted);
-  line-height:1.62;
-}
-.fit-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-.fit{
-  min-height:150px;
-  padding:18px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(5,7,10,.36);
-}
-.fit b{
-  display:block;
-  margin-bottom:12px;
-  color:var(--text);
-}
-.fit span{
-  display:block;
-  color:var(--muted);
-  line-height:1.52;
-  font-size:.9rem;
-}
-.contact-panel{
-  position:relative;
-  overflow:hidden;
-  padding:clamp(26px,5vw,54px);
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  gap:28px;
-  align-items:end;
-}
-.contact-panel::before{
-  content:"";
-  position:absolute;
-  inset:auto -20% -45% 42%;
-  height:280px;
-  background:radial-gradient(circle,rgba(99,230,190,.18),transparent 68%);
-  pointer-events:none;
-}
-.contact-panel h2{
-  position:relative;
-  font-size:clamp(2rem,5vw,4.5rem);
-  line-height:.96;
-  letter-spacing:0;
-  max-width:780px;
-}
-.contact-panel p{
-  position:relative;
-  margin-top:20px;
-  max-width:650px;
-  color:var(--muted);
-  line-height:1.65;
-}
-.contact-actions{
-  position:relative;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-  gap:10px;
-}
-footer{
-  position:relative;
-  z-index:2;
-  padding:26px clamp(18px,5vw,72px);
-  display:flex;
-  justify-content:space-between;
-  gap:18px;
-  border-top:1px solid rgba(255,255,255,.09);
-  color:var(--soft);
-  font-family:"DM Mono",monospace;
-  font-size:.68rem;
-  letter-spacing:.04em;
-}
-.reveal{
-  opacity:0;
-  transform:translateY(24px);
-  transition:opacity .62s ease,transform .62s ease;
-}
-.reveal.in{
-  opacity:1;
-  transform:none;
-}
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(99,230,190,.68)}
-  70%{box-shadow:0 0 0 12px rgba(99,230,190,0)}
-  100%{box-shadow:0 0 0 0 rgba(99,230,190,0)}
-}
-@keyframes packet{
-  0%{transform:translate3d(0,0,0);opacity:0}
-  12%{opacity:1}
-  50%{transform:translate3d(120px,-34px,0)}
-  86%{opacity:1}
-  100%{transform:translate3d(230px,14px,0);opacity:0}
-}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:.01ms!important;
-  }
-  .system-canvas{display:none}
-}
-@media (max-width:1040px){
-  .hero{
-    grid-template-columns:1fr;
-    padding-top:112px;
-  }
-  .orchestration{min-height:520px}
-  .section-head,.profile-grid,.experience-panel,.contact-panel{
-    grid-template-columns:1fr;
-  }
-  .experience-side{border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}
-  .contact-actions{justify-content:flex-start}
-  .matrix,.fit-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media (max-width:760px){
-  .nav{padding:14px 16px}
-  .nav-links a:not(.nav-cta){display:none}
-  .nav-links{gap:0}
-  .hero{padding:96px 16px 58px}
-  .hero > *{
-    min-width:0;
-    max-width:100%;
-  }
-  .hero > div:first-child,
-  .orchestration{
-    width:calc(100vw - 32px);
-    max-width:calc(100vw - 32px);
-  }
-  .availability{
-    width:100%;
-    align-items:flex-start;
-    white-space:normal;
-    line-height:1.45;
-    letter-spacing:.09em;
-    overflow-wrap:anywhere;
-  }
-  h1{
-    font-size:clamp(2.35rem,11vw,2.8rem);
-    line-height:.96;
-    overflow-wrap:break-word;
-  }
-  .text-glow{
-    display:block;
-  }
-  .mobile-only{display:block}
-  .hero-copy{
-    max-width:100%;
-    font-size:1rem;
-    line-height:1.55;
-    overflow-wrap:break-word;
-  }
-  .hero-proof,.principles,.ops-list,.projects-grid,.matrix,.fit-grid{
-    grid-template-columns:1fr;
-  }
-  .orchestration{
-    min-height:620px;
-  }
-  .system-map{inset:72px 18px 128px}
-  .wire,.packet{display:none}
-  .node{
-    position:relative;
-    inset:auto!important;
-    width:auto;
-    min-height:72px;
-    margin-bottom:10px;
-  }
-  .decision{
-    grid-template-columns:1fr;
-  }
-  section{padding:72px 16px}
-  .project-top{
-    flex-direction:column;
-    gap:8px;
-  }
-  .case-flow{
-    grid-template-columns:1fr;
-  }
-  footer{
-    flex-direction:column;
-  }
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/site.css" />
+<script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
-<canvas class="system-canvas" id="systemCanvas" aria-hidden="true"></canvas>
-<div class="page">
-  <nav class="nav" id="nav">
-    <a class="mark" href="#top" aria-label="Zara Selim home">
-      <span class="mark-sigil">ZS</span>
-      <span>Zara Selim</span>
-    </a>
-    <div class="nav-links" aria-label="Primary navigation">
-      <a href="#work">Problems</a>
-      <a href="#projects">Proof</a>
-      <a href="#systems">Voice Ops</a>
-      <a href="#method">Method</a>
-      <a class="nav-cta" href="mailto:zaraselim04@gmail.com">Contact</a>
-    </div>
-  </nav>
+<a class="skip-link" href="#main">Skip to content</a>
 
-  <main id="top">
-    <section class="hero">
-      <div>
-        <div class="availability mono"><span class="pulse"></span> Practical AI + automation for operational work</div>
-        <h1>AI and automation for <span class="text-glow">messy business processes.</span></h1>
-        <p class="hero-copy">
-          I help businesses connect APIs, workflows, documents, calls and business logic into systems that move work forward, surface exceptions and keep people in control.
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="wordmark" href="#top" aria-label="Zara Selim, back to top">Zara Selim<span class="wordmark-dot" aria-hidden="true">.</span></a>
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="#work" data-nav="work">Work</a></li>
+        <li><a href="#experience" data-nav="experience">Experience</a></li>
+        <li><a href="#approach" data-nav="approach">Approach</a></li>
+        <li><a href="#contact" data-nav="contact" class="nav-contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="menu-button-label">Menu</span>
+      <span class="menu-icon" aria-hidden="true"><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <nav aria-label="Mobile">
+    <ol class="mobile-menu-list">
+      <li><a href="#work"><span class="mono">01</span>Work</a></li>
+      <li><a href="#experience"><span class="mono">02</span>Experience</a></li>
+      <li><a href="#approach"><span class="mono">03</span>Approach</a></li>
+      <li><a href="#contact"><span class="mono">04</span>Contact</a></li>
+    </ol>
+  </nav>
+  <div class="mobile-menu-foot">
+    <span class="mono">Email</span>
+    <a href="mailto:zaraselim04@gmail.com">zaraselim04@gmail.com</a>
+    <a href="https://github.com/zayzyyazy" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top" aria-labelledby="heroTitle">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kicker"><span class="kicker-rule" aria-hidden="true"></span>Zara Selim · automation &amp; applied AI</p>
+        <h1 class="hero-title" id="heroTitle">
+          <span class="line">Systems for</span>
+          <span class="line">the work <em>between</em></span>
+          <span class="line">the tools.</span>
+        </h1>
+        <p class="hero-lede">
+          I build automations, AI-assisted workflows and small internal tools for messy operational processes, connecting APIs, documents and business rules, and making sure the cases that need a person actually reach one.
         </p>
         <div class="hero-actions">
-          <a class="btn primary" href="#work">See what I can build</a>
-          <a class="btn" href="mailto:zaraselim04@gmail.com?subject=Process%20automation%20idea">Tell me what's slowing you down</a>
-          <a class="btn" href="https://github.com/zayzyyazy" target="_blank" rel="noreferrer">GitHub</a>
-        </div>
-        <div class="hero-proof" aria-label="Portfolio proof points">
-          <div class="proof">
-            <strong>Connect scattered systems</strong>
-            <span>APIs, webhooks, CRMs, spreadsheets, Google tools and structured data moving in one workflow.</span>
-          </div>
-          <div class="proof">
-            <strong>Automate multi-step work</strong>
-            <span>Classification, business rules, routing, follow-ups, external actions and exception paths.</span>
-          </div>
-          <div class="proof">
-            <strong>Add useful AI carefully</strong>
-            <span>Extraction, case analysis, call QA, structured outputs and decisions a person can review.</span>
-          </div>
+          <a class="btn btn-primary" href="#work">See my work <span aria-hidden="true">↓</span></a>
+          <a class="btn btn-ghost" href="#contact">Tell me what you're trying to build</a>
+          <a class="text-link" href="https://github.com/zayzyyazy" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
 
-      <aside class="orchestration" aria-label="Interactive operations system diagram">
-        <div class="orbit-label">
-          <span>Operational workflow map</span>
-          <span id="cursorState">signal stable</span>
-        </div>
-        <div class="system-map" id="systemMap">
-          <span class="wire w1"></span>
-          <span class="wire w2"></span>
-          <span class="wire w3"></span>
-          <span class="wire w4"></span>
-          <span class="packet p1"></span>
-          <span class="packet p2"></span>
-          <span class="packet p3"></span>
-          <div class="node n1"><span>input</span><strong>Email, call or document</strong></div>
-          <div class="node n2"><span>systems</span><strong>CRM, APIs and spreadsheets</strong></div>
-          <div class="node n3"><span>logic</span><strong>Rules, state and validation</strong></div>
-          <div class="node n4"><span>review</span><strong>Human exception path</strong></div>
-          <div class="node n5"><span>AI step</span><strong>Extract, classify or analyze</strong></div>
-        </div>
-        <div class="decision" aria-label="System state examples">
-          <div class="state ok"><b>HANDLED</b><span>Known path, next action can run.</span></div>
-          <div class="state watch"><b>CHECK</b><span>Retry, enrich or ask for missing context.</span></div>
-          <div class="state exception"><b>EXCEPTION</b><span>Route to a person with evidence.</span></div>
-        </div>
-      </aside>
-    </section>
+      <figure class="hero-figure" aria-label="Diagram: messy inputs are normalized and checked, then either run automatically, get flagged for a check, or go to a person.">
+        <!-- Wide diagram (tablet/desktop) -->
+        <svg class="router router-wide" viewBox="0 0 560 440" role="img" aria-hidden="true" focusable="false">
+          <g class="router-inputs">
+            <g transform="translate(0,46)"><rect class="chip" width="138" height="34" rx="17"/><text x="18" y="22">email</text><text class="chip-meta" x="120" y="22" text-anchor="end">.eml</text></g>
+            <g transform="translate(0,118)"><rect class="chip" width="138" height="34" rx="17"/><text x="18" y="22">document</text><text class="chip-meta" x="120" y="22" text-anchor="end">.docx</text></g>
+            <g transform="translate(0,190)"><rect class="chip" width="138" height="34" rx="17"/><text x="18" y="22">call transcript</text></g>
+            <g transform="translate(0,262)"><rect class="chip" width="138" height="34" rx="17"/><text x="18" y="22">API response</text><text class="chip-meta" x="120" y="22" text-anchor="end">503</text></g>
+            <g transform="translate(0,334)"><rect class="chip" width="138" height="34" rx="17"/><text x="18" y="22">spreadsheet row</text></g>
+          </g>
+          <g class="router-paths">
+            <path id="ri1" d="M138 63 C 200 63, 200 220, 252 220"/>
+            <path id="ri2" d="M138 135 C 200 135, 200 220, 252 220"/>
+            <path id="ri3" d="M138 207 C 200 207, 200 220, 252 220"/>
+            <path id="ri4" d="M138 279 C 200 279, 200 220, 252 220"/>
+            <path id="ri5" d="M138 351 C 200 351, 200 220, 252 220"/>
+            <path id="ro1" class="out ok" d="M352 220 C 400 220, 400 120, 430 120"/>
+            <path id="ro2" class="out watch" d="M352 220 C 400 220, 400 220, 430 220"/>
+            <path id="ro3" class="out exc" d="M352 220 C 400 220, 400 320, 430 320"/>
+          </g>
+          <g class="router-core" transform="translate(252,172)">
+            <rect width="100" height="96" rx="6"/>
+            <text class="core-label" x="50" y="30" text-anchor="middle">NORMALIZE</text>
+            <line x1="18" x2="82" y1="44" y2="44"/>
+            <text class="core-label" x="50" y="62" text-anchor="middle">RULES</text>
+            <text class="core-label" x="50" y="80" text-anchor="middle">+ AI</text>
+          </g>
+          <g class="router-outputs">
+            <g transform="translate(430,100)"><circle class="dot ok" cx="8" cy="20" r="5"/><text x="22" y="16" class="out-title">runs</text><text x="22" y="32" class="out-sub">automatically</text></g>
+            <g transform="translate(430,200)"><circle class="dot watch" cx="8" cy="20" r="5"/><text x="22" y="16" class="out-title">gets</text><text x="22" y="32" class="out-sub">a second check</text></g>
+            <g transform="translate(430,300)"><circle class="dot exc" cx="8" cy="20" r="5"/><text x="22" y="16" class="out-title">goes to</text><text x="22" y="32" class="out-sub">a person</text></g>
+          </g>
+          <g class="packets">
+            <circle r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" begin="0s"><mpath href="#ri1"/></animateMotion></circle>
+            <circle r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" begin="1.1s"><mpath href="#ri4"/></animateMotion></circle>
+            <circle r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" begin="2.2s"><mpath href="#ri2"/></animateMotion></circle>
+            <circle r="3.5" class="p-ok"><animateMotion dur="2.4s" repeatCount="indefinite" begin=".6s"><mpath href="#ro1"/></animateMotion></circle>
+            <circle r="3.5" class="p-watch"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.4s"><mpath href="#ro2"/></animateMotion></circle>
+            <circle r="3.5" class="p-exc"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2.1s"><mpath href="#ro3"/></animateMotion></circle>
+          </g>
+        </svg>
+        <!-- Tall diagram (phones) -->
+        <svg class="router router-tall" viewBox="0 0 320 400" role="img" aria-hidden="true" focusable="false">
+          <g class="router-inputs">
+            <g transform="translate(0,0)"><rect class="chip" width="98" height="30" rx="15"/><text x="49" y="20" text-anchor="middle">email</text></g>
+            <g transform="translate(111,0)"><rect class="chip" width="98" height="30" rx="15"/><text x="49" y="20" text-anchor="middle">document</text></g>
+            <g transform="translate(222,0)"><rect class="chip" width="98" height="30" rx="15"/><text x="49" y="20" text-anchor="middle">call</text></g>
+            <g transform="translate(55,44)"><rect class="chip" width="98" height="30" rx="15"/><text x="49" y="20" text-anchor="middle">API</text></g>
+            <g transform="translate(166,44)"><rect class="chip" width="98" height="30" rx="15"/><text x="49" y="20" text-anchor="middle">spreadsheet</text></g>
+          </g>
+          <g class="router-paths">
+            <path id="ti1" d="M49 30 C 49 110, 160 90, 160 150"/>
+            <path id="ti2" d="M160 30 C 160 60, 160 100, 160 150"/>
+            <path id="ti3" d="M271 30 C 271 110, 160 90, 160 150"/>
+            <path d="M104 74 C 104 120, 160 110, 160 150"/>
+            <path d="M215 74 C 215 120, 160 110, 160 150"/>
+            <path id="to1" class="out ok" d="M160 230 C 160 270, 50 260, 50 310"/>
+            <path id="to2" class="out watch" d="M160 230 C 160 270, 160 270, 160 310"/>
+            <path id="to3" class="out exc" d="M160 230 C 160 270, 270 260, 270 310"/>
+          </g>
+          <g class="router-core" transform="translate(100,150)">
+            <rect width="120" height="80" rx="6"/>
+            <text class="core-label" x="60" y="28" text-anchor="middle">NORMALIZE</text>
+            <line x1="24" x2="96" y1="40" y2="40"/>
+            <text class="core-label" x="60" y="60" text-anchor="middle">RULES + AI</text>
+          </g>
+          <g class="router-outputs">
+            <g transform="translate(50,322)"><circle class="dot ok" cx="0" cy="0" r="5"/><text x="0" y="26" text-anchor="middle" class="out-title">runs</text><text x="0" y="44" text-anchor="middle" class="out-sub">automatically</text></g>
+            <g transform="translate(160,322)"><circle class="dot watch" cx="0" cy="0" r="5"/><text x="0" y="26" text-anchor="middle" class="out-title">gets</text><text x="0" y="44" text-anchor="middle" class="out-sub">a check</text></g>
+            <g transform="translate(270,322)"><circle class="dot exc" cx="0" cy="0" r="5"/><text x="0" y="26" text-anchor="middle" class="out-title">goes to</text><text x="0" y="44" text-anchor="middle" class="out-sub">a person</text></g>
+          </g>
+          <g class="packets">
+            <circle r="3.5"><animateMotion dur="2.8s" repeatCount="indefinite"><mpath href="#ti1"/></animateMotion></circle>
+            <circle r="3.5"><animateMotion dur="2.8s" repeatCount="indefinite" begin="1.3s"><mpath href="#ti3"/></animateMotion></circle>
+            <circle r="3.5" class="p-ok"><animateMotion dur="2.2s" repeatCount="indefinite" begin=".5s"><mpath href="#to1"/></animateMotion></circle>
+            <circle r="3.5" class="p-exc"><animateMotion dur="2.2s" repeatCount="indefinite" begin="1.6s"><mpath href="#to3"/></animateMotion></circle>
+          </g>
+        </svg>
+        <figcaption class="annotation">fig. 0: most of my work happens in the middle box.</figcaption>
+      </figure>
+    </div>
 
-    <section class="band" id="work">
-      <div class="section-inner">
-        <div class="section-head reveal">
-          <div>
-            <p class="eyebrow">Problems I can help with</p>
-            <h2 class="section-title">Have a process that should not still be manual?</h2>
+    <div class="wrap">
+      <dl class="hero-facts">
+        <div><dt class="mono">Now</dt><dd>Working on a production AI voice agent</dd></div>
+        <div><dt class="mono">Builds with</dt><dd>n8n, APIs, JavaScript/TypeScript, LLMs</dd></div>
+        <div><dt class="mono">Studying</dt><dd>Human-Centered Informatics &amp; Psychology</dd></div>
+        <div><dt class="mono">Based in</dt><dd>Germany · open to freelance &amp; collaborations</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ WORK ============ -->
+  <section class="work" id="work" aria-labelledby="workTitle">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="section-index mono">§ 01</p>
+        <h2 class="section-title" id="workTitle">Selected work</h2>
+        <p class="section-intro">Systems I've built around real operational problems. Open any of them to see the problem, how the system works, and what I built.</p>
+      </header>
+
+      <div class="projects">
+
+        <!-- 01 WAYBILL (featured) -->
+        <article class="project project--feature reveal" data-project="waybill">
+          <div class="project-text">
+            <p class="project-meta"><span class="project-num" data-field="number"></span><span class="mono" data-field="category"></span></p>
+            <h3 class="project-title" data-field="title"></h3>
+            <p class="project-tagline" data-field="tagline"></p>
+            <p class="project-note">Deterministic rules, data reconciliation and explicit exceptions. <strong>No AI needed.</strong></p>
+            <button class="project-open" type="button" data-open="waybill">Read the case study <span aria-hidden="true">→</span></button>
           </div>
-          <p class="section-kicker">
-            I am useful where work is stuck between emails, documents, APIs, calls, spreadsheets, CRM data and repeated decisions. The goal is not "add AI"; it is to make the process work better.
-          </p>
-        </div>
-        <div class="profile-grid">
-          <div class="copy-panel reveal">
-            <p>
-              I build practical systems around operational problems: tools that collect incoming information, structure it, apply rules, trigger actions and surface the cases that need a human.
-            </p>
-            <p>
-              That can mean connecting services that do not talk to each other, automating a multi-step workflow, adding an AI extraction/classification step, or making document and call information usable after it arrives.
-            </p>
-            <div class="principles">
-              <div class="principle"><b>Systems integration</b><span>Move information and actions between CRMs, APIs, Google tools and internal systems.</span></div>
-              <div class="principle"><b>Operational automation</b><span>Build workflows with rules, routing, follow-ups, external actions and exception handling.</span></div>
-              <div class="principle"><b>Useful AI steps</b><span>Use LLMs for extraction, classification, analysis and decision support where they genuinely help.</span></div>
+          <div class="project-visual vis-waybill" aria-hidden="true">
+            <div class="wb-sources">
+              <div class="wb-src"><span class="mono">Shopify</span><b>#1043 · fulfilled</b></div>
+              <div class="wb-src"><span class="mono">Carrier API</span><b>delivered · no POD</b></div>
+              <div class="wb-src"><span class="mono">Drive</span><b>0 documents found</b></div>
+            </div>
+            <div class="wb-pipe">
+              <span class="wb-step">normalize</span>
+              <span class="wb-step">reconcile</span>
+              <span class="wb-step">rules</span>
+            </div>
+            <div class="wb-states">
+              <div class="wb-state ok"><span class="wb-dot"></span><b>HEALTHY</b><span class="mono">POD found</span></div>
+              <div class="wb-state watch"><span class="wb-dot"></span><b>WATCH</b><span class="mono">RETRY_CARRIER</span></div>
+              <div class="wb-state exc is-hit"><span class="wb-dot"></span><b>EXCEPTION</b><span class="mono">POD_DOCUMENT_MISSING</span></div>
             </div>
           </div>
-          <aside class="stack-panel reveal">
-            <div>
-              <h3>Messy inputs I can turn into workflows</h3>
-              <div class="stack-list">
-                <span class="tag live">Emails</span>
-                <span class="tag live">Documents</span>
-                <span class="tag live">CRM data</span>
-                <span class="tag live">API responses</span>
-                <span class="tag live">Call outcomes</span>
-                <span class="tag live">Spreadsheets</span>
-                <span class="tag">Manual checks</span>
-                <span class="tag">Repeated decisions</span>
-                <span class="tag">Follow-ups</span>
-                <span class="tag">Exceptions</span>
+        </article>
+
+        <!-- 02 PAPERGUARD -->
+        <article class="project project--paper reveal" data-project="paperguard">
+          <div class="project-visual vis-paper" aria-hidden="true">
+            <div class="sheet">
+              <p class="sheet-file mono">thesis_final_v3.docx</p>
+              <div class="sheet-line w90"></div>
+              <div class="sheet-line w70 mark-fail"><span class="stamp fail">FAIL</span><span class="anno">Arial ≠ Times</span></div>
+              <div class="sheet-line w85"></div>
+              <div class="sheet-line w60 mark-fail"><span class="stamp fail">FAIL</span><span class="anno">63 words, need 150+</span></div>
+              <div class="sheet-line w80"></div>
+              <div class="sheet-line w75 mark-pass"><span class="stamp pass">PASS</span><span class="anno">margins 2.5 cm</span></div>
+              <div class="sheet-figure"><span class="stamp review">REVIEW</span><span class="anno">figure source unclear → person</span></div>
+            </div>
+          </div>
+          <div class="project-text">
+            <p class="project-meta"><span class="project-num" data-field="number"></span><span class="mono" data-field="category"></span></p>
+            <h3 class="project-title" data-field="title"></h3>
+            <p class="project-tagline" data-field="tagline"></p>
+            <button class="project-open" type="button" data-open="paperguard">Read the case study <span aria-hidden="true">→</span></button>
+          </div>
+        </article>
+
+        <!-- 03 NORTHSTAR -->
+        <article class="project project--north reveal" data-project="northstar">
+          <div class="project-text">
+            <p class="project-meta"><span class="project-num" data-field="number"></span><span class="mono" data-field="category"></span></p>
+            <h3 class="project-title" data-field="title"></h3>
+            <p class="project-tagline" data-field="tagline"></p>
+            <button class="project-open" type="button" data-open="northstar">Read the case study <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="project-visual vis-north" aria-hidden="true">
+            <ol class="gates">
+              <li class="gate rule"><span class="mono">rules</span><b>high value + major damage</b></li>
+              <li class="gate ai"><span class="mono">ai</span><b>recommends <s>SCRAP</s></b></li>
+              <li class="gate rule"><span class="mono">guardrail</span><b>hard rule overrides</b></li>
+              <li class="gate human"><span class="mono">human</span><b>MANUAL_REVIEW</b></li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- 04 + 05 Reliability pair -->
+        <div class="reliability reveal" aria-labelledby="relTitle">
+          <div class="reliability-head">
+            <p class="mono reliability-kicker">Reliability · two related systems</p>
+            <h3 class="reliability-title" id="relTitle">When the conversation and the system disagree.</h3>
+            <div class="said-grid" aria-label="Three versions of what happened on a call">
+              <div class="said"><span class="mono">What was said</span><q>“Can you place my order?”</q></div>
+              <div class="said"><span class="mono">What the agent claimed</span><q>“Great news, it's placed.”</q></div>
+              <div class="said said--truth"><span class="mono">What actually happened</span><code>orderPlaced: false</code></div>
+            </div>
+          </div>
+          <div class="reliability-pair">
+            <article class="project project--dark project--qa" data-project="call-qa">
+              <div class="project-visual vis-qa" aria-hidden="true">
+                <div class="wave" id="qaWave"></div>
+                <div class="pins">
+                  <span class="pin" style="--x:18%"><i class="mono">00:42</i><span>intent: cancel</span></span>
+                  <span class="pin pin--flag" style="--x:52%"><i class="mono">01:28</i><span>caller cut off</span></span>
+                  <span class="pin" style="--x:80%"><i class="mono">02:51</i><span>result: partial</span></span>
+                </div>
+                <p class="qa-draft mono">AI draft → <span>reviewer edits</span></p>
               </div>
-            </div>
-            <div class="learning">
-              <h3>What good looks like</h3>
-              <p>Information enters once, the system checks what it can, actions happen automatically where safe, and unclear cases arrive to a person with context.</p>
-            </div>
-          </aside>
+              <div class="project-text">
+                <p class="project-meta"><span class="project-num" data-field="number"></span><span class="mono" data-field="category"></span></p>
+                <h3 class="project-title" data-field="title"></h3>
+                <p class="project-tagline" data-field="tagline"></p>
+                <button class="project-open" type="button" data-open="call-qa">Read the case study <span aria-hidden="true">→</span></button>
+              </div>
+            </article>
+            <article class="project project--dark project--incident" data-project="incident-room">
+              <div class="project-visual vis-incident" aria-hidden="true">
+                <div class="trace">
+                  <div class="trace-row"><span class="mono">L1 conversation</span><b>“order placed ✓”</b></div>
+                  <div class="trace-row"><span class="mono">L2 execution</span><b>sideEffectCreated: false</b></div>
+                  <div class="trace-verdict"><span class="mono">mismatch</span><b>noop_side_effect</b></div>
+                </div>
+              </div>
+              <div class="project-text">
+                <p class="project-meta"><span class="project-num" data-field="number"></span><span class="mono" data-field="category"></span></p>
+                <h3 class="project-title" data-field="title"></h3>
+                <p class="project-tagline" data-field="tagline"></p>
+                <button class="project-open" type="button" data-open="incident-room">Read the case study <span aria-hidden="true">→</span></button>
+              </div>
+            </article>
+          </div>
         </div>
+
+        <!-- 06 KNOWLEDGE -->
+        <article class="project project--strip reveal" data-project="knowledge">
+          <div class="project-text">
+            <p class="project-meta"><span class="project-num" data-field="number"></span><span class="mono" data-field="category"></span></p>
+            <h3 class="project-title" data-field="title"></h3>
+            <p class="project-tagline" data-field="tagline"></p>
+            <button class="project-open" type="button" data-open="knowledge">How it works <span aria-hidden="true">→</span></button>
+          </div>
+          <ol class="project-visual vis-knowledge" aria-hidden="true">
+            <li>capture</li><li>n8n</li><li>record</li><li>Drive</li><li>embeddings</li><li>Qdrant</li><li>Ollama</li>
+          </ol>
+        </article>
       </div>
-    </section>
 
-    <section id="systems">
-      <div class="section-inner">
-        <div class="section-head reveal">
-          <div>
-            <p class="eyebrow">Production voice-agent work</p>
-            <h2 class="section-title">I understand what happens after an AI answer.</h2>
-          </div>
-          <p class="section-kicker">
-            One of my strongest proof points is hands-on work around a production AI voice system. Details stay confidential, but the pattern is relevant to many businesses: the conversation is only one part of the system.
-          </p>
-        </div>
-        <div class="experience-panel reveal">
-          <aside class="experience-side">
-            <h3>MARIE and related AI call operations</h3>
-            <p>Production behavior, routing, tool/API actions and post-call handling around real calls, not a demo chatbot.</p>
-          </aside>
-          <div class="experience-main">
-            <div class="ops-list">
-              <div class="ops-item"><b>Behavior and prompts</b><span>Testing edge cases, improving system behavior and tightening structured outputs.</span></div>
-              <div class="ops-item"><b>Tool and API actions</b><span>Working around function calls, CRM/API actions, routing logic and scheduler-connected flows.</span></div>
-              <div class="ops-item"><b>Post-call processing</b><span>Ticket handling, outbound workflows, human-review routing and follow-up paths.</span></div>
-              <div class="ops-item"><b>QA and debugging</b><span>Finding failures, comparing intended outcomes to side effects and improving recovery paths.</span></div>
-            </div>
-          </div>
-        </div>
+      <noscript>
+        <ul class="noscript-list">
+          <li><a href="https://github.com/zayzyyazy/n8n-waybill-reconciliation">Waybill: shipment reconciliation</a></li>
+          <li><a href="https://github.com/zayzyyazy/n8n-paperguard-document-validator">PaperGuard: document validation</a></li>
+          <li><a href="https://github.com/zayzyyazy/n8n-northstar-human-review">NorthStar: AI-assisted decisions with human review</a></li>
+          <li><a href="https://github.com/zayzyyazy/ai-call-qa-cockpit">AI Call QA Cockpit</a></li>
+          <li><a href="https://github.com/zayzyyazy/Incident-Room">Incident Room</a></li>
+        </ul>
+      </noscript>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section class="experience dark" id="experience" aria-labelledby="expTitle">
+    <div class="wrap exp-grid">
+      <div class="exp-copy">
+        <p class="section-index mono">§ 02 · Production work</p>
+        <h2 class="section-title" id="expTitle">The conversation is the <em>easy</em> part.</h2>
+        <p>Since early 2026 I've worked as a working student on <strong>MARIE</strong>, an AI voice agent handling real customer calls in production.</p>
+        <p>The main thing it taught me: the hard part of an AI agent isn't what it says. It's everything around it. Which tool fires, what gets written to the CRM, what happens after the call ends, and how you notice when one of those quietly fails.</p>
+        <p class="exp-confidential mono">Details are confidential, so there are no screenshots here.</p>
       </div>
-    </section>
-
-    <section class="band" id="projects">
-      <div class="section-inner">
-        <div class="section-head reveal">
-          <div>
-            <p class="eyebrow">Selected systems / projects</p>
-            <h2 class="section-title">Proof through messy operational problems.</h2>
-          </div>
-          <p class="section-kicker">
-            These are implementation-focused systems and portfolio projects using synthetic data where needed. The important part is the process logic: what comes in, how it is checked and what happens next.
-          </p>
+      <div class="call-map" aria-label="The kinds of work around one production call">
+        <div class="call-ring">
+          <div class="call-core"><span class="mono">one call</span></div>
         </div>
-        <div class="projects-grid">
-          <article class="project-card reveal">
-            <div class="project-top">
-              <h3 class="project-name">WAYBILL</h3>
-              <span class="project-kind">Reconciliation</span>
-            </div>
-            <p>Several sources disagree about what happened to an order. WAYBILL pulls Shopify, carrier/API data and Drive documents into one reconciliation flow, applies rules and surfaces which shipments need attention.</p>
-            <div class="case-flow">
-              <div class="case-step"><b>Ingest</b><span>Shopify / carrier / Drive</span></div>
-              <div class="case-step"><b>Reconcile</b><span>Tracking and rules</span></div>
-              <div class="case-step"><b>Classify</b><span>Healthy / watch / exception</span></div>
-            </div>
-            <div class="project-links">
-              <span class="tag">n8n</span><span class="tag">Shopify GraphQL</span><span class="tag">REST API</span><span class="tag">JavaScript rules</span>
-              <a class="small-link" href="https://github.com/zayzyyazy/n8n-waybill-reconciliation" target="_blank" rel="noreferrer">Repository</a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-top">
-              <h3 class="project-name">PAPERGUARD</h3>
-              <span class="project-kind">Document validation</span>
-            </div>
-            <p>Documents arrive with information that has to be checked manually. PAPERGUARD parses the document, extracts evidence, validates it against rules and routes failed or ambiguous cases for review.</p>
-            <div class="case-flow">
-              <div class="case-step"><b>Parse</b><span>DOCX / OOXML</span></div>
-              <div class="case-step"><b>Validate</b><span>Policy checks</span></div>
-              <div class="case-step"><b>Report</b><span>Pass / fail / review</span></div>
-            </div>
-            <div class="project-links">
-              <span class="tag">n8n</span><span class="tag">OOXML</span><span class="tag">JavaScript</span><span class="tag">Structured report</span>
-              <a class="small-link" href="https://github.com/zayzyyazy/n8n-paperguard-document-validator" target="_blank" rel="noreferrer">Repository</a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-top">
-              <h3 class="project-name">AI Call QA / Incident Review</h3>
-              <span class="project-kind">Post-call QA</span>
-            </div>
-            <p>A call can sound successful while the underlying action failed. These systems compare the conversation, tool traces and side effects so post-call issues can be classified and routed.</p>
-            <div class="case-flow">
-              <div class="case-step"><b>Capture</b><span>Conversation and traces</span></div>
-              <div class="case-step"><b>Compare</b><span>Claim vs side effect</span></div>
-              <div class="case-step"><b>Route</b><span>Human review</span></div>
-            </div>
-            <div class="project-links">
-              <span class="tag">TypeScript</span><span class="tag">Next.js</span><span class="tag">MongoDB</span><span class="tag">Failure classification</span>
-              <a class="small-link" href="https://github.com/zayzyyazy/ai-call-qa-cockpit" target="_blank" rel="noreferrer">QA cockpit</a>
-              <a class="small-link" href="https://github.com/zayzyyazy/Incident-Room" target="_blank" rel="noreferrer">Incident Room</a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-top">
-              <h3 class="project-name">Local AI Knowledge System</h3>
-              <span class="project-kind">Knowledge workflow</span>
-            </div>
-            <p>Useful internal knowledge often lives across folders, notes and documents. This local workflow ingests material, indexes it and makes retrieval possible without making the knowledge system the main business offer.</p>
-            <div class="case-flow">
-              <div class="case-step"><b>Collect</b><span>Drive and webhooks</span></div>
-              <div class="case-step"><b>Index</b><span>Embeddings and vectors</span></div>
-              <div class="case-step"><b>Retrieve</b><span>Local model support</span></div>
-            </div>
-            <div class="project-links">
-              <span class="tag">Docker</span><span class="tag">Ollama</span><span class="tag">Qdrant</span><span class="tag">n8n</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="method">
-      <div class="section-inner">
-        <div class="section-head reveal">
-          <div>
-            <p class="eyebrow">How I build</p>
-            <h2 class="section-title">Start with the process, then decide where AI belongs.</h2>
+        <div class="call-layers">
+          <div class="call-layer">
+            <h3 class="mono">Before</h3>
+            <p>Outbound flows · scheduler flows</p>
           </div>
-          <p class="section-kicker">
-            I do not start from "let's use a model." I start by understanding the work, connecting the systems, defining what can be automated safely and deciding where humans need to stay in the loop.
-          </p>
-        </div>
-        <div class="matrix">
-          <div class="matrix-card reveal">
-            <h3>1. Understand the process</h3>
-            <p>Map what happens today, where information enters, who touches it and where things slow down or break.</p>
+          <div class="call-layer">
+            <h3 class="mono">During</h3>
+            <p>Prompt behavior · function/tool nodes · routing · structured JSON</p>
           </div>
-          <div class="matrix-card reveal">
-            <h3>2. Connect the systems</h3>
-            <p>Use APIs, webhooks and workflow tools to move data and actions between services instead of copying by hand.</p>
+          <div class="call-layer">
+            <h3 class="mono">After</h3>
+            <p>API/CRM actions · post-call workflows · ticket creation</p>
           </div>
-          <div class="matrix-card reveal">
-            <h3>3. Handle the exceptions</h3>
-            <p>Combine rules, AI steps and review paths so the system knows what to do when information is missing or uncertain.</p>
+          <div class="call-layer call-layer--accent">
+            <h3 class="mono">Always</h3>
+            <p>Evaluation · edge-case testing · failure analysis · human review</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="band" id="fit">
-      <div class="section-inner">
-        <div class="section-head reveal">
-          <div>
-            <p class="eyebrow">Technical capability</p>
-            <h2 class="section-title">Enough stack to build the workflow, not just describe it.</h2>
+  <!-- ============ APPROACH ============ -->
+  <section class="approach" id="approach" aria-labelledby="approachTitle">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="section-index mono">§ 03 · How I decide</p>
+        <h2 class="section-title" id="approachTitle">AI where it's useful. Rules where they're needed. <em>People where it matters.</em></h2>
+        <p class="section-intro">Not every step needs a model. Pick a case and see where it goes. All of them come from the projects above.</p>
+      </header>
+
+      <div class="sorter" id="sorter">
+        <div class="sorter-cases" role="group" aria-label="Example cases">
+          <button type="button" class="case" data-lane="ai" data-why="Free-text intent has no fixed format. Interpreting it is what a model is good at." data-from="call-qa">A caller's reason for cancelling</button>
+          <button type="button" class="case" data-lane="rules" data-why="Policy says Times New Roman. Code checks that the same way every time." data-from="paperguard">Body font is Arial</button>
+          <button type="button" class="case" data-lane="rules" data-why="A fixed threshold, so it's a rule. The result is an EXCEPTION with an issue code." data-from="waybill">Tracking hasn't moved in 4 days</button>
+          <button type="button" class="case" data-lane="human" data-why="High value and major damage: a hard rule requires human approval, whatever the model says." data-from="northstar">AI suggests scrapping an expensive item</button>
+          <button type="button" class="case" data-lane="human" data-why="The parser can't tell who owns the figure, so it's flagged REVIEW_REQUIRED instead of guessed." data-from="paperguard">A figure with an unclear source</button>
+          <button type="button" class="case" data-lane="human" data-why="If the model output can't be parsed, the safe default is MANUAL_REVIEW, not a retry-and-hope." data-from="northstar">The model returns malformed JSON</button>
+          <button type="button" class="case" data-lane="ai" data-why="Turning a recording into a first-draft analysis saves a reviewer time, and the reviewer still edits it." data-from="call-qa">Summarize what went wrong on a call</button>
+        </div>
+
+        <div class="lanes">
+          <div class="lane" data-lane="ai">
+            <p class="lane-tag mono">Unstructured / ambiguous</p>
+            <h3 class="lane-title">→ AI</h3>
+            <p class="lane-desc">Interpretation, classification, summarizing language.</p>
+            <div class="lane-slot" aria-hidden="true"></div>
           </div>
-          <p class="section-kicker">
-            I am early in my career, so I do not oversell seniority. My strength is hands-on implementation around workflows, APIs, AI calls, documents and operational edge cases.
-          </p>
+          <div class="lane" data-lane="rules">
+            <p class="lane-tag mono">Known rule</p>
+            <h3 class="lane-title">→ Code</h3>
+            <p class="lane-desc">Calculations, thresholds, validation, state changes.</p>
+            <div class="lane-slot" aria-hidden="true"></div>
+          </div>
+          <div class="lane" data-lane="human">
+            <p class="lane-tag mono">Uncertain / high-risk</p>
+            <h3 class="lane-title">→ A person</h3>
+            <p class="lane-desc">Exceptions, policy-sensitive calls, anything that needs responsibility.</p>
+            <div class="lane-slot" aria-hidden="true"></div>
+          </div>
         </div>
-        <div class="fit-grid">
-          <div class="fit reveal"><b>Automation and workflows</b><span>n8n, webhooks, REST APIs, structured JSON, routing logic and external actions.</span></div>
-          <div class="fit reveal"><b>AI inside processes</b><span>LLM extraction, classification, call analysis, structured outputs and human-review support.</span></div>
-          <div class="fit reveal"><b>Documents and data</b><span>Document parsing, validation, reconciliation, Google integrations and spreadsheet-backed workflows.</span></div>
-          <div class="fit reveal"><b>Growing deeper</b><span>PostgreSQL/SQL, relational modeling, deployment reliability and custom Python business logic.</span></div>
-        </div>
-        <div class="copy-panel reveal" style="margin-top:16px">
-          <p>
-            I am based in Germany and study Human-Centered Informatics &amp; Psychology while working hands-on with production AI systems. My interest is the point where AI stops being a demo and becomes part of an actual business process.
-          </p>
+
+        <p class="sorter-result" id="sorterResult" aria-live="polite">Pick a case above.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HELP ============ -->
+  <section class="help" id="help" aria-labelledby="helpTitle">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="section-index mono">§ 04</p>
+        <h2 class="section-title" id="helpTitle">What I can help build</h2>
+      </header>
+      <ol class="help-list">
+        <li class="help-item reveal">
+          <span class="help-num" aria-hidden="true">a</span>
+          <h3>Operational automations</h3>
+          <p>Connect tools, APIs, data and business rules into workflows that actually run, instead of people copying between tabs.</p>
+          <p class="help-seen mono">Seen in <button type="button" data-open="waybill">Waybill</button></p>
+        </li>
+        <li class="help-item reveal">
+          <span class="help-num" aria-hidden="true">b</span>
+          <h3>AI inside workflows</h3>
+          <p>A model where interpretation or classification helps, boxed in by rules so the rest of the system stays predictable.</p>
+          <p class="help-seen mono">Seen in <button type="button" data-open="northstar">NorthStar</button></p>
+        </li>
+        <li class="help-item reveal">
+          <span class="help-num" aria-hidden="true">c</span>
+          <h3>Small internal tools</h3>
+          <p>Focused apps that remove a specific piece of repetitive work: review queues, checkers, dashboards people actually open.</p>
+          <p class="help-seen mono">Seen in <button type="button" data-open="call-qa">Call QA Cockpit</button></p>
+        </li>
+        <li class="help-item reveal">
+          <span class="help-num" aria-hidden="true">d</span>
+          <h3>Reliability &amp; human review</h3>
+          <p>Exception paths, review states and evidence, designed in from the start rather than pretending automation never fails.</p>
+          <p class="help-seen mono">Seen in <button type="button" data-open="paperguard">PaperGuard</button>, <button type="button" data-open="incident-room">Incident Room</button></p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about" aria-labelledby="aboutTitle">
+    <div class="wrap about-grid">
+      <h2 class="about-title" id="aboutTitle">A bit about me</h2>
+      <div class="about-copy">
+        <p>I'm Zara. I study Human-Centered Informatics &amp; Psychology and spend most of my time building things: workflows, small tools and a lot of experiments, most of them on <a href="https://github.com/zayzyyazy" target="_blank" rel="noopener">GitHub</a>.</p>
+        <p>I'm still growing on the deeper backend side: databases, deployment, running things long-term. What I can already do is take a messy process, figure out how it really works, and build something that handles it.</p>
+      </div>
+      <ul class="notes" aria-label="Things that are true about how I work">
+        <li>I like understanding messy systems before touching them.</li>
+        <li>I care about what happens when the automation fails.</li>
+        <li>I test with real workflows, not just the happy path.</li>
+        <li>I'd rather build useful AI than impressive-looking AI.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact dark" id="contact" aria-labelledby="contactTitle">
+    <div class="wrap contact-grid">
+      <p class="section-index mono">§ 05 · Contact</p>
+      <h2 class="contact-title" id="contactTitle">Have a messy process that should <em>work better?</em></h2>
+      <p class="contact-copy">If it involves repetitive admin, documents, APIs, AI decisions, routing, handoffs or too much copying between systems, I'd like to see whether it can be turned into something better. Freelance projects, collaborations and interesting experiments all welcome.</p>
+      <div class="contact-actions">
+        <a class="btn btn-primary btn-on-dark" href="mailto:zaraselim04@gmail.com?subject=Something%20I%27m%20trying%20to%20build">Tell me what you're trying to build <span aria-hidden="true">→</span></a>
+        <div class="contact-direct">
+          <span class="mono">or write directly</span>
+          <a href="mailto:zaraselim04@gmail.com">zaraselim04@gmail.com</a>
+          <a href="https://github.com/zayzyyazy" target="_blank" rel="noopener">github.com/zayzyyazy ↗</a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
+</main>
 
-    <section id="contact">
-      <div class="section-inner">
-        <div class="contact-panel reveal">
-          <div>
-            <p class="eyebrow">Contact</p>
-            <h2>Have a process that should not still be manual?</h2>
-            <p>Tell me what people are copying, checking, chasing, routing or fixing by hand. I can help you figure out whether it can become a practical workflow or AI-assisted system.</p>
-          </div>
-          <div class="contact-actions">
-            <a class="btn primary" href="mailto:zaraselim04@gmail.com?subject=Messy%20process%20to%20automate">Tell me what's slowing you down</a>
-            <a class="btn" href="https://github.com/zayzyyazy" target="_blank" rel="noreferrer">GitHub</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-</div>
-<footer>
-  <span>Zara Selim - Practical AI and automation systems</span>
-  <span>Germany - 2026</span>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>Zara Selim · systems for the work between the tools</span>
+    <span class="mono">Germany · 2026</span>
+  </div>
 </footer>
 
-<script>
-(function(){
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const nav = document.getElementById("nav");
-  const cursorState = document.getElementById("cursorState");
-  const map = document.getElementById("systemMap");
+<!-- ============ PROJECT OVERLAY ============ -->
+<dialog class="casefile" id="caseDialog" aria-labelledby="caseTitle">
+  <div class="case-panel" id="casePanel">
+    <header class="case-bar">
+      <p class="case-bar-meta mono"><span id="caseBarNum"></span> <span id="caseBarCat"></span></p>
+      <button class="case-close" id="caseClose" type="button" aria-label="Close case study">
+        <span aria-hidden="true">✕</span><span class="case-close-label">Close</span>
+      </button>
+    </header>
+    <div class="case-body" id="caseBody"></div>
+  </div>
+</dialog>
 
-  window.addEventListener("scroll", function(){
-    nav.classList.toggle("is-scrolled", window.scrollY > 32);
-  }, { passive:true });
-
-  if(map && !reduceMotion){
-    map.addEventListener("pointermove", function(event){
-      const rect = map.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width - .5) * 10;
-      const y = ((event.clientY - rect.top) / rect.height - .5) * 10;
-      map.style.transform = "perspective(900px) rotateX(" + (-y) + "deg) rotateY(" + x + "deg)";
-      cursorState.textContent = "signal tracking";
-    });
-    map.addEventListener("pointerleave", function(){
-      map.style.transform = "";
-      cursorState.textContent = "signal stable";
-    });
-  }
-
-  const revealEls = Array.from(document.querySelectorAll(".reveal"));
-  const observer = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        entry.target.classList.add("in");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold:.12, rootMargin:"0px 0px -40px 0px" });
-  revealEls.forEach(function(el){ observer.observe(el); });
-
-  if(reduceMotion){ return; }
-
-  const canvas = document.getElementById("systemCanvas");
-  const ctx = canvas.getContext("2d");
-  let width = 0;
-  let height = 0;
-  let dpr = 1;
-  let pointer = { x:.5, y:.5 };
-  const nodes = [];
-  const palette = ["99,230,190","141,183,255","240,195,106"];
-
-  function resize(){
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = Math.floor(width * dpr);
-    canvas.height = Math.floor(height * dpr);
-    canvas.style.width = width + "px";
-    canvas.style.height = height + "px";
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    seed();
-  }
-
-  function seed(){
-    nodes.length = 0;
-    const count = Math.max(32, Math.min(70, Math.floor(width / 22)));
-    for(let i = 0; i < count; i += 1){
-      nodes.push({
-        x:Math.random() * width,
-        y:Math.random() * height,
-        vx:(Math.random() - .5) * .16,
-        vy:(Math.random() - .5) * .16,
-        r:Math.random() * 1.7 + .6,
-        color:palette[i % palette.length],
-        phase:Math.random() * Math.PI * 2
-      });
-    }
-  }
-
-  window.addEventListener("resize", resize, { passive:true });
-  window.addEventListener("pointermove", function(event){
-    pointer.x = event.clientX / Math.max(width,1);
-    pointer.y = event.clientY / Math.max(height,1);
-  }, { passive:true });
-
-  function draw(time){
-    ctx.clearRect(0,0,width,height);
-    for(let i = 0; i < nodes.length; i += 1){
-      const a = nodes[i];
-      a.x += a.vx + (pointer.x - .5) * .05;
-      a.y += a.vy + (pointer.y - .5) * .05;
-      if(a.x < -20) a.x = width + 20;
-      if(a.x > width + 20) a.x = -20;
-      if(a.y < -20) a.y = height + 20;
-      if(a.y > height + 20) a.y = -20;
-
-      for(let j = i + 1; j < nodes.length; j += 1){
-        const b = nodes[j];
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if(distance < 132){
-          ctx.globalAlpha = (1 - distance / 132) * .12;
-          ctx.strokeStyle = "rgb(" + a.color + ")";
-          ctx.lineWidth = .7;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
-
-      ctx.globalAlpha = .25 + Math.sin(time * .001 + a.phase) * .08;
-      ctx.fillStyle = "rgb(" + a.color + ")";
-      ctx.beginPath();
-      ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(draw);
-  }
-
-  resize();
-  requestAnimationFrame(draw);
-})();
-</script>
+<script src="assets/js/projects.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
